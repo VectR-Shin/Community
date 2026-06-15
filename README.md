@@ -3,7 +3,7 @@
 <br><br><br>
 
 ### Requirements
-- docs/requirments/requirements.md
+- [Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/requirements.md)
 <br><br><br>
 
 ### Architecture
