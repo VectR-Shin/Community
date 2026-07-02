@@ -29,9 +29,9 @@
 
 |역할|설명|
 |-|-|
-|ADMIN|관리자|
-|MANAGER|매니저|
-|SUB_MANAGER|부매니저|
+|ADMIN|최고 관리자|
+|MANAGER|게시판 관리자|
+|SUB_MANAGER|게시판 부관리자|
 |USER|회원|
 
 <br><br><br>
@@ -119,8 +119,75 @@
 <br><br><br>
 
 ## 4. 비기능 요구사항
-|ID||
+
+### 보안(SECURITY)
+|ID|요구사항|
 |-|-|
-|NFR-001||
+|NFR-SECURITY-001|OAuth2 와 JWT 기반으로 사용자 인증을 구현하여 안전한 인증/인가를 제공한다.|
+|NFR-SECURITY-002|인증이 필요한 API 는 인증되지 않은 사용자의 접근을 제한한다.|
+<br>
+
+### 성능(PERFORMANCE)
+|ID|요구사항|
+|-|-|
+|NFR-PERFORMANCE-001|게시글 조회는 2초 이내에 응답해야 한다.|
+|NFR-PERFORMANCE-002|게시글 및 댓글 목록은 페이지네이션을 지원한다.|
+|NFR-PERFORMANCE-003|다수의 동시 접속자 환경에서도 안정적으로 동작해야 한다.|
+<br>
+
+### 확장성(SCALABILITY)
+|ID|요구사항|
+|-|-|
+|NFR-SCALABILITY-001|각 서비스는 독립적으로 확장이 가능해야 한다.|
+|NFR-SCALABILITY-002|특정 서비스의 부하가 과중한 경우, 해당 서비스만 증설할 수 있어야 한다.|
+|NFR-SCALABILITY-003|서비스 간의 결합도를 최소화한다.|
+<br>
+
+### 가용성(AVAILABILITY)
+|ID|요구사항|
+|-|-|
+|NFR-AVAILABILITY-001|일부 서비스의 장애가 전체 서비스의 중단으로 이어지지 않아야 한다.|
+|NFR-AVAILABILITY-002|장애 발생 시 빠른 복구가 가능해야 한다.|
+<br>
+
+### 유지보수성(MAINTAINABILITY)
+|ID|요구사항|
+|-|-|
+|NFR-MAINTAINABILITY-001|기능별로 서비스를 분리하여 유지보수를 용이하게 한다.|
+|NFR-MAINTAINABILITY-002|코드를 모듈화하여 코드 수정의 영향을 최소화한다.|
+|NFR-MAINTAINABILITY-003|새로운 기능의 추가가 기존 기능에 미치는 영향을 최소화한다.|
+<br>
+
+### 신뢰성(RELIABILITY)
+|ID|요구사항|
+|-|-|
+|NFR-RELIABILITY-001|데이터의 무결성을 보장한다.|
+|NFR-RELIABILITY-002|예외 발생 시 적절한 오류 메시지를 제공한다.|
+|NFR-RELIABILITY-003|트랜잭선을 사용해 데이터 일관성을 유지한다.|
+<br>
+
+### 사용성(USABILITY)
+|ID|요구사항|
+|-|-|
+|NFR-USABILITY-001|오류 발생 시 사용자 친화적인 안내 메시지를 제공한다.|
+<br>
+
+### 로그 및 감사(AUDIT) << 이건 나중에 확장
+|ID|요구사항|
+|-|-|
+|NFR-SECURITY-001|OAuth2 기반의 사용자 인증을 제공한다.|
+|NFR-SECURITY-002|JWT 를 이용하여 안전하게 사용자 인증 및 인가를 수행한다.|
+|NFR-SECURITY-003|인증이 필요한 API 는 인증되지 않은 사용자의 접근을 제한한다.|
+<br>
+
+### 운영성(OPERABILITY) >> 이것도 나중에 확장
+|ID|요구사항|
+|-|-|
+|NFR-SECURITY-001|OAuth2 기반의 사용자 인증을 제공한다.|
+|NFR-SECURITY-002|JWT 를 이용하여 안전하게 사용자 인증 및 인가를 수행한다.|
+|NFR-SECURITY-003|인증이 필요한 API 는 인증되지 않은 사용자의 접근을 제한한다.|
+<br>
+
+
 
 <br><br><br>
