@@ -18,9 +18,10 @@
 |회원|사이트에 가입한 일반 사용자|
 |공지글|관리자가 사이트 이용자에게 공지사항 전달을 목적으로 작성한 게시글|
 |인기글|게시 후 12시간 내에 받은 추천의 수가 30개 이상인 글 중에서 비추천의 수가 추천수의 30% 미만인 게시글. 인기글로 등록된 게시글은 작성자가 삭제할 수 없다.|
-|인기댓글|등록 후 12시간 내에 받은 추천의 수가 10개 이상은 댓글 중에서 비추천의 수가 추천수의 30% 미만인 게시글.|
+|인기댓글|등록 후 12시간 내에 받은 추천의 수가 10개 이상은 댓글 중에서 비추천의 수가 추천수의 30% 미만인 게시글|
 |추천|사용자가 게시글 혹은 댓글에 긍정적인 평가를 표시하는 기능|
 |비추천|사용자가 게시글 혹은 댓글에 부정적인 평가를 표시하는 기능|
+|신고|관리자에게 부적절한 행위를 한 사용자의 게시판 이용 정지를 요청하는 기능|
 
 <br><br><br>
 
@@ -52,7 +53,7 @@
 |ID|역할|요구사항|
 |-|-|-|
 |FR-AUTH-001|USER|Google OAuth2 기반의 회원가입을 할 수 있다.|
-|FR-AUTH-002|USER|회원을 탈퇴할 수 있다.|
+|FR-AUTH-002|MANAGER, SUB_MANAGER, USER|회원을 탈퇴할 수 있다.|
 <br>
 
 ### 회원정보(PROFILE)
@@ -82,35 +83,44 @@
 ### 공지글(NOTICE)
 |ID|역할|요구사항|
 |-|-|-|
-|FR-NOTICE-001|ADMIN, MANAGER, SUB_MANAGER|공지글을 작성할 수 있다.|
-|FR-NOTICE-002|ADMIN, MANAGER, SUB_MANAGER|공지글을 수정할 수 있다.|
-|FR-NOTICE-003|ADMIN, MANAGER, SUB_MANAGER|공지글을 삭제할 수 있다.|
+|FR-NOTICE-001|ADMIN|타인이 작성한 공지글을 삭제할 수 있다.|
+|FR-NOTICE-002|ADMIN, MANAGER, SUB_MANAGER|공지글을 작성할 수 있다.|
+|FR-NOTICE-003|ADMIN, MANAGER, SUB_MANAGER|자신이 작성한 공지글을 수정할 수 있다.|
+|FR-NOTICE-004|ADMIN, MANAGER, SUB_MANAGER|자신이 작성한 공지글을 삭제할 수 있다.|
 <br>
 
 ### 게시글(POST)
 |ID|역할|요구사항|
 |-|-|-|
 |FR-POST-001|ADMIN, MANAGER, SUB_MANAGER|다른 회원이 작성한 게시글을 삭제할 수 있다.|
-|FR-POST-002|||
-|FR-POST-003|||
-|FR-POST-004|||
-|FR-POST-005|||
+|FR-POST-002|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 작성할 수 있다.|
+|FR-POST-003|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글을 수정할 수 있다.|
+|FR-POST-004|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글을 삭제할 수 있다.|
+|FR-POST-005|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 추천 할 수 있다.|
+|FR-POST-006|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 비추천 할 수 있다.|
 <br>
 
 ### 댓글(COMMENT)
 |ID|역할|요구사항|
 |-|-|-|
-|FR-|||
+|FR-COMMENT-001|ADMIN, MANAGER, SUB_MANAGER|다른 회원이 작성한 댓글을 삭제할 수 있다.|
+|FR-COMMENT-002|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 작성할 수 있다.|
+|FR-COMMENT-003|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 수정할 수 있다.|
+|FR-COMMENT-004|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 삭제할 수 있다.|
+|FR-COMMENT-005|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 추천 할 수 있다.|
+|FR-COMMENT-006|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 비추천 할 수 있다.|
 <br>
 
 ### 신고(REPORT)
 |ID|역할|요구사항|
 |-|-|-|
-|FR-|||
+|FR-REPORT-001|USER|다른 사용자를 신고할 수 있다.|
 
 <br><br><br>
 
 ## 4. 비기능 요구사항
-### NFR-001
-- 
+|ID||
+|-|-|
+|NFR-001||
+
 <br><br><br>
