@@ -9,7 +9,7 @@
 <br><br><br>
 
 ### Page Requirements
-- [Page Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/requirements.md)
+- [Page Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/page%20requirements.md)
 
 ### Architecture
 - 
