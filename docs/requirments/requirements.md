@@ -54,6 +54,7 @@
 |ID|역할|요구사항|
 |-|-|-|
 |FR-AUTH-001|USER|Google OAuth2 기반의 회원가입을 할 수 있다.|
+|FR-AUTH-002|USER|신규 사용자는 온보딩(필수 프로필 정보 입력)을 통해 회원가입을 완료할 수 있다.|
 |FR-AUTH-002|MANAGER, SUB_MANAGER, USER|회원을 탈퇴할 수 있다.|
 |FR-AUTH-003|MANAGER, SUB_MANAGER, USER|회원 탈퇴 후에도 작성한 게시글과 댓글은 유지된다.|
 |FR-AUTH-004|MANAGER, SUB_MANAGER, USER|회원 탈퇴 후에는 기존에 작성한 게시글과 댓글을 수정하거나 삭제할 수 없다.|
