@@ -55,6 +55,8 @@
 |-|-|-|
 |FR-AUTH-001|USER|Google OAuth2 기반의 회원가입을 할 수 있다.|
 |FR-AUTH-002|MANAGER, SUB_MANAGER, USER|회원을 탈퇴할 수 있다.|
+|FR-AUTH-003|MANAGER, SUB_MANAGER, USER|회원 탈퇴 후에도 작성한 게시글과 댓글은 유지된다.|
+|FR-AUTH-004|MANAGER, SUB_MANAGER, USER|회원 탈퇴 후에는 기존에 작성한 게시글과 댓글을 수정하거나 삭제할 수 없다.|
 <br>
 
 ### 회원정보(PROFILE)
@@ -62,6 +64,7 @@
 |-|-|-|
 |FR-PROFILE-001|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 회원 정보를 열람할 수 있다.|
 |FR-PROFILE-002|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 닉네임을 수정할 수 있다.|
+|FR-PROFILE-003|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 프로필 공개 여부를 지정할 수 있다.|
 <br>
 
 ### 게시판(BOARD)
