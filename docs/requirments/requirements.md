@@ -73,18 +73,19 @@
 |-|-|-|
 |FR-BOARD-001|ADMIN|새로운 게시판을 생성할 수 있다.|
 |FR-BOARD-002|ADMIN|게시판을 폐쇄할 수 있다.|
-|FR-BOARD-003|ADMIN, MANAGER|게시판에 게시글 작성을 금지할 수 있다.|
-|FR-BOARD-004|ADMIN, MANAGER|게시판에 게시글 작성을 허가할 수 있다.|
-|FR-BOARD-005|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성을 금지할 수 있다.|
-|FR-BOARD-006|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성을 허가할 수 있다.|
-|FR-BOARD-007|ADMIN, MANAGER|게시판의 이름을 변경할 수 있다.|
-|FR-BOARD-008|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
-|FR-BOARD-009|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 20개씩 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-010|ADMIN, MANAGER, SUB_MANAGER, USER|인기글을 20개씩 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-011|ADMIN, MANAGER, SUB_MANAGER, USER|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
-|FR-BOARD-012|ADMIN, MANAGER, SUB_MANAGER, USER|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
-|FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
-|FR-BOARD-014|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
+|FR-BOARD-003|ADMIN|게시판 카테고리를 변경할 수 있다.|
+|FR-BOARD-004|ADMIN, MANAGER|게시판에 게시글 작성을 금지할 수 있다.|
+|FR-BOARD-005|ADMIN, MANAGER|게시판에 게시글 작성을 허가할 수 있다.|
+|FR-BOARD-006|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성을 금지할 수 있다.|
+|FR-BOARD-007|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성을 허가할 수 있다.|
+|FR-BOARD-008|ADMIN, MANAGER|게시판의 이름을 변경할 수 있다.|
+|FR-BOARD-009|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
+|FR-BOARD-010|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 20개씩 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-011|ADMIN, MANAGER, SUB_MANAGER, USER|인기글을 20개씩 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-012|ADMIN, MANAGER, SUB_MANAGER, USER|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
+|FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
+|FR-BOARD-014|ADMIN, MANAGER, SUB_MANAGER, USER|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
+|FR-BOARD-015|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
 <br>
 
 ### 공지글(NOTICE)
