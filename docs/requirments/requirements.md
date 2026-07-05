@@ -60,12 +60,22 @@
 |FR-AUTH-004|MANAGER, SUB_MANAGER, USER|회원 탈퇴 후에는 기존에 작성한 게시글과 댓글을 수정하거나 삭제할 수 없다.|
 <br>
 
-### 회원정보(PROFILE)
+### 회원정보 - 내 프로필(MYPROFILE)
 |ID|역할|요구사항|
 |-|-|-|
-|FR-PROFILE-001|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 회원 정보를 열람할 수 있다.|
-|FR-PROFILE-002|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 닉네임을 수정할 수 있다.|
-|FR-PROFILE-003|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 프로필 공개 여부를 지정할 수 있다.|
+|FR-MYPROFILE-001|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 회원 정보를 조회할 수 있다.|
+|FR-MYPROFILE-002|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 닉네임을 수정할 수 있다.|
+|FR-MYPROFILE-003|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 프로필 공개 여부를 설정할 수 있다.|
+|FR-MYPROFILE-004|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글 목록을 조회할 수 있다.|
+|FR-MYPROFILE-004|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글 상세 페이지로 이동할 수 있다.|
+<br>
+
+### 회원정보 - 타인 프로필(USERPROFILE)
+|ID|역할|요구사항|
+|-|-|-|
+|FR-USERPROFILE-001|ADMIN, MANAGER, SUB_MANAGER, USER|공개된 다른 사용자의 프로필을 조회할 수 있다.|
+|FR-USERPROFILE-002|ADMIN, MANAGER, SUB_MANAGER, USER|다른 사용자가 작성한 게시글 목록을 조회할 수 있다.|
+|FR-USERPROFILE-003|ADMIN, MANAGER, SUB_MANAGER, USER|다른 사용자가 작성한 게시글 상세 페이지로 이동할 수 있다.|
 <br>
 
 ### 게시판(BOARD)
