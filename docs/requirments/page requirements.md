@@ -183,9 +183,7 @@
 사용자 동작
 - 게시판 탐색
   - 게시글 / 인기글 / 공지글 탭 전환
-  - 게시글 탭 조회
-  - 인기글 탭 조회
-  - 공지글 탭 조회
+  - 선택한 탭의 목록 조회
 - 게시판 검색
   - 현재 게시판 탭(게시글 / 인기글 / 공지글)을 대상으로 제목 혹은 내용 기반 검색
 - 게시글 상호작용
@@ -195,22 +193,23 @@
 
 호출 API
 - 현재 게시판의 게시글 목록 조회
-  - GET /posts?boardId={boardId}&page={pageNumber}
+  - GET /boards/{boardId}/posts?page={pageNumber}
 - 현재 게시판의 인기글 목록 조회
-  - GET /posts/popular?boardId={boardId}&page={pageNumber}
+  - GET /boards/{boardId}/posts/popular?page={pageNumber}
 - 현재 게시판의 공지글 목록 조회
-  - GET /notices?boardId={boardId}&page=1
+    GET /boards/{boardId}/notices?page={pageNumber}
 - 현재 게시판의 게시글 탭 검색
-  - GET /posts?boardId={boardId}&keyword={keyword}&searchType={TITLE | CONTENT}
+    GET /boards/{boardId}/posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 - 현재 게시판의 인기글 탭 검색
-  - GET /posts/popular?boardId={boardId}&keyword={keyword}&searchType={TITLE | CONTENT}
+  - GET /boards/{boardId}/posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 - 현재 게시판의 공지글 탭 검색
-  - GET /notices?boardId={boardId}&keyword={keyword}&searchType={TITLE | CONTENT}
+  - GET /boards/{boardId}/notices?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 
 비고
-- 게시글 목록과 인기글 목록은 20개씩 페이지네이션해서 제공한다.
-- 공지글은 최근 20개 목록만을 제공한다.
+- 게시글, 인기글, 공지글은 20개씩 페이지네이션해서 제공한다.
 - 모든 글은 최신순으로 제공한다.
+- 게시글 탭 상단에는 현재 게시판의 공지글 최대 5개를 함께 표시한다.
+- 상단의 공지글 '더보기' 버튼을 눌러 공지글 탭으로 이동할 수 있다.
 ```
 
 <br>
@@ -219,8 +218,8 @@
 ```
 목적
 - 게시글의 세부 페이지를 제공
-- 게시글 작성자의 게시글 수정 페이지 이동 기능 제공
-- 게시글 작성자의 게시글 삭제 기능 제공
+- 게시글 작성자에게 게시글 수정 페이지 이동 기능 제공
+- 게시글 작성자에게 게시글 삭제 기능 제공
 - 게시글의 댓글 조회 기능 제공
 - 댓글 작성자의 댓글 수정/삭제 기능 제공
 - 게시글 추천/비추천 기능 제공
@@ -264,16 +263,14 @@
   - POST /posts/{postId}/reactions
 - 게시글 추천/비추천 취소
   - DELETE /posts/{postId}/reactions
-- 댓글 목록 조회
+- 게시글의 댓글 목록 조회
   - GET /posts/{postId}/comments?page={pageNumber}
 - 대댓글 목록 조회
   - GET /comments/{commentsId}/replies?page={pageNumber}
-- 댓글 작성
+- 게시글에 댓글 작성
   - POST /posts/{postId}/comments
-  - parentCommentId = null
 - 대댓글 작성
-  - POST /posts/{postId}/comments
-  - parentCommentId != null
+  - POST /comments/{commentId}/replies
 - 댓글 및 대댓글 수정
   - PATCH /comments/{commentId}
 - 댓글 및 대댓글 삭제
@@ -287,7 +284,7 @@
 비고
 - 추천과 비추천은 동시에 지정될 수 없다.
 - 현재 사용자의 게시글과 댓글, 대댓글 추천 여부를 화면에 표시한다.
-- 댓글과 대댓글은 각각 10개씩 페이지네이션하여 제공된다.
+- 댓글은 10개씩 페이지네이션하여 제공된다.
 - 대댓글은 사용자가 '대댓글 조회' 버튼을 선택할 때마다 다음 페이지를 추가로 조회하여 제공한다.
 - 대댓글은 1단계까지만 허용한다.
 - 작성자 이름을 클릭했을 때, 작성자가 본인이라면 내 프로필 페이지로 이동하고, 타인이라면 타인의 프로필 페이지로 이동한다.
@@ -320,12 +317,148 @@
 
 호출 API
 - 게시글 게시
-  - POST /posts
+  - POST /boards/{boardId}/posts
 ```
 
 <br>
 
 ### 게시글 수정 페이지
+```
+목적
+- 게시글 수정 기능 제공
+
+접근 대상
+- 게시글 작성자
+
+접근 조건
+- 게시판 이용 정지 상태가 아닌 사용자
+
+레이아웃
+- Main Layout
+
+필요 데이터
+- 기존 게시글 정보
+
+사용자 동작
+- 게시글 제목 수정
+- 게시글 본문 수정
+- 게시글 수정 내용 저장
+
+호출 API
+- 게시글 수정
+  - PATCH /posts/{postId}
+
+비고
+- 인기글로 지정된 게시글은 수정할 수 없다.
+```
+
+<br>
+
+### 공지글 상세 페이지
+```
+목적
+- 공지글의 세부 페이지를 제공
+- 공지글 작성자에게 공지글 수정 페이지 이동 기능 제공
+- 공지글 작성자와 최고 관리자(ADMIN)에게 공지글 삭제 기능 제공
+- 공지글의 댓글 조회 기능 제공
+- 댓글 작성자의 댓글 수정/삭제 기능 제공
+- 댓글 추천/비추천 기능 제공
+
+접근 대상
+- 모든 사용자
+
+레이아웃
+- Main Layout
+
+필요 데이터
+- 현재 공지글 정보
+- 현재 공지글 작성자 정보
+- 현재 공지글의 댓글 목록
+- 사용자의 댓글 추천/비추천 정보 (로그인)
+
+사용자 동작
+- 공지글
+  - 공지글 조회
+  - 공지글 작성자의 프로필 페이지 이동
+  - 공지글 수정 페이지 이동 (로그인, 내 공지글)
+  - 공지글 삭제 (로그인, 내 공지글 or ADMIN)
+- 댓글 및 대댓글
+  - 댓글 목록 조회
+  - 대댓글 목록 조회
+  - 댓글 및 대댓글 작성자의 프로필 페이지 이동
+  - 댓글 및 대댓글 작성 (로그인)
+  - 댓글 및 대댓글 수정 (로그인, 내 댓글)
+  - 댓글 및 대댓글 삭제 (로그인, 내 댓글)
+  - 댓글 및 대댓글 추천/비추천 지정 및 취소
+
+호출 API
+- 공지글 조회
+  - GET /notices/{noticeId}
+- 공지글 삭제
+  - DELETE /notices/{noticeId}
+- 댓글 목록 조회
+  - GET /posts/{postId}/comments?page={pageNumber}
+- 대댓글 목록 조회
+  - GET /comments/{commentsId}/replies?page={pageNumber}
+- 댓글 작성
+  - POST /posts/{postId}/comments
+  - parentCommentId = null
+- 대댓글 작성
+  - POST /posts/{postId}/comments
+  - parentCommentId != null
+- 댓글 및 대댓글 수정
+  - PATCH /comments/{commentId}
+- 댓글 및 대댓글 삭제
+  - DELETE /comments/{commentId}
+- 댓글 및 대댓글 추천/비추천
+  - POST /comments/{commentId}/reactions
+- 댓글 및 대댓글 추천/비추천 취소
+  - DELETE /comments/{commentId}/reactions
+
+
+비고
+- 추천과 비추천은 동시에 지정될 수 없다.
+- 현재 사용자의 댓글, 대댓글 추천 여부를 화면에 표시한다.
+- 댓글 10개씩 페이지네이션하여 제공된다.
+- 대댓글은 사용자가 '대댓글 조회' 버튼을 선택할 때마다 다음 페이지를 추가로 조회하여 제공한다.
+- 대댓글은 1단계까지만 허용한다.
+- 작성자 이름을 클릭했을 때, 작성자가 본인이라면 내 프로필 페이지로 이동하고, 타인이라면 타인의 프로필 페이지로 이동한다.
+- 공지글과 댓글, 대댓글이 수정될 경우, (수정됨) 표시를 추가한다.
+- 공지글은 추천/비추천이 불가하다.
+```
+
+<br>
+
+### 공지글 작성 페이지
+```
+목적
+- 게시글 작성 기능 제공
+
+접근 대상
+- 모든 사용자
+
+접근 조건
+- 게시판 이용 정지 상태가 아닌 경우
+
+레이아웃
+- Main Layout
+
+필요 데이터
+(없음)
+
+사용자 동작
+- 게시글 제목 입력
+- 게시글 본문 입력
+- 게시글 게시
+
+호출 API
+- 게시글 게시
+  - POST /posts
+```
+
+<br>
+
+### 공지글 수정 페이지
 ```
 목적
 - 게시글 수정 기능 제공
