@@ -6,10 +6,8 @@
 
 ### Requirements
 - [Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/requirements.md)
-<br><br><br>
-
-### Page Requirements
 - [Page Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/page%20requirements.md)
+- [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/common%20policies.md)
 <br><br><br>
 
 ### Architecture
