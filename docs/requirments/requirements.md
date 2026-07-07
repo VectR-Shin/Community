@@ -67,7 +67,9 @@
 |FR-MYPROFILE-002|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 닉네임을 수정할 수 있다.|
 |FR-MYPROFILE-003|ADMIN, MANAGER, SUB_MANAGER, USER|자신의 프로필 공개 여부를 설정할 수 있다.|
 |FR-MYPROFILE-004|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글 목록을 조회할 수 있다.|
-|FR-MYPROFILE-004|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글 상세 페이지로 이동할 수 있다.|
+|FR-MYPROFILE-005|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글 상세 페이지로 이동할 수 있다.|
+|FR-MYPROFILE-006|ADMIN, MANAGER, SUB_MANAGER, USER|자신인 즐겨찾기 등록한 게시판 목록을 조회할 수 있다.|
+|FR-MYPROFILE-007|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 즐겨찾기 등록한 게시판 페이지로 이동할 수 있다.|
 <br>
 
 ### 회원정보 - 타인 프로필(USERPROFILE)
