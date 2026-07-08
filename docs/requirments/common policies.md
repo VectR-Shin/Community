@@ -1,12 +1,16 @@
 ### 운영 정책
 ```
+- ADMIN 은 공지글 관리 기능을 사용할 수 있다.
+- ADMIN 은 공지글 관리 기능을 통해 공지글을 삭제 및 복구할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 게시판 관리 기능을 사용할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 게시판 관리 기능을 통해 게시판을 숨김 처리 및 숨김 해제할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 게시글 관리 기능을 사용할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 게시글 관리 기능을 통해 게시글(인기글 포함)을 삭제 및 복구할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 댓글 관리 기능을 사용할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 댓글 관리 기능을 통해 댓글을 삭제 및 복구할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 사용자 관리 기능을 사용할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 사용자 관리 기능을 통해 회원을 이용 정지 및 이용 정지 해제할 수 있다.
 - ADMIN, MANAGER, SUB_MANAGER는 신고를 처리할 수 있다.
-- ADMIN은 공지글을 삭제할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER는 모든 게시글(인기글 포함)을 삭제할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER는 모든 댓글 및 대댓글(인기댓글 포함)을 삭제할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER는 회원을 사이트 이용 정지 처리할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER는 회원의 이용 정지 처분을 해제할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER는 게시판을 숨김 처리할 수 있다.
 ```
 
 <br>
