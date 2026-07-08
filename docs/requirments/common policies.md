@@ -4,6 +4,7 @@
 - ADMIN, MANAGER 는 USER 사용자를 SUB_MANAGER 로 지정할 수 있다.
 - ADMIN 은 공지글 관리 기능을 사용할 수 있다.
 - ADMIN 은 공지글 관리 기능을 통해 공지글을 삭제 및 복구할 수 있다.
+- ADMIN 은 게시판 상세 정보를 조회할 수 있다.
 - ADMIN, MANAGER, SUB_MANAGER 는 게시판 관리 기능을 사용할 수 있다.
 - ADMIN, MANAGER, SUB_MANAGER 는 게시판 관리 기능을 통해 게시판을 숨김 처리 및 숨김 해제할 수 있다.
 - ADMIN, MANAGER, SUB_MANAGER 는 게시글 관리 기능을 사용할 수 있다.
@@ -51,7 +52,6 @@
 
 ### 게시판 정책
 ```
-- 게시판 상세 정보 조회는 ADMIN 만 가능하다.
 - 게시판 즐겨찾기 등록/해제/조회는 로그인한 사용자만 가능하다.
 ```
 
