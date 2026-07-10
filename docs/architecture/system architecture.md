@@ -18,11 +18,11 @@
 <br><br><br>
 
 ## 2. 시스템 아키텍처 다이어그램
-
+<img width="1161" height="702" alt="System Architecture Diagram V1 0 2" src="https://github.com/user-attachments/assets/e966041a-ec1f-45d8-98ab-17b1b1da6f5d" />
 
 <br>
 
-- 각 서베스는 논리적으로 독립된 데이터 저장소를 갖도록 설계 및 구현 예정이나, 위 그림에서는 복잡도를 낮추기 위해 하나의 MySQL 인스턴스만을 표현하였다.
+- 각 서비스는 논리적으로 독립된 데이터 저장소를 갖도록 설계 및 구현 예정이나, 위 그림에서는 복잡도를 낮추기 위해 하나의 MySQL 인스턴스만을 표현하였다.
 - Redis 는 아래 항목들을 캐싱한다.
   - 게시판 목록
   - 인기글
