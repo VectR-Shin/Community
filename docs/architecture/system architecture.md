@@ -89,6 +89,6 @@
 |Database|MySQL|관계형 데이터 저장|
 |Cache|Redis|데이터 캐싱|
 |Build Tool|Maven|프로젝트 빌드 및 의존성 관리|
-|Container|Docker|컨테이너 기반 환경 실행|
-|Version Control|Git, Github|형상 관리|
+|Container|Docker|컨테이너 기반 애플리케이션 실행|
+|Version Control|Git, GitHub|형상 관리|
 
