@@ -12,73 +12,126 @@
 <br>
 
 ### 2.1. 보호된 페이지 접근
-- ㅇ
+- 사용자가 인증이 필요한 페이지에 접근하면 BFF 는 인증 여부를 확인하고, 인증되지 않은 경우 Keycloak 로그인 페이지로 리다이렉트한다.
+- 혹은 사용자가 Keycloak 의 로그인 페이지로 직접 접근하여 인증을 시작할 수 있다.
 
 <br>
 
 ### 2.2. 로그인 페이지 표시
-- 0
+- Keycloak 은 로그인 페이지를 반환하고, SPA 는 이를 사용자에게 표시한다.
 
 <br>
 
 ### 2.3. 사용자 로그인
-- 0
+- 사용자는 계정 정보를 입력한 뒤 로그인하고, SPA 는 인증 정보를 Keycloak 에 전달한다.
 
 <br>
 
 ### 2.4. Authorization Code 발급
-- 0
+- 인증이 완료되면 Keycloak 은 Authorization Code 를 BFF 에 전달한다.
 
 <br>
 
 ### 2.5. 토큰 발급
-- 0
+- BFF 는 Authorization Code 를 이용하여 Access Token 과 Refresh Token 을 요청하고, Keycloak 은 검증 후 토큰을 발급한다.
 
 <br>
 
 ### 2.6. 세션 생성
-- 0
+- BFF 는 발급받은 토큰을 서버에 저장하고, Security Context 와 세션을 생성한 뒤 Session Cookie 를 클라이언트에 전달한다.
 
 <br>
 
 ### 2.7. 인증 완료
-- 0
+- 클라이언트는 발급받은 세션 쿠키를 이용해 인증 상태를 유지하며 원래 요청했던 보호된 페이지를 정상적으로 조회한다.
 
 <br><br><br>
 
-## 3. OAuth2 Authorization Code Flow
+## 3. JWT 관리(JWT Management)
+<img width="619" height="82" alt="JWT Managerment Diagram" src="https://github.com/user-attachments/assets/d5d3a86e-98fe-4898-bf6c-06306340fe92" />
+
+<br>
+
+### 3.1. JWT 발급
+- 사용자가 인증을 완료하면 Keycloak 은 Access Token 과 Refresh Token 을 발급한다.
+- 발급된 토큰은 BFF 가 수신하여 이후 인증 및 인가 과정에서 사용한다.
+
+<br>
+
+### 3.2. JWT 저장 방식
+- 발급된 Access Token 과 Refresh Token 은 사용자 세션과 연계하여 BFF 서버에서 안전하게 관리된다.
+- 클라이언트에는 JWT 를 저장하지 않으며, 인증 상태 유지를 위해 Session ID 가 포함된 HttpOnly Session Cookie 만 전달한다.
+
+<br>
+
+### 3.3. JWT 사용 방식
+- BFF 는 Resource Server 와 통신할 때 저장된 Access Token 을 Authorization 헤더에 포함하여 요청을 전송한다.
+- Resource Server 는 JWT 를 검증한 후 사용자 정보를 확인하고, 필요한 권한(Role)을 검사하여 요청을 처리한다.
+- 
+<br>
+
+### 3.4. JWT 사용시 보안상 장점
+- JWT 를 클라이언트에 저장하지 않음으로써 XSS 를 통한 토큰 탈취 위험을 줄일 수 있다.
+- Access Token, Refresh Token 을 서버에서 중앙 관리함으로써 토큰 갱신 및 폐기와 같은 인증 관련 처리를 일관되게 수행할 수 있다.
 
 <br><br><br>
 
-## 4. JWT 관리 방식(JWT Management)
+## 4. Session 관리(Session Management)
+<img width="781" height="82" alt="Session Management Diagram" src="https://github.com/user-attachments/assets/643b5924-7f0e-4ec8-969f-ec65f1a00e91" />
+
+<br>
+
+- BFF 는 Session 과 SecurityContext 를 이용하여 사용자의 인증 상태를 관리한다.
+
+<br>
+
+### 4.1. Session 생성
+- 사용자가 인증을 완료하면 BFF 는 사용자의 인증 정보를 기반으로 세션을 생성한다.
+- 생성된 세션에는 사용자의 인증 상태를 유지하기 위한 정보가 저장된다.
+
+<br>
+
+### 4.2. Session 유지
+- 클라이언트는 HttpOnly Session Cookie 를 이용하여 인증 상태를 유지한다.
+- 이후의 모든 요청부터는 Session Cookie 를 통해 세션을 식별하며, 클라이언트는 JWT 를 직접 전송하지 않는다.
+
+<br>
+
+### 4.3. Session 검증
+- 요청을 수신한 BFF 는 Session Cookie 를 이용하여 사용자의 세션을 조회한다.
+- 유효한 세션인 경우 세션에 저장된 인증 정보를 복원하여 요청을 인증된 사용자로 처리한다.
+- 이후 BFF는 저장된 Access Token을 Authorization 헤더에 포함하여 Resource Server에 요청을 전달한다.
+- 세션이 존재하지 않거나 만료된 경우에는 인증을 요구한다.
+
+<br>
+
+### 4.4. Session 만료
+- 세션이 만료되면 사용자는 다시 로그인하여 인증을 수행해야 한다.
+- 로그아웃 시에는 세션을 삭제하여 인증 상태를 종료한다.
 
 <br><br><br>
 
-## 5. SecurityContext 관리(Session Management)
+## 5. 권한(Role) 설계(Role Design)
 
 <br><br><br>
 
-## 6. 권한(Role) 설계(Role Design)
+## 6. 권한 검증 방식(Authorization Policy)
 
 <br><br><br>
 
-## 7. 권한 검증 방식(Authorization Policy)
+## 7. 인증이 필요한 API
 
 <br><br><br>
 
-## 8. 인증이 필요한 API
+## 8. 인가 정책(Authorization Policy)
 
 <br><br><br>
 
-## 9. 인가 정책(Authorization Policy)
+## 9. 로그아웃(Logout Process)
 
 <br><br><br>
 
-## 10. 로그아웃(Logout Process)
-
-<br><br><br>
-
-## 11. 보안 고려사항(Security Considerations)
+## 10. 보안 고려사항(Security Considerations)
 
 <br><br><br>
 
