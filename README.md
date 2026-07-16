@@ -17,6 +17,11 @@
 
 <br>
 
+### Authentication and Authorization
+- [Authentication and Authorization Design](https://github.com/VectR-Shin/Community/blob/main/docs/authentication%20and%20authorization/authentication%20and%20authorization%20design.md)
+
+<br>
+
 ### Database Design(ERD)
 - 
 
