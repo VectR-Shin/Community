@@ -178,15 +178,11 @@
 
 <br><br><br>
 
-## 7. 인증이 필요한 API
+## 7. 로그아웃 과정(Logout Process)
 
 <br><br><br>
 
-## 8. 로그아웃 과정(Logout Process)
-
-<br><br><br>
-
-## 9. 보안 고려사항(Security Considerations)
+## 8. 보안 고려사항(Security Considerations)
 
 <br><br><br>
 
