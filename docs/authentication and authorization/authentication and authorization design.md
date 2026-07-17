@@ -182,7 +182,7 @@
 
 <br><br><br>
 
-## 8. 로그아웃(Logout Process)
+## 8. 로그아웃 과정(Logout Process)
 
 <br><br><br>
 
