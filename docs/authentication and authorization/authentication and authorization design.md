@@ -111,9 +111,8 @@
 
 <br><br><br>
 
-## 5. 권한 설계(Role Design)
-
-### 5.1. 권한(Role) 정의
+## 5. 역할 정의(Role Design)
+### 5.1. 역할(Role) 정의
 |권한|설명|
 |-|-|
 |ADMIN|시스템 전체에 대한 관리 권한을 가지는 최고 관리자|
@@ -123,19 +122,19 @@
 
 <br>
 
-### 5.2. 권한 계층 구조
+### 5.2. 역할 계층 구조
 <img width="149" height="442" alt="Role Hierarchy" src="https://github.com/user-attachments/assets/3db1538d-9342-4a10-b947-5dd52cfeffd3" />
 
-- 본 시스템은 Spring Security 의 Role Hierarchy 를 적용하여 역할 간 계층 구조를 적용한다.
-- 상위 역할은 하위 역할의 모든 권한을 저동으로 포함한다.
+- 본 시스템은 Spring Security의 Role Hierarchy를 적용하여 역할 간 계층 구조를 구성한다.
+- 상위 역할은 하위 역할의 모든 권한을 자동으로 포함하며, 일반 사용자 기능을 별도로 중복 부여하지 않는다.
 
 <br>
 
-### 5.3. 권한별 책임
+### 5.3. 역할별 책임
 |권한|주요 책임|
 |-|-|
-|ADMIN|게시판 관리, 게시판 생성 및 숨김, 관리자 권한 관리, 사용자 관리 등 시스템 전체를 관리|
-|MANAGER|담당 게시판 관리, 담당 게시판의 게시글과 댓글 관리, 담당 게시판의 부관리자 권한 관리, 사용자 관리 등 담당 게시판을 관리|
+|ADMIN|게시판 생성 및 관리, 관리자 권한 관리, 사용자 관리 등 시스템 전체를 관리|
+|MANAGER|담당 게시판 관리, 게시글과 댓글 관리, 부관리자 권한 관리, 사용자 관리 등 담당 게시판을 관리|
 |SUB_MANAGER|담당 게시판의 게시글과 댓글 관리, 사용자 관리 등 담당 게시판을 일부 관리|
 |USER|게시글 작성, 댓글 작성, 추천, 신고 등 일반적인 커뮤니티 기능 이용|
 
@@ -145,11 +144,37 @@
 
 ### 5.4. 권한 검증 방식
 - 일반 기능은 역할 기반으로 접근 권한을 제어(RBAC: Role-based Access Control)한다.
-- 게시판 관리 기능은 역할(Role)과 담당 게시판(Resource)을 함께 검증(Resource-based Authorization)하여 접근 권한을 결정한다.
+- 게시판 관리 기능은 역할(Role)과 담당 게시판(Resource)에 대한 권한을 함께 검증(Resource-based Authorization)하여 접근 권한을 결정한다.
 
 <br><br><br>
 
-## 6. 권한 검증 방식(Authorization Policy)
+## 6. 접근 권한 정책(Authorization Policy)
+### 6.1. 일반 접근 정책
+- 비회원은 조회 기능만 사용할 수 있다.
+- 일반 회원은 게시글 및 댓글의 작성/수정/삭제, 추천, 신고 등 커뮤니티의 일반 기능을 사용할 수 있다.
+- 관리자는 일반 회원의 권한을 모두 포함한다.
+
+<br>
+
+### 6.2. 게시판 관리 정책
+- ADMIN 은 모든 게시판에 대한 관리 권한을 가진다.
+- MANAGER 는 담당 게시판의 관리 및 운영 권한을 가진다.
+- SUB_MANAGER 는 담당 게시판의 콘텐츠 관리 권한을 가진다.
+
+<br>
+
+### 6.3. 시스템 관리 정책
+- ADMIN은 시스템 전체 관리 및 전체 관리자 권한 관리를 수행할 수 있다.
+- MANAGER는 담당 게시판 관리 및 담당 게시판의 관리자 권한 관리를 수행할 수 있다.
+
+<br>
+
+### 6.4. 권한 적용 기준
+- 일반 기능은 역할(Role) 기반으로 접근 권한을 결정한다.
+- 게시판 관리 기능은 역할(Role)과 관리 대상 게시판(Resource)에 대한 권한을 함께 검증한다.
+- 상위 역할은 Role Hierarchy에 따라 하위 역할의 권한을 자동으로 포함한다.
+- 권한이 없는 요청은 접근을 거부하며, 적절한 오류 응답을 반환한다.
+- 세부 기능별 접근 권한은 본 문서 하단의 Common Policies 및 API Design 문서를 참조한다.
 
 <br><br><br>
 
@@ -157,15 +182,11 @@
 
 <br><br><br>
 
-## 8. 인가 정책(Authorization Policy)
+## 8. 로그아웃(Logout Process)
 
 <br><br><br>
 
-## 9. 로그아웃(Logout Process)
-
-<br><br><br>
-
-## 10. 보안 고려사항(Security Considerations)
+## 9. 보안 고려사항(Security Considerations)
 
 <br><br><br>
 
@@ -173,3 +194,4 @@
 - [System Architecture Design](https://github.com/VectR-Shin/Community/blob/main/docs/architecture/system%20architecture.md)
 - [설계 과정](https://app.notion.com/p/Project-Community-37f682e99f4f80b39046fadb0f2d634b?p=37f682e99f4f80dd9495f879e85933cf&pm=s)
 - [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/common%20policies.md)
+- [API Design]()
