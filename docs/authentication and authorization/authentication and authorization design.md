@@ -111,7 +111,39 @@
 
 <br><br><br>
 
-## 5. 권한(Role) 설계(Role Design)
+## 5. 권한 설계(Role Design)
+
+### 5.1. 권한(Role) 정의
+|권한|설명|
+|-|-|
+|ADMIN|시스템 전체에 대한 관리 권한을 가지는 최고 관리자|
+|MANAGER|특정 게시판에 대한 관리 권한을 가지는 관리자|
+|SUB_MANAGER|특정 게시판에 대한 일부 관리 권한을 가지는 관리자|
+|USER|일반 회원|
+
+<br>
+
+### 5.2. 권한 계층 구조
+<img width="149" height="442" alt="Role Hierarchy" src="https://github.com/user-attachments/assets/3db1538d-9342-4a10-b947-5dd52cfeffd3" />
+
+- 본 시스템은 Spring Security 의 Role Hierarchy 를 적용하여 역할 간 계층 구조를 적용한다.
+- 상위 역할은 하위 역할의 모든 권한을 저동으로 포함한다.
+
+<br>
+
+### 5.3. 권한별 책임
+|권한|주요 책임|
+|-|-|
+|ADMIN|게시판 관리, 게시판 생성 및 숨김, 관리자 권한 관리, 사용자 관리 등 시스템 전체를 관리|
+|MANAGER|담당 게시판 관리, 담당 게시판의 게시글과 댓글 관리, 담당 게시판의 부관리자 권한 관리, 사용자 관리 등 담당 게시판을 관리|
+|SUB_MANAGER|담당 게시판의 게시글과 댓글 관리, 사용자 관리 등 담당 게시판을 일부 관리|
+|USER|게시글 작성, 댓글 작성, 추천, 신고 등 일반적인 커뮤니티 기능 이용|
+
+<br>
+
+### 5.4. 권한 검증 방식
+- 일반 기능은 역할 기반으로 접근 권한을 제어(RBAC: Role-based Access Control)한다.
+- 게시판 관리 기능은 역할(Role)과 담당 게시판(Resource)을 함께 검증(Resource-based Authorization)하여 접근 권한을 결정한다.
 
 <br><br><br>
 
