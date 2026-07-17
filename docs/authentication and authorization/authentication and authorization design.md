@@ -139,6 +139,8 @@
 |SUB_MANAGER|담당 게시판의 게시글과 댓글 관리, 사용자 관리 등 담당 게시판을 일부 관리|
 |USER|게시글 작성, 댓글 작성, 추천, 신고 등 일반적인 커뮤니티 기능 이용|
 
+- 권한별 책임에 대한 보다 자세한 내용은 문서 하단의 Common Policies 링크를 참조한다.
+
 <br>
 
 ### 5.4. 권한 검증 방식
@@ -170,4 +172,4 @@
 ## Related Documents
 - [System Architecture Design](https://github.com/VectR-Shin/Community/blob/main/docs/architecture/system%20architecture.md)
 - [설계 과정](https://app.notion.com/p/Project-Community-37f682e99f4f80b39046fadb0f2d634b?p=37f682e99f4f80dd9495f879e85933cf&pm=s)
-
+- [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirments/common%20policies.md)
