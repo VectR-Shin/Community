@@ -11,6 +11,11 @@
 
 <br>
 
+<img width="448" height="742" alt="Authentication Flow Sequence Diagram additional" src="https://github.com/user-attachments/assets/693e2dbc-660f-4da7-ba86-367b0ef82b58" />
+
+
+<br>
+
 ### 2.1. 보호된 페이지 접근
 - 사용자가 인증이 필요한 페이지에 접근하면 BFF 는 인증 여부를 확인하고, 인증되지 않은 경우 Keycloak 로그인 페이지로 리다이렉트한다.
 - 혹은 사용자가 Keycloak 의 로그인 페이지로 직접 접근하여 인증을 시작할 수 있다.
@@ -42,7 +47,14 @@
 
 <br>
 
-### 2.7. 인증 완료
+### 2.7. 회원 정보 동기화
+- BFF 는 Keycloak 에서 발급받은 사용자 식별자를 이용하여 Member Service 에 회원 정보 동기화를 요청한다.
+- 기존 회원 정보가 존재하는 경우에는 해당 회원 정보를 사용한다.
+- 최초 로그인인 경우에는 Member 와 Profile 을 생성하여 서비스 회원 정보를 초기화한다.
+
+<br>
+
+### 2.8. 인증 완료
 - 클라이언트는 발급받은 세션 쿠키를 이용해 인증 상태를 유지하며 원래 요청했던 보호된 페이지를 정상적으로 조회한다.
 
 <br><br><br>
@@ -178,8 +190,13 @@
 
 <br><br><br>
 
-## 7. 로그아웃 과정(Logout Process)
-### 7.1. 로그아웃 흐름
+## 7. 사용자 회원가입 처리 과정
+
+
+<br><br><br>
+
+## 8. 로그아웃 과정(Logout Process)
+### 8.1. 로그아웃 흐름
 <img width="719" height="700" alt="Logout Process" src="https://github.com/user-attachments/assets/bd65f3b5-f84c-4f04-a900-d0d47b91ba76" />
 
 <br>
@@ -189,7 +206,7 @@
 
 <br>
 
-### 7.2. 로그아웃 처리 과정
+### 8.2. 로그아웃 처리 과정
 - 사용자가 로그아웃을 요청하면 BFF 는 로그아웃 요청을 처리한다.
 - BFF 는 Keycloak 의 Logout Endpoint 를 호출하여 SSO 세션을 종료한다.
 - 로그아웃이 완료되면 BFF 는 사용자의 세션 을 무효화(Invalidate) 하고, SecurityContext 를 제거한다.
@@ -198,29 +215,29 @@
 
 <br>
 
-### 7.3. 로그아웃 이후 동작
+### 8.3. 로그아웃 이후 동작
 - 로그아웃 이후에는 기존의 Session Cookie 를 사용할 수 없다.
 - 보호된 API 에 접근하는 경우, 인증되지 않은 사용자로 처리되며, 다시 로그인해야한다.
 - 사용자가 다시 로그인하면 새로운 Session 과 SecurityContext 가 생성되고 인증 상태가 복원된다.
 
 <br><br><br>
 
-## 8. 보안 고려사항(Security Considerations)
+## 9. 보안 고려사항(Security Considerations)
 
-### 8.1. JWT 보안
+### 9.1. JWT 보안
 - Access Token 과 Refresh Token 은 클라이언트에 저장하지 않고 BFF 에서 관리한다.
 - 클라이언트에는 Session Cookie 만 전달하여 JWT 노출을 방지한다.
 - 이를 통해 XSS 로 인한 JWT 탈취 위험을 줄인다.
 
 <br>
 
-### 8.2. Session 보안
+### 9.2. Session 보안
 - Session Cookie 는 HttpOnly 속성을 사용하여 JavaScript 에서 접근할 수 없도록 한다.
 - 세션을 이용하여 인증 상태를 관리하고, 로그아웃 시 세션을 무효화한다.
 
 <br>
 
-### 8.3. CSRF 보호
+### 9.3. CSRF 보호
 - 본 시스템은 Session Cookie 기반 인증을 사용하므로 CSRF(Cross-Site Request Forgery) 공격을 고려해야한다.
 - 상태를 변경하는 요청(POST, PUT, PATCH, DELETE)들은 CSRF 검증을 수행한다.
 - 클라이언트는 BFF 가 발급한 CSRF Token 을 요청에 포함하며, BFF 는 이를 검증한 후 요청을 처리한다.
@@ -228,14 +245,14 @@
 
 <br>
 
-### 8.4. 인증 및 권한 보안
+### 9.4. 인증 및 권한 보안
 - 모든 보호된 API 는 인증(Authentication)을 수행한 사용자만 접근할 수 있다.
 - 관리자 기능은 역할(Role) 기반 권한과 리소스 기반 권한을 함께 검증한다.
 - 권한이 없는 요청은 접근을 거부하고 적절한 오류 응답을 반환한다.
 
 <br>
 
-### 8.5. SSO 보안
+### 9.5. SSO 보안
 - 사용자 인증은 Keycloak 을 통해 수행하며, OAuth2/OIDC 표준을 사용한다.
 - 로그아웃 시에는 BFF 의 세션뿐만 아니라 Keycloak 의 SSO Session 도 함께 종료한다.
 
