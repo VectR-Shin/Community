@@ -1,5 +1,6 @@
 ## 1. Database Overview
-- 
+- 본 시스템은 MySQL 기반의 관계형 데이터베이스를 사용한다.
+- 회원, 게시판, 게시글, 댓글, 신고 등 도메인별로 엔티티를 분리하여 설계하였으며, 데이터 무결성과 확장성을 고려하여 관계를 구성하였다.
 
 <br><br><br>
 
@@ -9,7 +10,9 @@
 <br><br><br>
 
 ## 3. 엔티티 설명
-
+|Entity|설명|
+|-|-|
+|||
 
 <br><br><br>
 
@@ -22,6 +25,3 @@
 
 
 <br><br><br>
-
-## Related Documents
-- [설계 과정](https://app.notion.com/p/Project-Community-37f682e99f4f80b39046fadb0f2d634b?p=37f682e99f4f80dd9495f879e85933cf&pm=s)
