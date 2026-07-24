@@ -24,6 +24,9 @@
 ### 3.2. Community Service
 |Entity|설명|비고|
 |-|-|-|
+|Board|||
+|Post|||
+|Comment|||
 ||||
 
 <br>
