@@ -23,7 +23,7 @@
 <br>
 
 ### Database Design(ERD)
-- 
+- [Database Design](https://github.com/VectR-Shin/Community/blob/main/docs/database/erd/database%20design.md)
 
 <br>
 
