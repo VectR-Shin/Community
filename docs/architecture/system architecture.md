@@ -18,7 +18,7 @@
 <br><br><br>
 
 ## 2. 시스템 아키텍처 다이어그램
-<img width="1169" height="700" alt="System Architecture Diagram V1 0 2" src="https://github.com/user-attachments/assets/a6a62651-5447-4739-8462-5735eb556153" />
+<img width="1013" height="604" alt="System Architecture Diagram V1 0 3" src="https://github.com/user-attachments/assets/7bce694c-6282-48ed-8790-b1628934bb36" />
 
 <br>
 
