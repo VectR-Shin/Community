@@ -17,6 +17,7 @@
 |Entity|설명|비고|
 |-|-|-|
 |Member|서비스 관점의 사용자 정보를 저장한다.|Keycloak User ID 를 참조한다.|
+|MemberSuspension|사용자 정지 정보를 저장한다.||
 |Profile|회원의 프로필 정보를 저장한다.|회원이 수정 가능한 정보를 관리한다.|
 
 <br>
