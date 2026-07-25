@@ -736,8 +736,8 @@
 필요 데이터
 - 관리 대상자의 식별자
 - 신고 관리
-  - 신고 목록
-  - 신고 상세 정보
+  - 게시글 신고 목록
+  - 댓글 신고 목록
 - 사용자 관리
   - 사용자 정보
   - 사용자 권한
@@ -757,9 +757,12 @@
 
 사용자 동작
 - 신고 관리
-  - 신고 목록 조회
-  - 신고 상세 정보 조회
-  - 신고 처리
+  - 게시글 신고 목록 조회
+  - 댓글 신고 목록 조회
+  - 게시글 신고 상세 정보 조회
+  - 댓글 신고 상세 정보 조회
+  - 게시글 신고 처리
+  - 댓글 신고 처리
 - 사용자 관리
   - 사용자 ID, 닉네임 기반의 사용자 검색
   - 사용자 상세 정보 조회
@@ -808,12 +811,18 @@
 
 호출 API
 - 신고 관리
-  - 신고 목록 조회
-    - GET /admin/reports?page={pageNumber}
-  - 신고 상세 정보 조회
-    - GET /admin/reports/{reportId}
-  - 신고 처리
-    - PATCH /admin/reports/{reportId}
+  - 게시글 신고 목록 조회
+    - GET /admin/reports/posts?page={pageNumber}
+  - 댓글 신고 목록 조회
+    - GET /admin/reports/comments
+  - 게시글 신고 상세 정보 조회
+    - GET /admin/reports/posts/{reportId}
+  - 댓글 신고 상세 정보 조회
+    - GET /admin/reports/comments/{reportId}
+  - 게시글 신고 처리
+    - PATCH /admin/reports/posts/{reportId}
+  - 댓글 신고 처리
+    - PATCH /admin/reports/comments/{reportId}
 - 사용자 관리
   - 사용자 ID, 닉네임 기반의 사용자 검색
     - GET /admin/users?keyword={keyword}&searchType={ID | NICKNAME}&page={pageNumber}
