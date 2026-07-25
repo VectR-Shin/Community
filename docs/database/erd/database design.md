@@ -33,7 +33,8 @@
 |PostReaction|게시글 추천 및 비추천 정보를 저장한다.||
 |Comment|댓글 정보를 저장한다.||
 |CommentReaction|댓글 추천 및 비추천 정보를 저장한다.||
-|Report|신고 정보를 저장한다.||
+|PostReport|게시글 신고 정보를 저장한다.||
+|CommentReport|댓글 신고 정보를 저장한다.||
 
 <br>
 
