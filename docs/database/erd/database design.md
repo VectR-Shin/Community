@@ -16,25 +16,30 @@
 ### 3.1. Member Service
 |Entity|설명|비고|
 |-|-|-|
-|Member|||
-|Profile|||
+|Member|서비스 관점의 사용자 정보를 저장한다.|Keycloak User ID 를 참조한다.|
+|Profile|회원의 프로필 정보를 저장한다.|회원이 수정 가능한 정보를 관리한다.|
 
 <br>
 
 ### 3.2. Community Service
 |Entity|설명|비고|
 |-|-|-|
-|Board|||
-|Post|||
-|Comment|||
-||||
+|Board|게시판 정보를 저장한다.||
+|BoardFavorite|게시판 즐겨찾기 정보를 저장한다.||
+|BoardManager|게시판 관리자 정보를 저장한다.|MANAGER, SUB_MANAGER|
+|Post|게시글 정보를 저장한다.||
+|PostReaction|게시글 추천 및 비추천 정보를 저장한다.||
+|Notice|공지글 정보를 저장한다.||
+|Comment|댓글 정보를 저장한다.||
+|CommentReaction|댓글 추천 및 비추천 정보를 저장한다.||
+|Report|신고 정보를 저장한다.||
 
 <br>
 
-### 3.1. Admin Service
+### 3.3. Admin Service
 |Entity|설명|비고|
 |-|-|-|
-||||
+|AdminActionLog|관리자의 작업 이력을 저장한다.||
 
 <br><br><br>
 
