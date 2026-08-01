@@ -33,7 +33,7 @@
 <br>
 
 ### API Design & Specification
-- [API Design & Authorization Matrix]([https://github.com/VectR-Shin/Community/blob/main/docs/api/api%20design](https://github.com/VectR-Shin/Community/blob/main/docs/api/api%20design.md))
+- [API Design & Authorization Matrix](https://github.com/VectR-Shin/Community/blob/main/docs/api/api%20design.md)
 
 <br><br><br>
 
