@@ -153,7 +153,7 @@
 
 호출 API
 - 게시글 통합 검색
-  - GET /search/posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+  - GET /posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 
 정책
 - 검색 정책
