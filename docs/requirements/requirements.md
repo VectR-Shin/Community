@@ -132,16 +132,16 @@
 |ID|역할|요구사항|
 |-|-|-|
 |FR-COMMENT-001|ADMIN|다른 회원이 작성한 모든 댓글을 삭제할 수 있다.|
-|FR-COMMENT-001|ADMIN|삭제된 모든 댓글을 복구할 수 있다.|
-|FR-COMMENT-001|MANAGER, SUB_MANAGER|자신의 관리하는 게시판의 모든 댓글을 삭제할 수 있다.|
-|FR-COMMENT-001|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 삭제된 댓글을 복구할 수 있다.|
-|FR-COMMENT-002|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 작성할 수 있다.|
-|FR-COMMENT-003|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 수정할 수 있다.|
-|FR-COMMENT-004|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 삭제할 수 있다.|
-|FR-COMMENT-005|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 추천 할 수 있다.|
-|FR-COMMENT-006|ADMIN, MANAGER, SUB_MANAGER, USER|댓글 추천을 취소 할 수 있다.|
-|FR-COMMENT-007|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 비추천 할 수 있다.|
-|FR-COMMENT-008|ADMIN, MANAGER, SUB_MANAGER, USER|댓글 비추천을 취소 할 수 있다.|
+|FR-COMMENT-002|ADMIN|삭제된 모든 댓글을 복구할 수 있다.|
+|FR-COMMENT-003|MANAGER, SUB_MANAGER|자신의 관리하는 게시판의 모든 댓글을 삭제할 수 있다.|
+|FR-COMMENT-004|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 삭제된 댓글을 복구할 수 있다.|
+|FR-COMMENT-005|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 작성할 수 있다.|
+|FR-COMMENT-006|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 수정할 수 있다.|
+|FR-COMMENT-007|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 삭제할 수 있다.|
+|FR-COMMENT-008|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 추천 할 수 있다.|
+|FR-COMMENT-009|ADMIN, MANAGER, SUB_MANAGER, USER|댓글 추천을 취소 할 수 있다.|
+|FR-COMMENT-010|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 비추천 할 수 있다.|
+|FR-COMMENT-011|ADMIN, MANAGER, SUB_MANAGER, USER|댓글 비추천을 취소 할 수 있다.|
 <br>
 
 ### 신고(REPORT)
