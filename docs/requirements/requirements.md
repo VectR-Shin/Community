@@ -143,6 +143,10 @@
 |-|-|-|
 |FR-REPORT-001|USER|다른 사용자의 게시글을 신고할 수 있다.|
 |FR-REPORT-002|USER|다른 사용자의 댓글을 신고할 수 있다.|
+|FR-REPORT-003|ADMIN|모든 신고 목록을 조회할 수 있다.|
+|FR-REPORT-004|ADMIN|모든 신고를 처리할 수 있다.|
+|FR-REPORT-005|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 신고 목록을 조회할 수 있다.|
+|FR-REPORT-006|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 신고를 처리할 수 있다.|
 
 <br><br><br>
 
