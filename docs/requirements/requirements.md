@@ -84,8 +84,9 @@
 |ID|역할|요구사항|
 |-|-|-|
 |FR-BOARD-001|ADMIN|새로운 게시판을 생성할 수 있다.|
-|FR-BOARD-002|ADMIN|게시판을 폐쇄할 수 있다.|
-|FR-BOARD-003|ADMIN|게시판 카테고리를 변경할 수 있다.|
+|FR-BOARD-002|ADMIN|게시판을 폐쇄(숨김 처리)할 수 있다.|
+|FR-BOARD-003|ADMIN|게시판의 카테고리를 변경할 수 있다.|
+|FR-BOARD-004|ADMIN|게시판 카테고리명을 변경할 수 있다.|
 |FR-BOARD-004|ADMIN, MANAGER|게시판에 게시글 작성을 금지할 수 있다.|
 |FR-BOARD-005|ADMIN, MANAGER|게시판에 게시글 작성을 허가할 수 있다.|
 |FR-BOARD-006|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성을 금지할 수 있다.|
