@@ -812,9 +812,9 @@
 호출 API
 - 신고 관리
   - 게시글 신고 목록 조회
-    - GET /admin/reports/posts?page={pageNumber}
+    - GET /admin/reports/posts?boardId={boardId}&page={pageNumber}
   - 댓글 신고 목록 조회
-    - GET /admin/reports/comments
+    - GET /admin/reports/comments?boardId={boardId}&page={pageNumber}
   - 게시글 신고 상세 정보 조회
     - GET /admin/reports/posts/{reportId}
   - 댓글 신고 상세 정보 조회
