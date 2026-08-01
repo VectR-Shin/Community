@@ -1,8 +1,9 @@
 ## 1. Overview
-- 본 시스템의 API는 RESTful 스타일을 기반으로 설계되었으며, 클라이언트와 서버 간의 일관된 데이터 교환을 위해 JSON 형식을 사용한다.
+- 본 시스템의 API는 REST API 기반으로 설계되었으며, 클라이언트와 서버 간의 일관된 데이터 교환을 위해 JSON 형식을 사용한다.
 - JSON 의 Property 는 `camelCase` 명명 규칙을 따른다.
 - 본 시스템은 BFF(Backend For Frontend) 아키텍처를 적용하였으며, 클라이언트는 모든 API를 BFF를 통해 호출한다.
 - BFF는 인증 및 세션을 관리하며, 각 마이크로서비스(Member, Community, Admin)와 통신하여 클라이언트에 필요한 데이터를 제공한다.
+- 마이크로서비스의 API Specification 은 Related Documents 항목에 명시된 각 서비스 API 문서를 참조한다.
 
 <br><br><br>
 
@@ -188,7 +189,7 @@ GET /boards/{boardId}/posts?page={pageNumber}
 
 <br><br><br>
 
-## 5. API Specification
+## 5. BFF API Specification
 
 
 
@@ -197,3 +198,6 @@ GET /boards/{boardId}/posts?page={pageNumber}
 ## Related Documents
 - [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policies.md)
 - [Authentication and Authorization](https://github.com/VectR-Shin/Community/blob/main/docs/authentication%20and%20authorization/authentication%20and%20authorization%20design.md)
+- [Member Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/member%20service%20api%20design.md)
+- [Community Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/community%20service%20api%20design.md)
+- [Admin Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/admin%20service%20api%20design.md)
