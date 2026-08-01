@@ -94,8 +94,8 @@
 |FR-BOARD-009|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 허가할 수 있다.|
 |FR-BOARD-010|ADMIN, MANAGER|게시판의 이름을 변경할 수 있다.|
 |FR-BOARD-011|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
-|FR-BOARD-012|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 20개씩 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|인기글을 20개씩 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-012|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|인기글을 페이징하여 목록을 열람할 수 있다.|
 |FR-BOARD-014|ADMIN, MANAGER, SUB_MANAGER, USER|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
 |FR-BOARD-015|ADMIN, MANAGER, SUB_MANAGER, USER|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
 |FR-BOARD-016|ADMIN, MANAGER, SUB_MANAGER, USER|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
@@ -106,7 +106,7 @@
 |ID|역할|요구사항|
 |-|-|-|
 |FR-NOTICE-001|ADMIN|타인이 작성한 공지글을 삭제할 수 있다.|
-|FR-NOTICE-002|ADMIN|삭제한 공지글을 복구할 수 있다.|
+|FR-NOTICE-002|ADMIN|삭제된 공지글을 복구할 수 있다.|
 |FR-NOTICE-003|ADMIN, MANAGER, SUB_MANAGER|공지글을 작성할 수 있다.|
 |FR-NOTICE-004|ADMIN, MANAGER, SUB_MANAGER|자신이 작성한 공지글을 수정할 수 있다.|
 |FR-NOTICE-005|ADMIN, MANAGER, SUB_MANAGER|자신이 작성한 공지글을 삭제할 수 있다.|
@@ -115,20 +115,26 @@
 ### 게시글(POST)
 |ID|역할|요구사항|
 |-|-|-|
-|FR-POST-001|ADMIN, MANAGER, SUB_MANAGER|다른 회원이 작성한 게시글을 삭제할 수 있다.|
-|FR-POST-002|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 작성할 수 있다.|
-|FR-POST-003|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글을 수정할 수 있다.|
-|FR-POST-004|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글을 삭제할 수 있다.|
-|FR-POST-005|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 추천 할 수 있다.|
-|FR-POST-006|ADMIN, MANAGER, SUB_MANAGER, USER|게시글 추천을 취소 할 수 있다.|
-|FR-POST-007|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 비추천 할 수 있다.|
-|FR-POST-008|ADMIN, MANAGER, SUB_MANAGER, USER|게시글 비추천을 취소 할 수 있다.|
+|FR-POST-001|ADMIN|다른 회원이 작성한 모든 게시글을 삭제할 수 있다.|
+|FR-POST-002|ADMIN|삭제된 모든 게시글을 복구할 수 있다.|
+|FR-POST-003|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 모든 게시글을 삭제할 수 있다.|
+|FR-POST-004|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 삭제된 게시글을 복구할 수 있다.|
+|FR-POST-005|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 작성할 수 있다.|
+|FR-POST-006|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글을 수정할 수 있다.|
+|FR-POST-007|ADMIN, MANAGER, SUB_MANAGER, USER|자신이 작성한 게시글을 삭제할 수 있다.|
+|FR-POST-008|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 추천 할 수 있다.|
+|FR-POST-009|ADMIN, MANAGER, SUB_MANAGER, USER|게시글 추천을 취소 할 수 있다.|
+|FR-POST-010|ADMIN, MANAGER, SUB_MANAGER, USER|게시글을 비추천 할 수 있다.|
+|FR-POST-011|ADMIN, MANAGER, SUB_MANAGER, USER|게시글 비추천을 취소 할 수 있다.|
 <br>
 
 ### 댓글(COMMENT)
 |ID|역할|요구사항|
 |-|-|-|
-|FR-COMMENT-001|ADMIN, MANAGER, SUB_MANAGER|다른 회원이 작성한 댓글을 삭제할 수 있다.|
+|FR-COMMENT-001|ADMIN|다른 회원이 작성한 모든 댓글을 삭제할 수 있다.|
+|FR-COMMENT-001|ADMIN|삭제된 모든 댓글을 복구할 수 있다.|
+|FR-COMMENT-001|MANAGER, SUB_MANAGER|자신의 관리하는 게시판의 모든 댓글을 삭제할 수 있다.|
+|FR-COMMENT-001|MANAGER, SUB_MANAGER|자신이 관리하는 게시판의 삭제된 댓글을 복구할 수 있다.|
 |FR-COMMENT-002|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 작성할 수 있다.|
 |FR-COMMENT-003|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 수정할 수 있다.|
 |FR-COMMENT-004|ADMIN, MANAGER, SUB_MANAGER, USER|댓글을 삭제할 수 있다.|
