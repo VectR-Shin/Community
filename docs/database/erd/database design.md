@@ -57,45 +57,12 @@
 <br><br><br>
 
 ## 4. Database Naming Convention
-### 4.1. Entity and Table
-```
-Camel case
-
-example:
-          Member
-          PostReport
-          CommentReaction
-```
-
-<br>
-
-### 4.2. Column
-```
-snake_case
-
-example:
-          member_id
-          created_at
-          is_deleted
-```
-
-<br>
-
-### 4.3. Primary Key
-```
-id
-```
-
-<br>
-
-### 4.4. Foreign Key
-```
-{entity}_id
-
-example:
-          board_id
-          comment_id
-```
+|대상|규칙|예시|
+|-|-|-|
+|Entity Class|PascalCase|PostReport, CommentReaction|
+|Entity Field|camelCase|createdAt, isDeleted|
+|Table|snake_case|post_report, comment_reaction|
+|Column|snake_case|created_at, is_deleted|
 
 <br><br><br>
 
