@@ -9,17 +9,17 @@
 
 ## 2. ERD
 ### 2.1. Member Service ERD
-<img width="684" height="263" alt="Member Service ERD" src="https://github.com/user-attachments/assets/0c6be9c8-c4b6-4ecf-8e39-a31b0eb931b8" />
+<img width="1222" height="460" alt="Member Service ERD" src="https://github.com/user-attachments/assets/9165cf46-5e9d-4866-be19-6df44f81d8c9" />
 
 <br>
 
 ### 2.2. Community Service ERD
-<img width="880" height="556" alt="Community Service ERD" src="https://github.com/user-attachments/assets/0d69a0b4-e399-4173-a083-e27f3bd50f58" />
+<img width="1093" height="694" alt="Community Service ERD" src="https://github.com/user-attachments/assets/47d143cd-14eb-40c6-9e68-9feb9f4548da" />
 
 <br>
 
 ### 2.3. Admin Service ERD
-<img width="506" height="407" alt="Admin Service ERD" src="https://github.com/user-attachments/assets/cbcec9a9-fea9-4192-bebe-e53d4cef5ae9" />
+<img width="716" height="567" alt="Admin Service ERD" src="https://github.com/user-attachments/assets/41067bb8-3bc8-412f-8c4c-cae28d3cf447" />
 
 <br><br><br>
 
