@@ -1,18 +1,21 @@
 ### 운영 정책
 ```
-- ADMIN 은 USER 이상의 사용자를 MANAGER, SUB_MANAGER 로 지정할 수 있다.
-- ADMIN, MANAGER 는 USER 사용자를 SUB_MANAGER 로 지정할 수 있다.
-- ADMIN 은 공지글 관리 기능을 사용할 수 있다.
-- ADMIN 은 공지글 관리 기능을 통해 공지글을 삭제 및 복구할 수 있다.
+- ADMIN 은 ADMIN 미만의 권한을 가진 모든 사용자의 권한을 변경할 수 있다.
+- MANAGER 는 MANAGER 미만의 권한을 가진 모든 사용자의 권한을 변경할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 회원을 이용 정지 및 이용 정지 해제할 수 있다.
+
 - ADMIN 은 게시판 상세 정보를 조회할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 게시판 관리 기능을 사용할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 게시판 관리 기능을 통해 게시판을 숨김 처리 및 숨김 해제할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 게시글 관리 기능을 사용할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 게시글 관리 기능을 통해 게시글(인기글 포함)을 삭제 및 복구할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 댓글 관리 기능을 사용할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 댓글 관리 기능을 통해 댓글을 삭제 및 복구할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 사용자 관리 기능을 사용할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 사용자 관리 기능을 통해 회원을 이용 정지 및 이용 정지 해제할 수 있다.
+- ADMIN 은 게시판을 숨김 처리 및 숨김 해제할 수 있다.
+- ADMIN 은 게시판의 카테고리를 변경할 수 있다.
+- ADMIN 은 게시판의 카테고리명을 변경할 수 있다.
+- ADMIN, MANAGER 는 게시판명을 변경할 수 있다.
+- ADMIN, MANAGER 는 게시판 소개문구를 변경할 수 있다.
+- ADMIN, MANAGER 는 게시판의 게시글 생성 및 변경을 금지 및 허가할 수 있다.
+- ADMIN, MANAGER 는 게시판의 댓글 생성 및 변경을 금지 및 허가할 수 있다.
+
+- ADMIN 은 타인이 작성한 공지글을 삭제 및 복구할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 게시글(인기글 포함)을 삭제 및 복구할 수 있다.
+- ADMIN, MANAGER, SUB_MANAGER 는 댓글을 삭제 및 복구할 수 있다.
 - ADMIN, MANAGER, SUB_MANAGER는 신고를 처리할 수 있다.
 ```
 
