@@ -57,11 +57,44 @@
 <br><br><br>
 
 ## 4. Database Naming Convention
+### 4.1. Entity and Table
 ```
-Table: CamelCase
-Column: snake_case
-Primary Key: id
-Foreign Key: {entity_id}
+Camel case
+
+example:
+          Member
+          PostReport
+          CommentReaction
+```
+
+<br>
+
+### 4.2. Column
+```
+snake_case
+
+example:
+          member_id
+          created_at
+          is_deleted
+```
+
+<br>
+
+### 4.3. Primary Key
+```
+id
+```
+
+<br>
+
+### 4.4. Foreign Key
+```
+{entity}_id
+
+example:
+          board_id
+          comment_id
 ```
 
 <br><br><br>
