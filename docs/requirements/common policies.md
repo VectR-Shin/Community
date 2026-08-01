@@ -15,8 +15,12 @@
 - ADMIN, MANAGER 는 게시판의 댓글 생성 및 변경을 금지 및 허가할 수 있다.
 
 - ADMIN 은 타인이 작성한 공지글을 삭제 및 복구할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 게시글(인기글 포함)을 삭제 및 복구할 수 있다.
-- ADMIN, MANAGER, SUB_MANAGER 는 댓글을 삭제 및 복구할 수 있다.
+
+- ADMIN 는 모든 게시글(인기글 포함)을 삭제 및 복구할 수 있다.
+- MANAGER, SUB_MANAGER 는 자신이 관리하는 게시판의 게시글(인기글 포함)을 삭제 및 복구할 수 있다.
+
+- ADMIN 은 모든 댓글을 삭제 및 복구할 수 있다.
+- MANAGER, SUB_MANAGER 는 자신이 관리하는 게시판의 댓글을 삭제 및 복구할 수 있다.
 
 - ADMIN 은 모든 게시판의 신고 목록을 조회할 수 있다.
 - ADMIN 은 모든 게시판의 신고를 처리할 수 있다.
