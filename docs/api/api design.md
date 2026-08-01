@@ -1,5 +1,6 @@
 ## 1. Overview
 - 본 시스템의 API는 RESTful 스타일을 기반으로 설계되었으며, 클라이언트와 서버 간의 일관된 데이터 교환을 위해 JSON 형식을 사용한다.
+- JSON 의 Property 는 `camelCase` 명명 규칙을 따른다.
 - 본 시스템은 BFF(Backend For Frontend) 아키텍처를 적용하였으며, 클라이언트는 모든 API를 BFF를 통해 호출한다.
 - BFF는 인증 및 세션을 관리하며, 각 마이크로서비스(Member, Community, Admin)와 통신하여 클라이언트에 필요한 데이터를 제공한다.
 
@@ -67,20 +68,43 @@ URI 설계 예시
 
 ### 2.5. Pagination
 - 목록 조회 API 는 Pagination 을 사용한다.
-- 페이지 번호는 Query Parameter: page 를 사용하며, 0 부터 시작한다.
+- 페이지 번호는 `page` Query Parameter 를 사용하며, 0 부터 시작한다.
 - 페이지 크기는 API 별 정책에 따라 고정되며, 클라이언트에서 변경할 수 없다.
-  - 정책은 본 문서 하단의 Related Documents 에서 Common Policies 문서를 참조하자.
-- 
+- 정렬 기준은 또한 API 별 정책에 따라 고정된다.
+  - 정책은 본 문서 하단의 Related Documents 에서 Common Policies 문서를 참조한다.
 
+<br>
 
+예시
+```
+GET /boards/{boardId}/posts?page={pageNumber}
+```
 
+<br><br><br>
 
-### 2.6. JSON Naming 관례
+## 3. Authentication and Authorization
+### 3.1. Authentication
+- 클라이언트는 모든 API 를 BFF 를 통해 호출한다.
+- BFF 는 세션에 저장된 인증 정보를 기반으로 사용자를 식별하며, 각 마이크로서비스와 통신할 때 Access Token 을 사용한다.
+- 자세한 인증 방식 및 OAuth2/OIDC 인증 흐름은 본 문서 하단의 Related Documents 에서 Authentication and Authorization 문서를 참조한다.
 
+<br>
 
-## 3. Authentication
+### 3.2. Authorization Matrix
+|API Category|Guest|User|Sub Manager|Manager|Admin|
+|-|-|-|-|-|-|
+|Profile|R|CRUD|CRUD|CRUD|CRUD|
+|Board|R|R|R|RU|CRUD|
+|Post|R|CRUD|CRUD|CRUD|CRUD|
+|Notice|R|R|CRUD|CRUD|CRUD|
+|Comment|R|CRUD|CRUD|CRUD|CRUD|
+|Report|-|C|RU|RU|RU|
 
+- 위 권한 매트릭스는 각 도메인에 대한 권한을 요약한 것이다.
+- 작성자 여부, 공개 여부, 게시판 관리 권한 등 세부 접근 조건과 표에 명시되지 않은 권한은 각 API의 Authorization 항목을 따른다.
+- Report 의 U(Update)는 신고 상태 변경(신고 처리)를 의미한다.
 
+<br><br><br>
 
 ## 4. Common Response
 
@@ -98,3 +122,4 @@ URI 설계 예시
 
 ## Related Documents
 - [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policies.md)
+- [Authentication and Authorization](https://github.com/VectR-Shin/Community/blob/main/docs/authentication%20and%20authorization/authentication%20and%20authorization%20design.md)
