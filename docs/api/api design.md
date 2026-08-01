@@ -107,14 +107,88 @@ GET /boards/{boardId}/posts?page={pageNumber}
 <br><br><br>
 
 ## 4. Common Response
+### 4.1. Response Format
+- API 응답은 별도의 공통 Wrapper 객체를 사용하는 대신, 각 API 의 Response DTO 를 직접 반환한다.
+
+<br>
+
+### 4.2. Error Response
+예시
+```
+{
+  "code":"NICKNAME_DUPLICATION",
+  "message":"Nickname already exists."
+}
+```
+
+<br>
+
+|Field|설명|
+|-|-|
+|code|오류 코드|
+|message|오류 메시지|
+
+<br>
+
+### 4.3. Pagination Response
+- 목록 조회 API 는 Pagination 정보를 포함한 Response DTO 를 반환한다.
+
+<br>
+
+예시
+```
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 나중에 API Spec 작성하고 예시 하나 넣어놓기
+```
+
+<br>
+
+|Field|설명|
+|-|-|
+|||
+|||
 
 
+<br>
 
-## 5. Error Code
+### 4.4. Content-Type/Encoding
+|항목|규칙|
+|-|-|
+|Data Format|JSON|
+|Media Type|application/json|
+|Character Encoding|UTF-8|
 
+<br>
 
+### 4.5. Date-time Format
+- 모든 날짜 및 시간 데이터는 ISO-8601 표준 형식을 사용하며, UTC 기준으로 표현한다.
 
-## 6. API Specification
+<br>
+
+|항목|규칙|
+|-|-|
+|Application Type|Instant(JAVA)|
+|Database Type|DATETIME|
+|Format|yyyy-MM-dd'T'HH:mm:ssX|
+|Timezone|UTC|
+
+<br>
+
+예시
+```
+{
+  "created_at":"2026-08-01T22:01:23Z"
+}
+```
+
+<br>
+
+### 4.6. Empty Response
+- 리소스 생성, 조회 등 응답 데이터가 필요한 API 이외의 단순 상태 변경 또는 삭제 작업 성공 시 Response Body를 반환하지 않는다.
+- 성공 응답은 HTTP Status Code로 결과를 표현하며, Response Body가 없는 경우 HTTP 204 No Content를 사용한다.
+
+<br><br><br>
+
+## 5. API Specification
 
 
 
