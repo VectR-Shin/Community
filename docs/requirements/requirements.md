@@ -161,7 +161,7 @@
 ### 데이터 관리(DATA MANAGEMENT)
 |ID|요구사항|
 |-|-|
-|NFR-DATA-001|데이터베이스 객체(테이블, 칼럼 등)은 Database Design 문서의 Database Naming Convention 항목을 참조한다.|
+|NFR-DATA-001|데이터베이스 객체(테이블, 컬럼 등)는 Database Design 문서의 Database Naming Convention 규칙을 따른다.|
 |NFR-DATA-002|모든 날짜 및 시간 데이터는 ISO-8601 형식을 따른다.|
 |NFR-DATA-003|시스템에서 관리하는 모든 날짜 및 시간 데이터는 UTC 기준으로 저장 및 처리한다.|
 |NFR-DATA-004|서비스 간 데이터베이스는 독립적으로 관리하며, 서비스 간 직접적인 Foreign Key 를 사용하지 않는다.|
