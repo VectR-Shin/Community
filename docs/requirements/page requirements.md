@@ -624,12 +624,15 @@
 - 내가 즐겨찾기 등록한 게시글 목록 조회
 - 내가 즐겨찾기 등록한 게시글 페이지 이동
 - 내 프로필 수정 페이지 이동
+- 회원 탈퇴
 
 호출 API
 - 현재 사용자가 작성한 게시글 목록 조회
   - GET /users/me/posts?page={pageNumber}
 - 현재 사용자가 즐겨찾기 등록한 게시판 목록 조회
   - GET /users/me/favorite-boards?page={pageNumber}
+- 회원 탈퇴
+  - DELETE /users/me
 
 정책
 - 프로필 공개 정책
