@@ -190,7 +190,110 @@ GET /boards/{boardId}/posts?page={pageNumber}
 <br><br><br>
 
 ## 5. BFF API Specification
+### 5.1. Authentication API
 
+
+### 5.2. User API (사용자 소유 데이터)
+- 로그인한 사용자 정보 조회
+  - GET /users/me
+- 사용자 세부 정보(닉네임 등) 제출
+  - POST /users/onboarding
+- 현재 사용자가 작성한 게시글 목록 조회
+  - GET /users/me/posts?page={pageNumber}
+- 현재 사용자가 즐겨찾기 등록한 게시판 목록 조회
+  - GET /users/me/favorite-boards?page={pageNumber}
+- 회원 탈퇴
+  - DELETE /users/me
+- 내 프로필 수정
+  - PATCH /users/me
+
+
+### 5.3. 
+
+
+### 5.4. Post API
+- 전체 인기글 목록 조회
+  - GET /posts/popular?page={pageNumber}
+- 전체 인기글 검색 (제목/내용 필터 포함)
+  - GET /posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+- 게시글 통합 검색
+  - GET /posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+- 게시글 조회
+  - GET /posts/{postId}
+- 게시글 삭제
+  - DELETE /posts/{postId}
+- 게시글 추천/비추천
+  - POST /posts/{postId}/reactions
+- 게시글 추천/비추천 취소
+  - DELETE /posts/{postId}/reactions
+- 게시글 신고
+  - POST /posts/{postId}/reports
+- 게시글의 댓글 목록 조회
+  - GET /posts/{postId}/comments?page={pageNumber}
+- 게시글의 인기댓글 목록 조회
+  - GET /posts/{postId}/comments/popular
+- 게시글 수정
+  - PATCH /posts/{postId}
+
+### 5.5. Board API
+- 전체 게시판 목록 조회
+  - GET /boards
+- 게시판 이름 기반의 게시판 검색 결과 조회
+  - GET /boards?keyword={keyword}&page={pageNumber}
+- 현재 게시판 즐겨찾기 등록
+  - POST /boards/{boardId}/favorite
+- 현재 게시판 즐겨찾기 해제
+  - DELETE /boards/{boardId}/favorite
+- 현재 게시판의 게시글 목록 조회
+  - GET /boards/{boardId}/posts?page={pageNumber}
+- 현재 게시판의 인기글 목록 조회
+  - GET /boards/{boardId}/posts/popular?page={pageNumber}
+- 현재 게시판의 공지글 목록 조회
+  - GET /boards/{boardId}/notices?page={pageNumber}
+- 현재 게시판의 게시글 탭 검색
+  - GET /boards/{boardId}/posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+- 현재 게시판의 인기글 탭 검색
+  - GET /boards/{boardId}/posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+- 현재 게시판의 공지글 탭 검색
+  - GET /boards/{boardId}/notices?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+- 게시글 게시
+  - POST /boards/{boardId}/posts
+- 공지글 게시
+  - POST /boards/{boardId}/notices
+
+
+### 5.6. Comment API
+- 대댓글 목록 조회
+  - GET /comments/{commentsId}/replies?page={pageNumber}
+- 게시글에 댓글 작성
+  - POST /posts/{postId}/comments
+- 대댓글 작성
+  - POST /comments/{commentId}/replies
+- 댓글 및 대댓글 수정
+  - PATCH /comments/{commentId}
+- 댓글 및 대댓글 삭제
+  - DELETE /comments/{commentId}
+- 댓글 및 대댓글 추천/비추천
+  - POST /comments/{commentId}/reactions
+- 댓글 및 대댓글 추천/비추천 취소
+  - DELETE /comments/{commentId}/reactions
+- 댓글 및 대댓글 신고
+  - POST /comments/{commentId}/reports
+
+
+### 5.7. Notice API
+- 공지글 조회
+  - GET /notices/{noticeId}
+- 공지글 삭제
+  - DELETE /notices/{noticeId}
+- 공지글의 댓글 목록 조회
+  - GET /notices/{noticeId}/comments?page={pageNumber}
+- 공지글의 인기댓글 목록 조회
+  - GET /notices/{noticeId}/comments/popular
+- 공지글에 댓글 작성
+  - POST /notices/{noticeId}/comments
+- 공지글 수정
+  - PATCH /notices/{noticeId}
 
 
 <br><br><br>
