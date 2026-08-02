@@ -701,9 +701,9 @@
 
 호출 API
 - 해당 사용자 정보 조회
-  - GET /users/{userId}
+  - GET /profiles/{userId}
 - 해당 사용자가 작성한 게시글 목록 조회
-  - GET /users/{userId}/posts?page={pageNumber}
+  - GET /profiles/{userId}/posts?page={pageNumber}
 
 정책
 - 프로필 공개 정책
