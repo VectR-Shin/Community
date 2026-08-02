@@ -589,7 +589,8 @@
 - 공지글 수정 내용 저장
 
 호출 API
-- PATCH /notices/{noticeId}
+- 공지글 수정
+  - PATCH /notices/{noticeId}
 
 정책
 - 공지글 정책
