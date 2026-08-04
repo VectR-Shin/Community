@@ -191,7 +191,71 @@ GET /boards/{boardId}/posts?page={pageNumber}
 
 ## 5. BFF API Specification
 ### 5.1. Authentication API
+#### 5.1.1. GET /oauth2/authorization/keycloak
+```
+Description
+- OAuth2/OIDC Authorization Code Flow 를 시작한다.
+- Spring Security 가 OAuth2 Authorization Request 를 생성한 후, 사용자를 Keycloak 로그인 페이지로 리다이렉트한다.
 
+Authorization
+- Public
+```
+
+##### Request
+```
+Header
+- None
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 302 Found
+
+Header
+- Location: (Desc)Keycloak Authorization Endpoint URL
+
+Body
+- None
+```
+
+##### Error Response
+- None
+
+##### Processing Flow
+```
+1. 사용자가 로그인 버튼을 클릭한다.
+2. 클라이언트가 GET /oauth2/authorization/keycloak 을 호출한다.
+3. Spring Security가 OAuth2 Authorization Request 를 생성한다.
+4. Spring Security는 Keycloak Authorization Endpoint 로 302 Redirect 를 반환한다.
+5. 브라우저는 Keycloak Authorization Endpoint 로 이동한다.
+6. Keycloak 은 로그인 페이지를 제공하고 사용자의 인증을 수행한다.
+```
+
+##### 비고
+- 본 Endpoint 는 Spring Security OAuth2 Client 가 제공하며, 애플리케이션에서 직접 구현하지 않는다.
+
+<br>
+
+#### 5.1.2. POST /logout
+
+
+#### 5.1.3. GET /auth/me
+- OAuth2 로그인
+  - GET /oauth2/authorization/keycloak
+- 로그아웃
+  - POST /logout
+- 사용자 인증 상태 조회
+  - GET /auth/me
 
 ### 5.2. User API (사용자 소유 데이터)
 - 로그인한 사용자 정보 조회
