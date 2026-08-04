@@ -571,3 +571,4 @@ Body
 - [Member Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/member%20service%20api%20design.md)
 - [Community Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/community%20service%20api%20design.md)
 - [Admin Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/admin%20service%20api%20design.md)
+- [Error Response Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/error%20response%20design.md)
