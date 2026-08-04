@@ -247,15 +247,125 @@ Body
 <br>
 
 #### 5.1.2. POST /logout
+```
+Description
+- 현재 로그인한 사용자를 로그아웃한다.
+- Spring Security 의 Logout 기능을 사용하여 SecurityContext 및 Http Session 을 제거한다.
+- OIDC Logout 을 사용해 Keycloak 세션을 종료한다.
 
+Authorization
+- Authenticated
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 204 No Content
+
+Header
+- None
+
+Body
+- None
+```
+
+##### Error Response
+|Status|Message|
+|-|-|
+|401 Unauthorizaed|인증되지 않은 사용자입니다.|
+
+- Error Response 의 상세한 내용은 본 문서 하단의 Related Documents 의 Error Response Design 문서를 참조한다.
+
+##### Processing Flow
+```
+1. 클라이언트가 POST /logout을 호출한다.
+2. Spring Security가 현재 사용자의 Authentication을 확인한다.
+3. SecurityContext 및 Http Session을 제거한다.
+4. OIDC Logout을 통해 Keycloak 세션을 종료한다.
+5. 로그아웃 완료 후 클라이언트에 204 No Content를 반환한다.
+```
+
+##### 비고
+- 본 Endpoint 는 Spring Security 가 제공하는 Logout Endpoint 를 사용한다.
+
+<br>
 
 #### 5.1.3. GET /auth/me
-- OAuth2 로그인
-  - GET /oauth2/authorization/keycloak
-- 로그아웃
-  - POST /logout
-- 사용자 인증 상태 조회
-  - GET /auth/me
+```
+Description
+- 현재 사용자의 인증 상태를 조회한다.
+- 인증된 사용자인 경우 회원 식별자 및 권한 정보를 반환한다.
+
+Authorization
+- Public
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie (Optional)
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- 인증된 사용자
+{
+  "authenticated": true,
+  "memberId": 1,
+  "roles": [
+    "USER"
+  ]
+}
+
+- 인증되지 않은 사용자
+{
+  "authenticated": false
+}
+```
+
+##### Error Response
+- None
+
+##### Processing Flow
+```
+1. 클라이언트가 GET /auth/me 를 호출한다.
+2. Spring Security 가 Http Session 에서 SecurityContext 를 조회한다.
+3. 사용자의 Authentication 정보를 확인한다.
+4. 인증 여부 및 권한 정보를 응답으로 반환한다.
+```
+
+<br><br>
 
 ### 5.2. User API (사용자 소유 데이터)
 - 로그인한 사용자 정보 조회
@@ -271,6 +381,7 @@ Body
 - 내 프로필 수정
   - PATCH /users/me
 
+<br><br>
 
 ### 5.3. Profile API
 - 해당 사용자 정보 조회
@@ -278,7 +389,7 @@ Body
 - 해당 사용자가 작성한 게시글 목록 조회
   - GET /profiles/{userId}/posts?page={pageNumber}
 
-
+<br><br>
 
 ### 5.4. Post API
 - 전체 인기글 목록 조회
@@ -303,6 +414,8 @@ Body
   - GET /posts/{postId}/comments/popular
 - 게시글 수정
   - PATCH /posts/{postId}
+
+<br><br>
 
 ### 5.5. Board API
 - 전체 게시판 목록 조회
@@ -330,6 +443,7 @@ Body
 - 공지글 게시
   - POST /boards/{boardId}/notices
 
+<br><br>
 
 ### 5.6. Comment API
 - 대댓글 목록 조회
@@ -349,6 +463,7 @@ Body
 - 댓글 및 대댓글 신고
   - POST /comments/{commentId}/reports
 
+<br><br>
 
 ### 5.7. Notice API
 - 공지글 조회
@@ -364,6 +479,7 @@ Body
 - 공지글 수정
   - PATCH /notices/{noticeId}
 
+<br><br>
 
 ### 5.8. Admin API
 - 신고 관리
