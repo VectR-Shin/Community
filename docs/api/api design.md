@@ -16,7 +16,7 @@
 <br>
 
 URI 설계 예시
-|Method|URI|설명|
+|Method|URI|Description|
 |-|-|-|
 |GET|/posts|전체 게시글 목록 조회|
 |GET|/boards/{boardId}/posts|특정 게시판의 게시글 목록 조회|
@@ -28,7 +28,7 @@ URI 설계 예시
 <br>
 
 ### 2.2. HTTP Method
-|Method|설명|
+|Method|Description|
 |GET|리소스 조회|
 |POST|리소스 생성|
 |PATCH|리소스 수정|
@@ -53,7 +53,7 @@ URI 설계 예시
 <br>
 
 ### 2.4. HTTP Status Code
-|Code|설명|
+|Code|Description|
 |-|-|
 |200 OK|요청 성공|
 |201 Created|리소스 생성 성공|
@@ -124,7 +124,7 @@ GET /boards/{boardId}/posts?page={pageNumber}
 
 <br>
 
-|Field|설명|
+|Field|Description|
 |-|-|
 |code|오류 코드|
 |message|오류 메시지|
@@ -143,7 +143,7 @@ GET /boards/{boardId}/posts?page={pageNumber}
 
 <br>
 
-|Field|설명|
+|Field|Description|
 |-|-|
 |||
 |||
@@ -339,8 +339,8 @@ Header
 - None
 
 Body
-- 인증된 사용자
-{
+- AuthInfoResponseDTO
+(// 인증된 사용자
   "authenticated": true,
   "memberId": 1,
   "roles": [
@@ -348,11 +348,19 @@ Body
   ]
 }
 
-- 인증되지 않은 사용자
-{
-  "authenticated": false
+{// 인증되지 않은 사용자
+  "authenticated": false,
+  "memberId": null,
+  "roles": []
 }
 ```
+
+##### AuthInfoResponseDTO Fields
+|Field|Type|Description|
+|-|-|-|
+|authenticated|Boolean|현재 사용자의 인증 여부|
+|memberId|Long|회원 식별자(인증되지 않은 경우 null)|
+|roles|List<String>|사용자 역할(USER, MANAGER, SUB_MANAGER, ADMIN)|
 
 ##### Error Response
 - None
@@ -368,18 +376,98 @@ Body
 <br><br>
 
 ### 5.2. User API (사용자 소유 데이터)
-- 로그인한 사용자 정보 조회
-  - GET /users/me
-- 사용자 세부 정보(닉네임 등) 제출
-  - POST /users/onboarding
+#### 5.2.1. GET /users/me
+```
+Description
+- 현재 로그인한 사용자의 정보(Member, Profile)를 조회한다.
+
+Authorization
+- Authenticated
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- UserResponseDTO
+{
+  "memberId": 1,
+  "nickname": "shin",
+  "email": "shin@example.com",
+  "isPublic": true,
+  "status": "ACTIVE",
+  "createdAt": "2026-08-03T22:01:23Z"
+}
+```
+
+##### UserResponseDTO Fields
+|Field|Type|Description|
+|-|-|-|
+|memberId|Long|회원 식별자|
+|nickname|String|닉네임|
+|email|String|이메일|
+|isPublic|Boolean|프로필 공개 여부|
+|status|MemberStatus(Enum)|회원 상태(ACTIVE, SUSPENDED, DELETED)|
+|createdAt|Instant|회원 가입 일시(UTC)|
+
+##### Error Response
+|Status|Message|
+|-|-|
+|401 Unauthorized|인증되지 않은 사용자입니다.|
+
+##### Processing Flow
+```
+1. 클라이언트가 GET /users/me를 호출한다.
+2. Spring Security가 현재 사용자의 Authentication을 확인한다.
+3. BFF가 Member Service에 사용자 정보 조회를 요청한다.
+4. Member Service가 회원 및 프로필 정보를 조회한다.
+5. Member Service가 사용자 정보를 반환한다.
+6. BFF가 사용자 정보를 클라이언트에 반환한다.
+```
+
+<br>
+
+#### 5.2.2. GET /users/me/posts?page={pageNumber}
 - 현재 사용자가 작성한 게시글 목록 조회
-  - GET /users/me/posts?page={pageNumber}
+
+<br>
+
+#### 5.2.3. GET /users/me/favorite-boards?page={pageNumber}
 - 현재 사용자가 즐겨찾기 등록한 게시판 목록 조회
-  - GET /users/me/favorite-boards?page={pageNumber}
-- 회원 탈퇴
-  - DELETE /users/me
+
+<br>
+
+#### 5.2.4. POST /users/onboarding
+- 사용자 세부 정보(닉네임 등) 제출
+
+
+#### 5.2.5. PATCH /users/me
 - 내 프로필 수정
-  - PATCH /users/me
+
+<br>
+
+#### 5.2.6. DELETE /users/me
+- 회원 탈퇴
 
 <br><br>
 
