@@ -769,48 +769,27 @@
   - 게시글 신고 처리
   - 댓글 신고 처리
 - 사용자 관리
-  - 사용자 ID, 닉네임 기반의 사용자 검색
-  - 사용자 상세 정보 조회
-  - 이용 정지된 사용자 목록 조회
-  - 사용자 ID, 닉네임 기반의 이용 정지된 사용자 검색
-  - 이용 정지된 사용자 상세 정보 조회
+  - 사용자 ID, 닉네임, 사용자 상태 기반의 사용자 검색
+  - 사용자 상세 정보 조회 (정지된 사용자 포함)
   - 사용자 권한 변경
-  - 사용자 이용 정지
-  - 사용자 이용 정지 해제
+  - 사용자 이용 정지, 사용자 이용 정지 해제
 - 게시판 관리
-  - 게시판 이름 기반의 게시판 검색
-  - 게시판 상세 정보 조회
-  - 숨김 처리된 게시판 목록 조회
-  - 게시판 이름 기반의 숨김 처리된 게시판 검색
-  - 숨김 처리된 게시판 상세 정보 조회
-  - 게시판 숨김
-  - 게시판 숨김 해제
-  - 게시판 게시글 작성 금지
-  - 게시판 게시글 작성 허용
-  - 게시판 댓글 작성 금지
-  - 게시판 댓글 작성 허용
+  - 게시판 이름, 상태 기반의 게시판 검색 (키워드가 빈 칸이면 전체 목록 조회)
+  - 모든 상태의 게시판 상세 정보 조회
+  - 게시판 수정
 - 게시글 관리
-  - 게시글 ID, 게시글 제목 기반의 게시글 검색
-  - 게시글 상세 정보 조회
-  - 삭제된 게시글 목록 조회
-  - 게시글 ID, 게시글 제목 기반의 삭제된 게시글 검색
-  - 삭제된 게시글 상세 정보 조회
+  - 게시글 ID, 게시글 제목, 게시글 상태 기반의 게시글 검색 (키워드가 빈 칸이면 전체 목록 조회)
+  - 게시글 상세 정보 조회 (삭제된 게시글 포함)
   - 게시글 삭제
   - 게시글 복구
 - 공지글 관리
-  - 공지글 ID, 공지글 제목 기반의 공지글 검색
-  - 공지글 상세 정보 조회
-  - 삭제된 공지글 목록 조회
-  - 공지글 ID, 공지글 제목 기반의 삭제된 공지글 검색
-  - 삭제된 공지글 상세 정보 조회
+  - 공지글 ID, 공지글 제목, 공지글 상태 기반의 공지글 검색 (키워드가 빈 칸이면 전체 목록 조회)
+  - 공지글 상세 정보 조회 (삭제된 공지글 포함)
   - 공지글 삭제
   - 공지글 복구
 - 댓글 관리
-  - 댓글 ID 기반의 댓글 검색
-  - 댓글 상세 정보 조회
-  - 삭제된 댓글 목록 조회
-  - 댓글 ID 기반의 삭제된 댓글 검색
-  - 삭제된 댓글 상세 정보 조회
+  - 댓글 ID, 댓글 상태 기반의 댓글 검색 (키워드가 빈 칸이면 전체 목록 조회)
+  - 댓글 상세 정보 조회 (삭제된 댓글 포함)
   - 댓글 삭제
   - 댓글 복구
 
@@ -829,68 +808,44 @@
   - 댓글 신고 처리
     - PATCH /admin/reports/comments/{reportId}
 - 사용자 관리
-  - 사용자 ID, 닉네임 기반의 사용자 검색
-    - GET /admin/users?keyword={keyword}&searchType={ID | NICKNAME}&page={pageNumber}
-  - 사용자 상세 정보 조회, 이용 정지된 사용자 상세 정보 조회
+  - 사용자 ID, 닉네임, 사용자 상태 기반의 사용자 검색
+    - GET /admin/users?status={ALL | ACTIVE | SUSPENDED}&keyword={keyword}&searchType={ID | NICKNAME}&page={pageNumber}
+  - 사용자 상세 정보 조회 (정지된 사용자 포함)
     - GET /admin/users/{userId}
-  - 이용 정지된 사용자 목록 조회
-    - GET /admin/users?status=SUSPENDED&page={pageNumber}
-  - 사용자 ID, 닉네임 기반의 이용 정지된 사용자 검색
-    - GET /admin/users?keyword={keyword}&searchType={ID | NICKNAME}&status=SUSPENDED&page={pageNumber}
   - 사용자 권한 변경
     - PATCH /admin/users/{userId}/role
   - 사용자 이용 정지, 사용자 이용 정지 해제
     - PATCH /admin/users/{userId}/status
 - 게시판 관리
-  - 게시판 이름 기반의 게시판 검색
-    - GET /admin/boards?keyword={keyword}&page={pageNumber}
-  - 게시판 상세 정보 조회, 숨김 처리된 게시판 상세 정보 조회
+  - 게시판 이름, 상태 기반의 게시판 검색 (키워드가 빈 칸이면 전체 목록 조회)
+    - GET /admin/boards?keyword={keyword}&status={ALL | NORMAL | HIDDEN | READ_ONLY}&page={pageNumber}
+  - 모든 상태의 게시판 상세 정보 조회
     - GET /admin/boards/{boardId}
-  - 숨김 처리된 게시판 목록 조회
-    - GET /admin/boards?status=HIDDEN
-  - 게시판 이름 기반의 숨김 처리된 게시판 검색
-    - GET /admin/boards?keyword={keyword}&hidden=true&page={pageNumber}
-  - 게시판 숨김, 게시판 숨김 해제
-    - PATCH /admin/boards/{boardId}/hidden
-  - 게시판 게시글 작성 금지, 게시글 작성 허용
-    - PATCH /admin/boards/{boardId}/post-permission
-  - 게시판 댓글 작성 금지, 댓글 작성 허용
-    - PATCH /admin/boards/{boardId}/comment-permission
+  - 게시판 수정
+    - PATCH /admin/boards/{boardId}
 - 게시글 관리
-  - 게시글 ID, 게시글 제목 기반의 게시글 검색
-    - GET /admin/posts?keyword={keyword}&searchType={ID | TITLE}&page={pageNumber}
-  - 게시글 상세 정보 조회, 삭제된 게시글 상세 정보 조회
+  - 게시글 ID, 게시글 제목, 게시글 상태 기반의 게시글 검색 (키워드가 빈 칸이면 전체 목록 조회)
+    - GET /admin/posts?keyword={keyword}&searchType={ID | TITLE}&status={ALL | ACTIVE | DELETED}&page={pageNumber}
+  - 게시글 상세 정보 조회 (삭제된 게시글 포함)
     - GET /admin/posts/{postId}
-  - 삭제된 게시글 목록 조회
-    - GET /admin/posts?status=DELETED
-  - 게시글 ID, 게시글 제목 기반의 삭제된 게시글 검색
-    - GET /admin/posts?keyword={keyword}&searchType={ID | TITLE}&status=DELETED&page={pageNumber}
   - 게시글 삭제
     - DELETE /admin/posts/{postId}
   - 게시글 복구
     - PATCH /admin/posts/{postId}/deleted
 - 공지글 관리
-  - 공지글 ID, 공지글 제목 기반의 공지글 검색
-    - GET /admin/notices?keyword={keyword}&searchType={ID | TITLE}&page={pageNumber}
-  - 공지글 상세 정보 조회, 삭제된 공지글 상세 정보 조회
+  - 공지글 ID, 공지글 제목, 공지글 상태 기반의 공지글 검색 (키워드가 빈 칸이면 전체 목록 조회)
+    - GET /admin/notices?keyword={keyword}&searchType={ID | TITLE}&status={ALL | ACTIVE | DELETED}&page={pageNumber}
+  - 공지글 상세 정보 조회 (삭제된 공지글 포함)
     - GET /admin/notices/{noticeId}
-  - 삭제된 공지글 목록 조회
-    - GET /admin/notices?status=DELETED
-  - 공지글 ID, 공지글 제목 기반의 삭제된 공지글 검색
-    - GET /admin/notices?keyword={keyword}&searchType={ID | TITLE}&status=DELETED&page={pageNumber}
   - 공지글 삭제
     - DELETE /admin/notices/{noticeId}
   - 공지글 복구
     - PATCH /admin/notices/{noticeId}/deleted
 - 댓글 관리
-  - 댓글 ID 기반의 댓글 검색
-    - GET /admin/comments?commentId={commentId}&page={pageNumber}
-  - 댓글 상세 정보 조회, 삭제된 댓글 상세 정보 조회
+  - 댓글 ID, 댓글 상태 기반의 댓글 검색 (키워드가 빈 칸이면 전체 목록 조회)
+    - GET /admin/comments?commentId={commentId}&status={ALL | ACTIVE | DELETED}&page={pageNumber}
+  - 댓글 상세 정보 조회 (삭제된 댓글 포함)
     - GET /admin/comments/{commentId}
-  - 삭제된 댓글 목록 조회
-    - GET /admin/comments?status=DELETED
-  - 댓글 ID 기반의 삭제된 댓글 검색
-    - GET /admin/comments?commentId={commentId}&page={pageNumber}
   - 댓글 삭제
     - DELETE /admin/comments/{commentId}
   - 댓글 복구
