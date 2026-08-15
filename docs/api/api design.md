@@ -482,7 +482,7 @@ Header
 - None
 
 Body
-- PageResponseDTO<PostResponseDTO>
+- PageResponseDTO<PostSummaryResponseDTO>
 {
   "content": [
     {
@@ -490,8 +490,9 @@ Body
       "boardId": 10,
       "boardName": "자유게시판",
       "title": "게시글 제목",
+      "commentCount": 100,
+      "viewCount": 1000,
       "createdAt": "2026-08-15T08:30:00Z"
-      "updatedAt": "2026-08-16T01:19:01Z"
     }
   ],
   "page": 0,
@@ -504,21 +505,22 @@ Body
 ##### PageResponseDTO Fields
 |Field|Type|Description|
 |-|-|-|
-|content|List<PostResponseDTO>|게시글 목록|
+|content|List<PostSummaryResponseDTO>|게시글 목록|
 |page|Integer|현재 페이지 번호|
 |size|Integer|페이지 크기|
 |totalElements|Long|전체 게시글 수|
 |totalPages|Integer|전체 페이지 수|
 
-##### PostResponseDTO Fields
+##### PostSummaryResponseDTO Fields
 |Field|Type|Description|
 |-|-|-|
 |postId|Long|게시글 ID|
 |boardId|Long|게시판 ID|
 |boardName|String|게시판 이름|
 |title|String|게시글 제목|
+|commentCount|Integer|게시글의 댓글 개수|
+|viewCount|Integer|게시글 조회수|
 |createdAt|Instant|게시글 작성 일시|
-|updatedAt|Instant|게시글 최종 수정 일시|
 
 ##### Error Response
 |Status|Message|
@@ -529,8 +531,8 @@ Body
 ```
 1. 인증된 사용자의 memberId를 확인한다.
 2. memberId와 page 정보를 기반으로 삭제되지 않은 게시글을 최신 작성일 순으로 조회한다.
-3. 조회 결과를 PostResponseDTO로 변환한다.
-4. 게시글 목록과 페이지네이션 정보를 포함하여 PageResponseDTO<PostResponseDTO>로 구성한다.
+3. 조회 결과를 PostSummaryResponseDTO로 변환한다.
+4. 게시글 목록과 페이지네이션 정보를 포함하여 PageResponseDTO<PostSummaryResponseDTO>로 구성한다.
 5. 게시글 목록과 페이지네이션 정보를 반환한다.
 ```
 
@@ -570,13 +572,12 @@ Header
 - None
 
 Body
-- PageResponseDTO<BoardResponseDTO>
+- PageResponseDTO<BoardSummaryResponseDTO>
 {
   "content": [
     {
       "boardId": 1,
       "name": "자유게시판",
-      "description": "자유롭게 이야기를 나누는 게시판입니다.",
       "categoryId": 10,
       "categoryName": "커뮤니티"
     }
@@ -590,12 +591,11 @@ Body
 
 ##### PageResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
 
-##### BoardResponseDTO Fields
+##### BoardSummaryResponseDTO Fields
 |Field|Type|Description|
 |-|-|-|
 |boardId|Long|게시판 ID|
 |name|String|게시판 이름|
-|description|String|게시판 설명|
 |categoryId|Long|게시판 카테고리 ID|
 |categoryName|String|게시판 카테고리 이름|
 
@@ -606,7 +606,12 @@ Body
 
 ##### Processing Flow
 ```
-
+1. 인증된 사용자의 memberId를 확인한다.
+2. memberId와 page 정보를 기반으로 즐겨찾기 등록한 게시판 목록을 조회한다.
+3. 즐겨찾기 등록일 기준 내림차순으로 정렬하고 페이지네이션을 적용한다.
+4. 조회 결과를 BoardSummaryResponseDTO로 변환한다.
+5. 게시판 목록과 페이지네이션 정보를 포함하여 PageResponseDTO<BoardSummaryResponseDTO>로 구성한다.
+6. 게시판 목록과 페이지네이션 정보를 반환한다.
 ```
 
 <br>
