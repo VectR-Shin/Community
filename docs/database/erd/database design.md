@@ -9,7 +9,7 @@
 
 ## 2. ERD
 ### 2.1. Member Service ERD
-<img width="1779" height="677" alt="Member Service ERD" src="https://github.com/user-attachments/assets/799a246f-4db6-4852-920b-3f7216f511cb" />
+<img width="1288" height="488" alt="Member Service ERD" src="https://github.com/user-attachments/assets/b803b692-aa57-418f-984c-b35e30f85bfa" />
 
 <br>
 
