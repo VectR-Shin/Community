@@ -17,21 +17,29 @@
 
 <br><br><br>
 
-## 2. 시스템 아키텍처 다이어그램
+## 2. 시스템 아키텍처
+### 2.1. 시스템 아키텍처 다이어그램
 <img width="1013" height="604" alt="System Architecture Diagram V1 0 3" src="https://github.com/user-attachments/assets/7bce694c-6282-48ed-8790-b1628934bb36" />
 
-<br>
-
 - 각 서비스는 논리적으로 독립된 데이터 저장소를 갖도록 설계 및 구현 예정이나, 위 그림에서는 복잡도를 낮추기 위해 하나의 MySQL 인스턴스만을 표현하였다.
-- Redis 는 아래 항목들을 캐싱한다.
-  - 게시판 목록
-  - 인기글
 - Spring Cloud Gateway 를 사용하지 않은 이유
   - 본 프로젝트의 BFF 서버는 Keycloak 과 인증을 수행하고, JWT 를 관리하며, 여러 마이크로서비스의 데이터를 조합하여 SPA 에게 제공하는 기능을 수행하기 때문이다.
+- 설계에 대한 보다 자세한 내용은 문서 하단의 Related Documents 에서 설계 과정 문서를 참조한다.
+
 <br>
 
-- 설계에 대한 보다 자세한 내용은 Notion 의 설계 문서를 참조하기를 바란다.
-  - 설계 문서는 Github - README - 설계 과정(설계 문서) 에 링크로 연결되어있다.
+### 2.2. 캐시 및 백그라운드 처리
+#### Redis Cache
+- 게시판 목록, 인기 게시글, 인기 댓글 등의 조회 빈도가 높은 데이터를 Redis에 캐싱한다.
+- Redis는 서비스에서 공용으로 사용하며, 캐시 Key를 통해 데이터를 논리적으로 구분한다.
+- 캐시 데이터는 MySQL의 원본 데이터를 기반으로 생성한다.
+
+#### Scheduled Processing
+- 인기 게시글 및 인기 댓글은 일정 주기마다 계산한다.
+- 계산 결과를 Redis에 저장하여 조회 요청 시 반복적인 집계 연산을 방지한다.
+- 캐시 갱신 주기는 별도의 정책으로 관리한다.
+
+<br>
 
 <br><br><br>
 
@@ -92,3 +100,7 @@
 |Container|Docker|컨테이너 기반 애플리케이션 실행|
 |Version Control|Git, GitHub|형상 관리|
 
+<br><br><br>
+
+## Related Documents
+[설계 과정 노트](https://app.notion.com/p/Project-Community-37f682e99f4f80b39046fadb0f2d634b?p=37f682e99f4f80dd9495f879e85933cf&pm=s)
