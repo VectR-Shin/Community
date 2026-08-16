@@ -780,6 +780,7 @@
   - 게시판 이름, 상태 기반의 게시판 검색 (키워드가 빈 칸이면 전체 목록 조회)
   - 모든 상태의 게시판 상세 정보 조회
   - 게시판 수정
+  - 게시판 삭제
 - 게시글 관리
   - 게시글 ID, 게시글 제목, 게시글 상태 기반의 게시글 검색 (키워드가 빈 칸이면 전체 목록 조회)
   - 게시글 상세 정보 조회 (삭제된 게시글 포함)
@@ -826,6 +827,8 @@
     - GET /admin/boards/{boardId}
   - 게시판 수정
     - PATCH /admin/boards/{boardId}
+  - 게시판 삭제
+    - DELETE /admin/boards/{boardId}
 - 게시글 관리
   - 게시글 ID, 게시글 제목, 게시글 상태 기반의 게시글 검색 (키워드가 빈 칸이면 전체 목록 조회)
     - GET /admin/posts?keyword={keyword}&searchType={ID | TITLE}&status={ALL | ACTIVE | DELETED}&page={pageNumber}
