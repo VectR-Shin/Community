@@ -117,6 +117,7 @@ GET /boards/{boardId}/posts?page={pageNumber}
 예시
 ```
 {
+  "status": 409,
   "code":"NICKNAME_DUPLICATION",
   "message":"Nickname already exists."
 }
@@ -126,6 +127,8 @@ GET /boards/{boardId}/posts?page={pageNumber}
 
 |Field|Description|
 |-|-|
+|-|-|
+|status|오류 상태(번호)|
 |code|오류 코드|
 |message|오류 메시지|
 
@@ -198,7 +201,7 @@ Description
 - Spring Security 가 OAuth2 Authorization Request 를 생성한 후, 사용자를 Keycloak 로그인 페이지로 리다이렉트한다.
 
 Authorization
-- Public
+- None
 ```
 
 ##### Request
@@ -285,9 +288,9 @@ Body
 ```
 
 ##### Error Response
-|Status|Message|
-|-|-|
-|401 Unauthorizaed|인증되지 않은 사용자입니다.|
+|Status|Code|Message|
+|-|-|-|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
 
 - Error Response 의 상세한 내용은 본 문서 하단의 Related Documents 의 Error Response Design 문서를 참조한다.
 
@@ -312,7 +315,7 @@ Description
 - 인증된 사용자인 경우 회원 식별자 및 권한 정보를 반환한다.
 
 Authorization
-- Public
+- None
 ```
 
 ##### Request
@@ -383,6 +386,7 @@ Description
 
 Authorization
 - Authenticated
+- Onboarding Completed
 ```
 
 ##### Request
@@ -431,9 +435,10 @@ Body
 |createdAt|Instant|회원 가입 일시(UTC)|
 
 ##### Error Response
-|Status|Message|
-|-|-|
-|401 Unauthorized|인증되지 않은 사용자입니다.|
+|Status|Code|Message|
+|-|-|-|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+|403 Forbidden|ONBOARDING_REQUIRED|온보딩이 완료되지 않은 사용자입니다.|
 
 ##### Processing Flow
 ```
@@ -456,6 +461,7 @@ Description
 
 Authorization
 - Authenticated
+- Onboarding Completed
 ```
 
 ##### Request
@@ -523,9 +529,10 @@ Body
 |createdAt|Instant|게시글 작성 일시|
 
 ##### Error Response
-|Status|Message|
-|-|-|
-|401 Unauthorized|인증되지 않은 사용자입니다.|
+|Status|Code|Message|
+|-|-|-|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+|403 Forbidden|ONBOARDING_REQUIRED|온보딩이 완료되지 않은 사용자입니다.|
 
 ##### Processing Flow
 ```
@@ -546,6 +553,7 @@ Description
 
 Authorization
 - Authenticated
+- Onboarding Completed
 ```
 
 ##### Request
@@ -600,9 +608,10 @@ Body
 |categoryName|String|게시판 카테고리 이름|
 
 ##### Error Response
-|Status|Message|
-|-|-|
-|401|인증되지 않은 사용자입니다.|
+|Status|Code|Message|
+|-|-|-|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+|403 Forbidden|ONBOARDING_REQUIRED|온보딩이 완료되지 않은 사용자입니다.|
 
 ##### Processing Flow
 ```
@@ -617,11 +626,132 @@ Body
 <br>
 
 #### 5.2.4. POST /users/onboarding
-- 사용자 세부 정보(닉네임 등) 제출
+```
+Description
+- Profile 을 생성하여 온보딩을 완료한다.
+
+Authorization
+- Authenticated
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- UserOnboardingRequestDTO
+{
+  "nickname": "Vect_R"
+}
+```
+
+##### UserOnboardingRequestDTO Fields
+|Field|Type|Description|
+|-|-|-|
+|nickname|String|사용자 닉네임|
+
+##### Response
+```
+Status
+- 204 No Content
+
+Header
+- None
+
+Body
+- None
+```
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|400 Bad Request|INVALID_ONBOARDING_DATA|온보딩 정보가 잘못되었습니다.|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+|409 Conflict|ALREADY_ONBOARDED|이미 온보딩이 완료된 사용자입니다.|
+|409 Conflict|DUPLICATE_NICKNAME|이미 사용 중인 닉네임입니다.|
+
+##### Processing Flow
+```
+1. 인증된 사용자의 memberId를 확인한다.
+2. 요청 데이터의 유효성을 검증한다.
+3. 해당 사용자의 Profile 존재 여부를 확인한다.
+4. Profile이 존재하는 경우 409 Conflict를 반환한다.
+5. Profile을 생성한다.
+6. 204 No Content를 반환한다.
+```
 
 
 #### 5.2.5. PATCH /users/me
-- 내 프로필 수정
+```
+Description
+- 현재 사용자의 Profile 정보를 수정한다.
+
+Authorization
+- Authenticated
+- Onboarding Completed
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- UserProfileUpdateRequestDTO
+  - 변경할 필드만 포함하여 요청한다.
+{
+  "nickname": "NewNickname",
+  "isPublic": false
+}
+```
+
+##### UserProfileUpdateRequestDTO Fields
+|Field|Type|Description|
+|-|-|-|
+|nickname|String|변경할 닉네임|
+|isPublic|Boolean|프로필 공개 여부|
+
+##### Response
+```
+Status
+- 204 No Content
+
+Header
+- None
+
+Body
+- None
+```
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|400 Bad Request|INVALID_PROFILE_DATA|프로필 정보가 잘못되었습니다.|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+|403 Forbidden|ONBOARDING_REQUIRED|온보딩이 완료되지 않은 사용자입니다.|
+|409 Conflict|DUPLICATE_NICKNAME|이미 사용중인 닉네임입니다.|
+
+##### Processing Flow
+```
+1. 인증된 사용자의 memberId를 확인한다.
+2. 요청 데이터의 유효성을 검증한다.
+3. 변경할 Profile 정보를 반영한다.
+4. Profile을 저장한다.
+5. 204 No Content를 반환한다.
+```
 
 <br>
 
