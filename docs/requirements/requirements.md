@@ -85,15 +85,14 @@
 |-|-|-|
 |FR-BOARD-001|ADMIN|새로운 게시판을 생성할 수 있다.|
 |FR-BOARD-002|ADMIN|게시판을 삭제할 수 있다.|
-|FR-BOARD-003|ADMIN|게시판을 숨김 처리할 수 있다.|
-|FR-BOARD-004|ADMIN|게시판을 공개할 수 있다.|
+|FR-BOARD-003|ADMIN|삭제된 게시판을 복구할 수 있다.|
 |FR-BOARD-005|ADMIN|게시판의 카테고리를 변경할 수 있다.|
 |FR-BOARD-006|ADMIN|게시판 카테고리명을 변경할 수 있다.|
 |FR-BOARD-007|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 금지할 수 있다.|
 |FR-BOARD-008|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 허가할 수 있다.|
 |FR-BOARD-009|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 금지할 수 있다.|
 |FR-BOARD-010|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 허가할 수 있다.|
-|FR-BOARD-011|ADMIN, MANAGER|게시판의 이름을 변경할 수 있다.|
+|FR-BOARD-011|ADMIN, MANAGER|게시판명을 수정할 수 있다.|
 |FR-BOARD-012|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
 |FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
 |FR-BOARD-014|ALL|게시글을 페이징하여 목록을 열람할 수 있다.|
