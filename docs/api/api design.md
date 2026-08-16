@@ -905,7 +905,7 @@ Body
 <br><br><br>
 
 ## Related Documents
-- [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policies.md)
+- [Common Policy](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policy.md)
 - [Authentication and Authorization](https://github.com/VectR-Shin/Community/blob/main/docs/authentication%20and%20authorization/authentication%20and%20authorization%20design.md)
 - [Member Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/member%20service%20api%20design.md)
 - [Community Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/community%20service%20api%20design.md)
