@@ -88,6 +88,7 @@
 |FR-BOARD-003|ADMIN|삭제된 게시판을 복구할 수 있다.|
 |FR-BOARD-005|ADMIN|게시판의 카테고리를 변경할 수 있다.|
 |FR-BOARD-006|ADMIN|게시판 카테고리명을 변경할 수 있다.|
+|FR-BOARD-007|ADMIN, MANAGER|게시판 상세 정보를 검색 및 조회할 수 있다.|
 |FR-BOARD-007|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 금지할 수 있다.|
 |FR-BOARD-008|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 허가할 수 있다.|
 |FR-BOARD-009|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 금지할 수 있다.|
