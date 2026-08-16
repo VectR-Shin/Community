@@ -31,6 +31,9 @@
 |MemberSuspension|사용자 정지 정보를 저장한다.||
 |Profile|회원의 프로필 정보를 저장한다.|회원이 수정 가능한 정보를 관리한다.|
 
+- 최초의 소셜 로그인 시 Member 가 생성되며, 온보딩 과정에서 Profile 이 생성된다.
+- Profile 의 존재 여부를 통해 온보딩 완료 여부를 판단한다.
+
 <br>
 
 ### 3.2. Community Service
