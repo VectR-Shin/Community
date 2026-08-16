@@ -114,23 +114,7 @@ GET /boards/{boardId}/posts?page={pageNumber}
 <br>
 
 ### 4.2. Error Response
-예시
-```
-{
-  "status": 409,
-  "code":"NICKNAME_DUPLICATION",
-  "message":"Nickname already exists."
-}
-```
-
-<br>
-
-|Field|Description|
-|-|-|
-|-|-|
-|status|오류 상태(번호)|
-|code|오류 코드|
-|message|오류 메시지|
+- 문서 하단의 Related Documents 에서 Common Error Response 문서를 참조한다.
 
 <br>
 
@@ -926,4 +910,4 @@ Body
 - [Member Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/member%20service%20api%20design.md)
 - [Community Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/community%20service%20api%20design.md)
 - [Admin Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/admin%20service%20api%20design.md)
-- [Error Response Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/error%20response%20design.md)
+- [Common Error Response](https://github.com/VectR-Shin/Community/blob/main/docs/api/common%20error%20response.md)
