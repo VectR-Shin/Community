@@ -284,5 +284,5 @@
 ## Related Documents
 - [System Architecture Design](https://github.com/VectR-Shin/Community/blob/main/docs/architecture/system%20architecture.md)
 - [설계 과정](https://app.notion.com/p/Project-Community-37f682e99f4f80b39046fadb0f2d634b?p=37f682e99f4f80dd9495f879e85933cf&pm=s)
-- [Common Policy](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policies.md)
+- [Common Policy](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policy.md)
 - [API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/api%20design.md)
