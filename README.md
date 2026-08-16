@@ -8,7 +8,7 @@
 ### Requirements
 - [Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/requirements.md)
 - [Page Requirements Document](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/page%20requirements.md)
-- [Common Policies](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policies.md)
+- [Common Policy](https://github.com/VectR-Shin/Community/blob/main/docs/requirements/common%20policies.md)
 
 <br>
 
