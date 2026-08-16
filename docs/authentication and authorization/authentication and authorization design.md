@@ -1,4 +1,4 @@
-## 1. 인증 구조(Authentication Architecture)
+## 1. Authentication Architecture
 - 본 시스템은 OAuth2 Authorization Code Grant 와 OpenID Connect(OIDC)를 기반으로 사용자 인증을 수행한다. 인증 서버는 Keycloak 을 사용하며, BFF 는 OAuth2 Client 역할을 수행하여 인증을 처리한다. 인증이 완료되면 BFF 는 Access Token, Refresh Token 을 서버에서 관리하며, Resource Server 와의 통신에 Access Token 을 사용한다. 각 Resource Sever 는 JWT 를 검증하고 사용자 권한에 따른 접근 제어를 수행한다.
 - BFF, OAuth2/OIDC, Keycloak 을 채택한 배경과 전체 시스템 구성에 대한 내용은 본 문서 하단의 Related Documents 에서 다음의 문서들을 참조하기를 바란다.
   - System Architecture Design
@@ -6,7 +6,7 @@
 
 <br><br><br>
 
-## 2. 인증 흐름(Authentication Flow)
+## 2. Authentication Flow
 <img width="539" height="741" alt="Authentication Flow Sequence Diagram" src="https://github.com/user-attachments/assets/a7ba2519-b063-41b4-b7ee-3530df07d4ba" />
 
 <br>
@@ -59,7 +59,7 @@
 
 <br><br><br>
 
-## 3. JWT 관리(JWT Management)
+## 3. JWT Management
 <img width="619" height="82" alt="JWT Managerment Diagram" src="https://github.com/user-attachments/assets/d5d3a86e-98fe-4898-bf6c-06306340fe92" />
 
 <br>
@@ -88,7 +88,7 @@
 
 <br><br><br>
 
-## 4. Session 관리(Session Management)
+## 4. Session Management
 <img width="781" height="82" alt="Session Management Diagram" src="https://github.com/user-attachments/assets/643b5924-7f0e-4ec8-969f-ec65f1a00e91" />
 
 <br>
@@ -123,7 +123,7 @@
 
 <br><br><br>
 
-## 5. 역할 정의(Role Design)
+## 5. Role Design
 ### 5.1. 역할(Role) 정의
 |권한|설명|
 |-|-|
@@ -160,7 +160,7 @@
 
 <br><br><br>
 
-## 6. 접근 권한 정책(Authorization Policy)
+## 6. Authorization Policy
 ### 6.1. 일반 접근 정책
 - 비회원은 조회 기능만 사용할 수 있다.
 - 일반 회원은 게시글 및 댓글의 작성/수정/삭제, 추천, 신고 등 커뮤니티의 일반 기능을 사용할 수 있다.
@@ -190,12 +190,35 @@
 
 <br><br><br>
 
+## 7. Onboarding
+### 7.1. Onboarding Policy
+- 소셜 로그인으로 최초 인증한 사용자는 Member로 등록된다.
+- Member가 존재하고 Profile이 존재하지 않는 경우 온보딩 미완료 상태로 간주한다.
+- 온보딩 미완료 사용자는 사용자 활동 기능의 이용이 제한된다.
+- 온보딩은 사용자 세부 정보를 등록하여 Profile을 생성함으로써 완료된다.
+- 온보딩 완료 여부는 사용자 Role과 별개의 상태로 관리한다.
+
+<br>
+
+### 7.2. Onboarding Authorization Matrix
+|User Status|필요 권한 X|USER 이상|Onboarding 페이지|
+|-|-|-|-|
+|인증 + 온보딩X|허용|제한|허용|
+|인증 + 온보딩O|허용|허용|불필요(제한)|
+
+<br>
+
+### 7.3. Onboarding Flow
+<img width="623" height="202" alt="Onboarding Process" src="https://github.com/user-attachments/assets/723607dd-8b5f-456f-8d51-53d4d40ff75c" />
+
+<br><br><br>
+
 ## 7. 사용자 회원가입 처리 과정
 
 
 <br><br><br>
 
-## 8. 로그아웃 과정(Logout Process)
+## 8. Logout Process
 ### 8.1. 로그아웃 흐름
 <img width="719" height="700" alt="Logout Process" src="https://github.com/user-attachments/assets/bd65f3b5-f84c-4f04-a900-d0d47b91ba76" />
 
