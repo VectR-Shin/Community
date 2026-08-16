@@ -29,6 +29,7 @@ URI 설계 예시
 
 ### 2.2. HTTP Method
 |Method|Description|
+|-|-|
 |GET|리소스 조회|
 |POST|리소스 생성|
 |PATCH|리소스 수정|
