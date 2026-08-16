@@ -44,10 +44,12 @@
 |-|-|-|
 |FR-MOD-001|ADMIN|회원을 매니저로 지정할 수 있다.|
 |FR-MOD-002|ADMIN|매니저 지정을 해제할 수 있다.|
-|FR-MOD-003|ADMIN, MANAGER|회원을 부매니저로 지정할 수 있다.|
-|FR-MOD-004|ADMIN, MANAGER|부매니저 지정을 해제할 수 있다.|
-|FR-MOD-005|ADMIN, MANAGER, SUB_MANAGER|회원을 정지할 수 있다.|
-|FR-MOD-006|ADMIN, MANAGER, SUB_MANAGER|회원의 정지를 해제할 수 있다.|
+|FR-MOD-003|ADMIN|회원을 전체 정지할 수 있다.|
+|FR-MOD-004|ADMIN|회원의 전체 정지를 해제할 수 있다.|
+|FR-MOD-005|ADMIN, MANAGER|회원을 부매니저로 지정할 수 있다.|
+|FR-MOD-006|ADMIN, MANAGER|부매니저 지정을 해제할 수 있다.|
+|FR-MOD-007|ADMIN, MANAGER, SUB_MANAGER|회원을 게시판 정지할 수 있다.|
+|FR-MOD-008|ADMIN, MANAGER, SUB_MANAGER|회원의 게시판 정지를 해제할 수 있다.|
 <br>
 
 ### 인증(AUTHENTICATION)
@@ -89,18 +91,18 @@
 |FR-BOARD-005|ADMIN|게시판의 카테고리를 변경할 수 있다.|
 |FR-BOARD-006|ADMIN|게시판 카테고리명을 변경할 수 있다.|
 |FR-BOARD-007|ADMIN, MANAGER|게시판 상세 정보를 검색 및 조회할 수 있다.|
-|FR-BOARD-007|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 금지할 수 있다.|
-|FR-BOARD-008|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 허가할 수 있다.|
-|FR-BOARD-009|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 금지할 수 있다.|
-|FR-BOARD-010|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 허가할 수 있다.|
-|FR-BOARD-011|ADMIN, MANAGER|게시판명을 수정할 수 있다.|
-|FR-BOARD-012|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
-|FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
-|FR-BOARD-014|ALL|게시글을 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-015|ALL|인기글을 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-016|ALL|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
-|FR-BOARD-017|ALL|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
-|FR-BOARD-018|ALL|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
+|FR-BOARD-008|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 금지할 수 있다.|
+|FR-BOARD-009|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 허가할 수 있다.|
+|FR-BOARD-010|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 금지할 수 있다.|
+|FR-BOARD-011|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 허가할 수 있다.|
+|FR-BOARD-012|ADMIN, MANAGER|게시판명을 수정할 수 있다.|
+|FR-BOARD-013|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
+|FR-BOARD-014|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
+|FR-BOARD-015|ALL|게시글을 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-016|ALL|인기글을 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-017|ALL|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
+|FR-BOARD-018|ALL|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
+|FR-BOARD-019|ALL|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
 <br>
 
 ### 공지글(NOTICE)
