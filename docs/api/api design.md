@@ -913,8 +913,14 @@ Body
     - GET /admin/users/{userId}
   - 사용자 권한 변경
     - PATCH /admin/users/{userId}/role
-  - 사용자 이용 정지, 사용자 이용 정지 해제
-    - PATCH /admin/users/{userId}/status
+  - 사용자 전체 이용 정지
+    - POST /admin/users/{userId}/suspension
+  - 사용자 전체 이용 정지 해제
+    - DELETE /admin/users/{userId}/suspension
+  - 사용자 게시판 이용 정지
+    - POST /admin/boards/{boardId}/suspensions
+  - 사용자 게시판 이용 정지 해제
+    - DELETE /admin/boards/{boardId}/suspensions/{userId}
 - 게시판 관리
   - 게시판 이름, 상태 기반의 게시판 검색 (키워드가 빈 칸이면 전체 목록 조회)
     - GET /admin/boards?keyword={keyword}&status={ALL | NORMAL | HIDDEN | READ_ONLY}&page={pageNumber}
