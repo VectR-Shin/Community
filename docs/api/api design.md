@@ -277,8 +277,6 @@ Body
 |-|-|-|
 |401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
 
-- Error Response 의 상세한 내용은 본 문서 하단의 Related Documents 의 Error Response Design 문서를 참조한다.
-
 ##### Processing Flow
 ```
 1. 클라이언트가 POST /logout을 호출한다.
@@ -741,7 +739,55 @@ Body
 <br>
 
 #### 5.2.6. DELETE /users/me
-- 회원 탈퇴
+```
+Description
+- 현재 사용자의 회원 탈퇴를 처리한다.
+- 회원 탈퇴 시 Member와 Profile 정보를 삭제한다.
+
+Authorization
+- Authenticated
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 204 No Content
+
+Header
+- None
+
+Body
+- None
+```
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+
+##### Processing Flow
+```
+1. 인증된 사용자의 memberId를 확인한다.
+2. 회원 및 프로필 정보를 삭제한다.
+3. 인증 제공자의 사용자 정보를 삭제한다.
+4. 현재 사용자의 세션을 종료한다.
+5. 204 No Content를 반환한다.
+```
 
 <br><br>
 
