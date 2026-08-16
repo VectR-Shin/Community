@@ -84,22 +84,23 @@
 |ID|역할|요구사항|
 |-|-|-|
 |FR-BOARD-001|ADMIN|새로운 게시판을 생성할 수 있다.|
-|FR-BOARD-002|ADMIN|게시판을 숨김 처리할 수 있다.|
-|FR-BOARD-003|ADMIN|게시판을 공개할 수 있다.|
-|FR-BOARD-004|ADMIN|게시판의 카테고리를 변경할 수 있다.|
-|FR-BOARD-005|ADMIN|게시판 카테고리명을 변경할 수 있다.|
-|FR-BOARD-006|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 금지할 수 있다.|
-|FR-BOARD-007|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 허가할 수 있다.|
-|FR-BOARD-008|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 금지할 수 있다.|
-|FR-BOARD-009|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 허가할 수 있다.|
-|FR-BOARD-010|ADMIN, MANAGER|게시판의 이름을 변경할 수 있다.|
-|FR-BOARD-011|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
-|FR-BOARD-012|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
-|FR-BOARD-013|ALL|게시글을 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-014|ALL|인기글을 페이징하여 목록을 열람할 수 있다.|
-|FR-BOARD-015|ALL|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
-|FR-BOARD-016|ALL|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
-|FR-BOARD-017|ALL|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
+|FR-BOARD-002|ADMIN|게시판을 삭제할 수 있다.|
+|FR-BOARD-003|ADMIN|게시판을 숨김 처리할 수 있다.|
+|FR-BOARD-004|ADMIN|게시판을 공개할 수 있다.|
+|FR-BOARD-005|ADMIN|게시판의 카테고리를 변경할 수 있다.|
+|FR-BOARD-006|ADMIN|게시판 카테고리명을 변경할 수 있다.|
+|FR-BOARD-007|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 금지할 수 있다.|
+|FR-BOARD-008|ADMIN, MANAGER|게시판에 게시글 작성 및 변경을 허가할 수 있다.|
+|FR-BOARD-009|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 금지할 수 있다.|
+|FR-BOARD-010|ADMIN, MANAGER|게시판에 속한 모든 게시글에 댓글 작성 및 변경을 허가할 수 있다.|
+|FR-BOARD-011|ADMIN, MANAGER|게시판의 이름을 변경할 수 있다.|
+|FR-BOARD-012|ADMIN, MANAGER|게시판의 소개문구를 변경할 수 있다.|
+|FR-BOARD-013|ADMIN, MANAGER, SUB_MANAGER, USER|게시판을 즐겨찾기 등록할 수 있다.|
+|FR-BOARD-014|ALL|게시글을 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-015|ALL|인기글을 페이징하여 목록을 열람할 수 있다.|
+|FR-BOARD-016|ALL|제목, 내용 등을 기반으로 게시글을 검색할 수 있다.|
+|FR-BOARD-017|ALL|제목, 내용 등을 기반으로 인기글을 검색할 수 있다.|
+|FR-BOARD-018|ALL|공지글을 게시판 상단에 별도의 항목으로 제공한다.|
 <br>
 
 ### 공지글(NOTICE)
