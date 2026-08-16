@@ -33,7 +33,7 @@
 |ADMIN|최고 관리자|
 |MANAGER|게시판 관리자|
 |SUB_MANAGER|게시판 부관리자|
-|USER|회원 (인증 + 온보딩 완료)|
+|USER|회원|
 
 <br><br><br>
 
