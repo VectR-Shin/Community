@@ -42,10 +42,10 @@
 <br>
 
 ### DTO Design & Example
-- [BFF DTO Design]()
-- [Member Service DTO Design]()
-- [Community Service DTO Design]()
-- [Admin Service API Design]()
+- [BFF DTO Design](https://github.com/VectR-Shin/Community/blob/main/docs/dto/bff%20dto%20design.md)
+- [Member Service DTO Design](https://github.com/VectR-Shin/Community/blob/main/docs/dto/microservices/member%20service%20dto%20design.md)
+- [Community Service DTO Design](https://github.com/VectR-Shin/Community/blob/main/docs/dto/microservices/community%20service%20dto%20design.md)
+- [Admin Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/dto/microservices/admin%20service%20dto%20design.md)
 
 <br><br><br>
 
