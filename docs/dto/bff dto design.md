@@ -28,7 +28,7 @@
 
 <br><br><br>
 
-# Response DTO
+# 2. Response DTO
 ## 2.1. Common DTO
 
 <br><br>
