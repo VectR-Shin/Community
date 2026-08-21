@@ -963,28 +963,127 @@ Body
 <br><br>
 
 ### 5.4. Post API
-- 전체 인기글 목록 조회
-  - GET /posts/popular?page={pageNumber}
+#### 5.4.1. GET /posts/popular?page={pageNumber}
+```
+Description
+- 게시판 구분 없이 인기글 목록을 조회한다.
+
+Authorization
+- None
+
+Policy
+- 인기글 정책
+- 목록 조회 정책
+```
+
+##### Request
+```
+Header
+- None
+
+Path Parameter
+- None
+
+Query Parameter
+- page: 페이지 번호 (0부터 시작)
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- PageResponseDTO<PostSummaryResponseDTO>
+{
+  "content": [
+    {
+      "postId": 1,
+      "boardId": 10,
+      "boardName": "자유게시판",
+      "title": "게시글 제목",
+      "commentCount": 100,
+      "viewCount": 1000,
+      "createdAt": "2026-08-15T08:30:00Z"
+    }
+  ],
+  "page": 0,
+  "size": 20,
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
+##### PageResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
+
+##### PostSummaryResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
+
+##### Processing Flow
+```
+1. 전체 게시판을 대상으로 인기 게시글 목록을 조회한다.
+2. 요청한 페이지에 해당하는 인기 게시글 목록을 반환한다.
+```
+
+<br>
+
+#### 5.4.2. GET /posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 - 전체 인기글 검색 (제목/내용 필터 포함)
-  - GET /posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+
+<br>
+
+#### 5.4.3. GET /posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 - 게시글 통합 검색
-  - GET /posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+
+<br>
+
+#### 5.4.4. GET /posts/{postId}
 - 게시글 조회
-  - GET /posts/{postId}
+
+
+<br>
+
+#### 5.4.5. DELETE /posts/{postId}
 - 게시글 삭제
-  - DELETE /posts/{postId}
+
+
+<br>
+
+#### 5.4.6. POST /posts/{postId}/reactions
 - 게시글 추천/비추천
-  - POST /posts/{postId}/reactions
+
+
+<br>
+
+#### 5.4.7. DELETE /posts/{postId}/reactions
 - 게시글 추천/비추천 취소
-  - DELETE /posts/{postId}/reactions
+
+
+<br>
+
+#### 5.4.8. POST /posts/{postId}/reports
 - 게시글 신고
-  - POST /posts/{postId}/reports
+
+<br>
+
+#### 5.4.9. GET /posts/{postId}/comments?page={pageNumber}
 - 게시글의 댓글 목록 조회
-  - GET /posts/{postId}/comments?page={pageNumber}
+
+
+<br>
+
+#### 5.4.10. GET /posts/{postId}/comments/popular
 - 게시글의 인기댓글 목록 조회
-  - GET /posts/{postId}/comments/popular
+
+
+#### 5.4.11. PATCH /posts/{postId}
 - 게시글 수정
-  - PATCH /posts/{postId}
+
 
 <br><br>
 
