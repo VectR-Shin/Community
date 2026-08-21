@@ -187,6 +187,9 @@ Description
 
 Authorization
 - None
+
+Policy
+- None
 ```
 
 ##### Request
@@ -243,6 +246,9 @@ Description
 
 Authorization
 - Authenticated
+
+Policy
+- None
 ```
 
 ##### Request
@@ -298,6 +304,9 @@ Description
 - 인증된 사용자인 경우 회원 식별자 및 권한 정보를 반환한다.
 
 Authorization
+- None
+
+Policy
 - None
 ```
 
@@ -370,6 +379,9 @@ Description
 Authorization
 - Authenticated
 - Onboarding Completed
+
+Policy
+- 프로필 정책
 ```
 
 ##### Request
@@ -426,11 +438,10 @@ Body
 ##### Processing Flow
 ```
 1. 클라이언트가 GET /users/me를 호출한다.
-2. Spring Security가 현재 사용자의 Authentication을 확인한다.
-3. BFF가 Member Service에 사용자 정보 조회를 요청한다.
-4. Member Service가 회원 및 프로필 정보를 조회한다.
-5. Member Service가 사용자 정보를 반환한다.
-6. BFF가 사용자 정보를 클라이언트에 반환한다.
+2. 인증된 사용자의 온보딩 완료 여부를 확인한다.
+3. 온보딩이 완료되지 않은 경우 403 Forbidden을 반환한다.
+4. 현재 사용자의 회원 및 프로필 정보를 조회한다.
+5. 사용자 정보를 반환한다.
 ```
 
 <br>
@@ -439,12 +450,14 @@ Body
 ```
 Description
 - 현재 사용자가 작성한 게시글 목록을 조회한다.
-- 게시글은 최신 작성일 순으로 조회한다.
-- 삭제된 게시글은 조회 대상에서 제외한다.
 
 Authorization
 - Authenticated
 - Onboarding Completed
+
+Policy
+- 게시글 정책
+- 목록 조회 정책
 ```
 
 ##### Request
@@ -537,6 +550,10 @@ Description
 Authorization
 - Authenticated
 - Onboarding Completed
+
+Policy
+- 게시판 정책
+- 목록 조회 정책
 ```
 
 ##### Request
@@ -615,6 +632,9 @@ Description
 
 Authorization
 - Authenticated
+
+Policy
+- 온보딩 정책
 ```
 
 ##### Request
@@ -679,6 +699,9 @@ Description
 Authorization
 - Authenticated
 - Onboarding Completed
+
+Proflie
+- 프로필 정책
 ```
 
 ##### Request
@@ -742,10 +765,12 @@ Body
 ```
 Description
 - 현재 사용자의 회원 탈퇴를 처리한다.
-- 회원 탈퇴 시 Member와 Profile 정보를 삭제한다.
 
 Authorization
 - Authenticated
+
+Policy
+- 회원 탈퇴 정책
 ```
 
 ##### Request
@@ -793,10 +818,147 @@ Body
 <br><br>
 
 ### 5.3. Profile API
-- 해당 사용자 정보 조회
-  - GET /profiles/{userId}
-- 해당 사용자가 작성한 게시글 목록 조회
-  - GET /profiles/{userId}/posts?page={pageNumber}
+#### 5.3.1. GET /profiles/{userId}
+```
+Description
+- 특정 사용자의 Profile 정보를 조회한다.
+
+Authorization
+- None
+
+Policy
+- 프로필 정책
+```
+
+##### Request
+```
+Header
+- None
+
+Path Parameter
+- userId: 조회할 사용자 ID
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- UserProfileResponseDTO
+{
+  "memberId": 1,
+  "nickname": "user1",
+}
+```
+
+##### UserProfileResponseDTO Fields
+|Field|Type|Description|
+|-|-|-|
+|memberId|Long|사용자 ID|
+|nickname|String|사용자 닉네임|
+
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|403 Forbidden|ACCESS_DENIED|비공개 프로필입니다.|
+|404 Not Found|RESOURCE_NOT_FOUND|요청한 사용자를 찾을 수 없습니다.|
+
+##### Processing Flow
+```
+1. userId 에 해당하는 Profile 을 조회한다.
+2. Profile 이 존재하지 않는 경우 404 Not Found 를 반환한다.
+3. Profile 이 비공개인 경우 403 Forbidden 을 반환한다.
+4. 공개한 Profile 정보를 반환한다.
+```
+
+<br>
+
+#### 5.3.2. GET /profiles/{userId}/posts?page={pageNumber}
+```
+Description
+- 특정 사용자가 작성한 게시글 목록을 조회한다.
+
+Authorization
+- None
+
+Policy
+- 프로필 정책
+- 목록 조회 정책
+```
+
+##### Request
+```
+Header
+- None
+
+Path Parameter
+- userId: 조회할 게시글을 작성한 사용자 ID
+
+Query Parameter
+- page: 페이지 번호 (0부터 시작)
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- PageResponseDTO<PostSummaryResponseDTO>
+{
+  "content": [
+    {
+      "postId": 1,
+      "boardId": 10,
+      "boardName": "자유게시판",
+      "title": "게시글 제목",
+      "commentCount": 100,
+      "viewCount": 1000,
+      "createdAt": "2026-08-15T08:30:00Z"
+    }
+  ],
+  "page": 0,
+  "size": 20,
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
+##### PageResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
+
+##### PostSummaryResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|403 Forbidden|ACCESS_DENIED|비공개 프로필입니다.|
+|404 Not Found|RESOURCE_NOT_FOUND|요청한 사용자를 찾을 수 없습니다.|
+
+##### Processing Flow
+```
+1. userId 에 해당하는 Profile 을 조회한다.
+2. Profile 이 존재하지 않는다면, 404 Not Found 를 반환한다.
+3. Profile 이 비공개인 경우 403 Forbidden 을 반환한다.
+4. 해당 사용자가 작성한 게시글을 조회한다.
+5. 요청한 페이지에 해당하는 게시글 목록을 반환한다.
+```
 
 <br><br>
 
