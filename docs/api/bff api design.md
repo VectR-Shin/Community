@@ -335,27 +335,7 @@ Header
 
 Body
 - AuthInfoResponseDTO
-(// 인증된 사용자
-  "authenticated": true,
-  "memberId": 1,
-  "roles": [
-    "USER"
-  ]
-}
-
-{// 인증되지 않은 사용자
-  "authenticated": false,
-  "memberId": null,
-  "roles": []
-}
 ```
-
-##### AuthInfoResponseDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|authenticated|Boolean|현재 사용자의 인증 여부|
-|memberId|Long|회원 식별자(인증되지 않은 경우 null)|
-|roles|List<String>|사용자 역할(USER, MANAGER, SUB_MANAGER, ADMIN)|
 
 ##### Error Response
 - None
@@ -409,25 +389,7 @@ Header
 
 Body
 - CurrentUserResponseDTO
-{
-  "memberId": 1,
-  "nickname": "shin",
-  "email": "shin@example.com",
-  "isPublic": true,
-  "status": "ACTIVE",
-  "createdAt": "2026-08-03T22:01:23Z"
-}
 ```
-
-##### CurrentUserResponseDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|memberId|Long|회원 식별자|
-|nickname|String|닉네임|
-|email|String|이메일|
-|isPublic|Boolean|프로필 공개 여부|
-|status|MemberStatus(Enum)|회원 상태(ACTIVE, SUSPENDED, DELETED)|
-|createdAt|Instant|회원 가입 일시(UTC)|
 
 ##### Error Response
 |Status|Code|Message|
@@ -485,44 +447,7 @@ Header
 
 Body
 - PageResponseDTO<PostSummaryResponseDTO>
-{
-  "content": [
-    {
-      "postId": 1,
-      "boardId": 10,
-      "boardName": "자유게시판",
-      "title": "게시글 제목",
-      "commentCount": 100,
-      "viewCount": 1000,
-      "createdAt": "2026-08-15T08:30:00Z"
-    }
-  ],
-  "page": 0,
-  "size": 20,
-  "totalElements": 1,
-  "totalPages": 1
-}
 ```
-
-##### PageResponseDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|content|List<PostSummaryResponseDTO>|게시글 목록|
-|page|Integer|현재 페이지 번호|
-|size|Integer|페이지 크기|
-|totalElements|Long|전체 게시글 수|
-|totalPages|Integer|전체 페이지 수|
-
-##### PostSummaryResponseDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|postId|Long|게시글 ID|
-|boardId|Long|게시판 ID|
-|boardName|String|게시판 이름|
-|title|String|게시글 제목|
-|commentCount|Integer|게시글의 댓글 개수|
-|viewCount|Integer|게시글 조회수|
-|createdAt|Instant|게시글 작성 일시|
 
 ##### Error Response
 |Status|Code|Message|
@@ -581,31 +506,7 @@ Header
 
 Body
 - PageResponseDTO<BoardSummaryResponseDTO>
-{
-  "content": [
-    {
-      "boardId": 1,
-      "name": "자유게시판",
-      "categoryId": 10,
-      "categoryName": "커뮤니티"
-    }
-  ],
-  "page": 0,
-  "size": 20,
-  "totalElements": 1,
-  "totalPages": 1
-}
 ```
-
-##### PageResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
-
-##### BoardSummaryResponseDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|boardId|Long|게시판 ID|
-|name|String|게시판 이름|
-|categoryId|Long|게시판 카테고리 ID|
-|categoryName|String|게시판 카테고리 이름|
 
 ##### Error Response
 |Status|Code|Message|
@@ -650,15 +551,7 @@ Query Parameter
 
 RequestBody
 - UserOnboardingRequestDTO
-{
-  "nickname": "Vect_R"
-}
 ```
-
-##### UserOnboardingRequestDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|nickname|String|사용자 닉네임|
 
 ##### Response
 ```
@@ -717,18 +610,7 @@ Query Parameter
 
 RequestBody
 - UserProfileUpdateRequestDTO
-  - 변경할 필드만 포함하여 요청한다.
-{
-  "nickname": "NewNickname",
-  "isPublic": false
-}
 ```
-
-##### UserProfileUpdateRequestDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|nickname|String|변경할 닉네임|
-|isPublic|Boolean|프로필 공개 여부|
 
 ##### Response
 ```
@@ -855,18 +737,7 @@ Header
 
 Body
 - UserProfileResponseDTO
-{
-  "memberId": 1,
-  "nickname": "user1",
-}
 ```
-
-##### UserProfileResponseDTO Fields
-|Field|Type|Description|
-|-|-|-|
-|memberId|Long|사용자 ID|
-|nickname|String|사용자 닉네임|
-
 
 ##### Error Response
 |Status|Code|Message|
@@ -922,28 +793,7 @@ Header
 
 Body
 - PageResponseDTO<PostSummaryResponseDTO>
-{
-  "content": [
-    {
-      "postId": 1,
-      "boardId": 10,
-      "boardName": "자유게시판",
-      "title": "게시글 제목",
-      "commentCount": 100,
-      "viewCount": 1000,
-      "createdAt": "2026-08-15T08:30:00Z"
-    }
-  ],
-  "page": 0,
-  "size": 20,
-  "totalElements": 1,
-  "totalPages": 1
-}
 ```
-
-##### PageResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
-
-##### PostSummaryResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
 
 ##### Error Response
 |Status|Code|Message|
@@ -1001,28 +851,7 @@ Header
 
 Body
 - PageResponseDTO<PostSummaryResponseDTO>
-{
-  "content": [
-    {
-      "postId": 1,
-      "boardId": 10,
-      "boardName": "자유게시판",
-      "title": "게시글 제목",
-      "commentCount": 100,
-      "viewCount": 1000,
-      "createdAt": "2026-08-15T08:30:00Z"
-    }
-  ],
-  "page": 0,
-  "size": 20,
-  "totalElements": 1,
-  "totalPages": 1
-}
 ```
-
-##### PageResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
-
-##### PostSummaryResponseDTO 의 필드 정보는 5.2.2 를 참조한다.
 
 ##### Processing Flow
 ```
