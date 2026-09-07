@@ -46,6 +46,18 @@
 <br><br>
 
 ## 1.5. Post DTO
+### 1.5.1. PostReactionRequestDTO
+#### Example
+```
+{
+  "reactionType": "LIKE"
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|reactionType|ReactionType(Enum)|추천/비추천(LIKE | DISLIKE)|
 
 <br><br>
 
