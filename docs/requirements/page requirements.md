@@ -119,9 +119,7 @@
 - 내용 기준으로 인기글 검색
 
 호출 API
-- 전체 인기글 목록 조회
-  - GET /posts/popular?page={pageNumber}
-- 전체 인기글 검색 (제목/내용 필터 포함)
+- 전체 인기글 조회 및 검색 (제목/내용 필터 포함)
   - GET /posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 
 정책
