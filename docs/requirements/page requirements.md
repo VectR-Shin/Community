@@ -313,7 +313,7 @@
   - 게시글 작성자의 프로필 페이지 이동
   - 게시글 수정 페이지 이동
   - 게시글 삭제
-  - 게시글 추천/비추천 지정 및 취소
+  - 게시글 추천/비추천 지정
   - 게시글 신고
   - 게시글 관리 페이지 이동
 - 댓글 및 대댓글
@@ -324,7 +324,7 @@
   - 댓글 및 대댓글 작성
   - 댓글 및 대댓글 수정
   - 댓글 및 대댓글 삭제
-  - 댓글 및 대댓글 추천/비추천 지정 및 취소
+  - 댓글 및 대댓글 추천/비추천 지정
   - 댓글 및 대댓글 신고
   - 댓글 및 대댓글 관리 페이지 이동
 
@@ -335,8 +335,6 @@
   - DELETE /posts/{postId}
 - 게시글 추천/비추천
   - POST /posts/{postId}/reactions
-- 게시글 추천/비추천 취소
-  - DELETE /posts/{postId}/reactions
 - 게시글 신고
   - POST /posts/{postId}/reports
 - 게시글의 댓글 목록 조회
@@ -355,8 +353,6 @@
   - DELETE /comments/{commentId}
 - 댓글 및 대댓글 추천/비추천
   - POST /comments/{commentId}/reactions
-- 댓글 및 대댓글 추천/비추천 취소
-  - DELETE /comments/{commentId}/reactions
 - 댓글 및 대댓글 신고
   - POST /comments/{commentId}/reports
 
@@ -489,7 +485,7 @@
   - 댓글 및 대댓글 작성
   - 댓글 및 대댓글 수정
   - 댓글 및 대댓글 삭제
-  - 댓글 및 대댓글 추천/비추천 지정 및 취소
+  - 댓글 및 대댓글 추천/비추천 지정
   - 댓글 및 대댓글 신고
 
 호출 API
@@ -513,8 +509,6 @@
   - DELETE /comments/{commentId}
 - 댓글 및 대댓글 추천/비추천
   - POST /comments/{commentId}/reactions
-- 댓글 및 대댓글 추천/비추천 취소
-  - DELETE /comments/{commentId}/reactions
 - 댓글 및 대댓글 신고
   - POST /comments/{commentId}/reports
 
