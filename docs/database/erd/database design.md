@@ -14,7 +14,7 @@
 <br>
 
 ### 2.2. Community Service ERD
-<img width="1318" height="827" alt="Community Service ERD" src="https://github.com/user-attachments/assets/f37a1095-bece-49f0-b27a-fc1c4f75eef6" />
+<img width="1300" height="823" alt="Community Service ERD" src="https://github.com/user-attachments/assets/77f08e8f-37b5-4619-98b0-1deba16abd62" />
 
 <br>
 
@@ -43,7 +43,7 @@
 |BoardCategory|게시판의 카테고리 정보를 저장한다.||
 |BoardFavorite|게시판 즐겨찾기 정보를 저장한다.||
 |BoardManager|게시판 관리자 정보를 저장한다.|MANAGER, SUB_MANAGER|
-|BoardSuspension|게시판 별 사용자 정지 정보를 저장한다.||
+|BoardMemberSuspension|게시판 별 사용자 정지 정보를 저장한다.||
 |Post|게시글 및 공지글 정보를 저장한다.||
 |PostReaction|게시글 추천 및 비추천 정보를 저장한다.||
 |Comment|댓글 정보를 저장한다.||
