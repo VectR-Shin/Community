@@ -145,6 +145,23 @@
 |status|MemberStatus(Enum)|회원 상태(ACTIVE, SUSPENDED, DELETED)|
 |createdAt|Instant|회원 가입 일시(UTC)|
 
+<br>
+
+### 2.2.2. UserSummaryResponseDTO
+#### Example
+```
+{
+  "memberId": 10,
+  "nickname": "닉네임"
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|memberId|Long|사용자 ID|
+|nickname|String|사용자 닉네임|
+
 <br><br>
 
 ## 2.3. Profile DTO
@@ -212,6 +229,44 @@
 |commentCount|Integer|게시글의 댓글 개수|
 |viewCount|Integer|게시글 조회수|
 |createdAt|Instant|게시글 작성 일시|
+
+<br>
+
+2.5.2. PostResponseDTO
+#### Example
+```
+{
+  "postId": 1,
+  "boardId": 1,
+  "title": "제목",
+  "content": "내...용",
+  "author": {
+    "memberId": 10,
+    "nickname": "닉네임"
+  },
+  "viewCount": 120,
+  "likeCount": 10,
+  "dislikeCount": 0,
+  "commentCount": 3,
+  "createdAt": "2026-08-03T22:01:23Z",
+  "updatedAt": "2026-09-03T20:11:03Z"
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|postId|Long|게시글 ID|
+|boardId|Long|게시판 ID|
+|title|String|게시글 제목|
+|content|String|게시글 내용|
+|author|UserSummaryResponseDTO|작성자 정보|
+|viewCount|Integer|조회수|
+|likeCount|Integer|추천 수|
+|dislikeCount|Integer|비추천 수|
+|commentCount|Integer|댓글 수|
+|createdAt|Instant|작성일시|
+|updatedAt|Instant|수정일시|
 
 <br><br>
 
