@@ -126,7 +126,18 @@ GET /boards/{boardId}/posts?page={pageNumber}
 
 예시
 ```
->>>>>>>>>>>>>>>>>>>>>>>>>>>>> 나중에 API Spec 작성하고 예시 하나 넣어놓기
+// PageResponseDTO
+{
+  "content": [
+    {
+      ...
+    }
+  ],
+  "page": 0,
+  "size": 20,
+  "totalElements": 1,
+  "totalPages": 1
+}
 ```
 
 <br>
@@ -593,7 +604,7 @@ Authorization
 - Authenticated
 - Onboarding Completed
 
-Proflie
+Policy
 - 프로필 정책
 ```
 
@@ -777,7 +788,10 @@ Path Parameter
 - userId: 조회할 게시글을 작성한 사용자 ID
 
 Query Parameter
-- page: 페이지 번호 (0부터 시작)
+- page: Integer (Optional)
+  - 페이지 번호
+  - 0부터 시작
+  - 기본값: 0
 
 RequestBody
 - None
@@ -798,6 +812,7 @@ Body
 ##### Error Response
 |Status|Code|Message|
 |-|-|-|
+|400 Bad Request|INVALID_PAGE_NUMBER|페이지 번호는 0 이상이어야 합니다.|
 |403 Forbidden|ACCESS_DENIED|비공개 프로필입니다.|
 |404 Not Found|RESOURCE_NOT_FOUND|요청한 사용자를 찾을 수 없습니다.|
 
@@ -813,16 +828,17 @@ Body
 <br><br>
 
 ### 5.4. Post API
-#### 5.4.1. GET /posts/popular?page={pageNumber}
+#### 5.4.1. GET /posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 ```
 Description
 - 게시판 구분 없이 인기글 목록을 조회한다.
+- 제목 또는 내용 검색 조건을 적용하여 인기글을 검색할 수 있다.
 
 Authorization
 - None
 
 Policy
-- 인기글 정책
+- 검색 정책
 - 목록 조회 정책
 ```
 
@@ -835,7 +851,18 @@ Path Parameter
 - None
 
 Query Parameter
-- page: 페이지 번호 (0부터 시작)
+- keyword: String (Optional)
+  - 검색 키워드
+  - 생략 시 검색 없이 조회
+  - keyword와 searchType은 함께 제공하거나 함께 생략해야 한다.
+- searchType: TITLE | CONTENT (Optional)
+  - 검색 대상 지정
+  - 생략 시 검색 없이 조회
+  - keyword와 searchType은 함께 제공하거나 함께 생략해야 한다.
+- page: Integer (Optional)
+  - 페이지 번호
+  - 0부터 시작
+  - 기본값: 0
 
 RequestBody
 - None
@@ -853,64 +880,70 @@ Body
 - PageResponseDTO<PostSummaryResponseDTO>
 ```
 
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|400 Bad Request|INVALID_QUERY_PARAMETER|잘못된 검색 조건입니다.|
+|400 Bad Request|INVALID_PAGE_NUMBER|페이지 번호는 0 이상이어야 합니다.|
+
 ##### Processing Flow
 ```
-1. 전체 게시판을 대상으로 인기 게시글 목록을 조회한다.
-2. 요청한 페이지에 해당하는 인기 게시글 목록을 반환한다.
+1. 요청 파라미터 검증
+2. 인기글 검색 조건 생성
+  - searchType, keyword 모두 정상 존재할 경우, 검색 조건이 생성된다.
+  - searchType, keyword 가 모두 존재하지 않을 경우, 검색 없이 일반 조회한다.
+  - searchType, keyword 중 하나가 존재하지 않거나 비정상 값이 있는 경우, 오류가 발생한다.
+3. 인기글 조회
+4. 검색 결과 반환
 ```
 
 <br>
 
-#### 5.4.2. GET /posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
-- 전체 인기글 검색 (제목/내용 필터 포함)
-
-<br>
-
-#### 5.4.3. GET /posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
+#### 5.4.2. GET /posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 - 게시글 통합 검색
 
 <br>
 
-#### 5.4.4. GET /posts/{postId}
+#### 5.4.3. GET /posts/{postId}
 - 게시글 조회
 
 
 <br>
 
-#### 5.4.5. DELETE /posts/{postId}
+#### 5.4.4. DELETE /posts/{postId}
 - 게시글 삭제
 
 
 <br>
 
-#### 5.4.6. POST /posts/{postId}/reactions
+#### 5.4.5. POST /posts/{postId}/reactions
 - 게시글 추천/비추천
 
 
 <br>
 
-#### 5.4.7. DELETE /posts/{postId}/reactions
+#### 5.4.6. DELETE /posts/{postId}/reactions
 - 게시글 추천/비추천 취소
 
 
 <br>
 
-#### 5.4.8. POST /posts/{postId}/reports
+#### 5.4.7. POST /posts/{postId}/reports
 - 게시글 신고
 
 <br>
 
-#### 5.4.9. GET /posts/{postId}/comments?page={pageNumber}
+#### 5.4.8. GET /posts/{postId}/comments?page={pageNumber}
 - 게시글의 댓글 목록 조회
 
 
 <br>
 
-#### 5.4.10. GET /posts/{postId}/comments/popular
+#### 5.4.9. GET /posts/{postId}/comments/popular
 - 게시글의 인기댓글 목록 조회
 
 
-#### 5.4.11. PATCH /posts/{postId}
+#### 5.4.10. PATCH /posts/{postId}
 - 게시글 수정
 
 
