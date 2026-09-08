@@ -15,7 +15,7 @@
 #### Fields
 |Field|Type|Description|
 |-|-|-|
-|nickname|String|사용자 닉네임|
+|nickname|String(20)|사용자 닉네임|
 
 <br>
 
@@ -32,7 +32,7 @@
 #### Fields
 |Field|Type|Description|
 |-|-|-|
-|nickname|String|변경할 닉네임|
+|nickname|String(20)|변경할 닉네임|
 |isPublic|Boolean|프로필 공개 여부|
 
 <br><br>
@@ -59,6 +59,23 @@
 |-|-|-|
 |reactionType|ReactionType(Enum)|추천/비추천(LIKE | DISLIKE)|
 
+<br>
+
+### 1.5.2. PostUpdateRequestDTO
+#### Example
+```
+{
+  "title": "수정된 제목",
+  "content": "수정된 내용"
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|title|String(50)|수정된 제목. 수정하지 않을 경우 생략(null)|
+|content|String(5000)|수정된 내용. 수정하지 않을 경우 생략(null)|
+
 <br><br>
 
 ## 1.6. Comment DTO
@@ -79,7 +96,7 @@
 |Field|Type|Description|
 |-|-|-|
 |reportType|ReportType(Enum)|신고 타입(ABUSE | SPAM | INAPPROPRIATE_CONTENT | OTHER)|
-|content|String|신고 상세 내용|
+|content|String(100)|신고 상세 내용|
 
 <br><br><br>
 
@@ -165,8 +182,8 @@
 |Field|Type|Description|
 |-|-|-|
 |memberId|Long|회원 식별자|
-|nickname|String|닉네임|
-|email|String|이메일|
+|nickname|String(20)|닉네임|
+|email|String(320)|이메일|
 |isPublic|Boolean|프로필 공개 여부|
 |status|MemberStatus(Enum)|회원 상태(ACTIVE, SUSPENDED, DELETED)|
 |createdAt|Instant|회원 가입 일시(UTC)|
@@ -186,7 +203,7 @@
 |Field|Type|Description|
 |-|-|-|
 |memberId|Long|사용자 ID|
-|nickname|String|사용자 닉네임|
+|nickname|String(20)|사용자 닉네임|
 
 <br><br>
 
@@ -204,7 +221,7 @@
 |Field|Type|Description|
 |-|-|-|
 |memberId|Long|사용자 ID|
-|nickname|String|사용자 닉네임|
+|nickname|String(20)|사용자 닉네임|
 
 <br><br>
 
@@ -224,9 +241,9 @@
 |Field|Type|Description|
 |-|-|-|
 |boardId|Long|게시판 ID|
-|name|String|게시판 이름|
+|name|String(20)|게시판 이름|
 |categoryId|Long|게시판 카테고리 ID|
-|categoryName|String|게시판 카테고리 이름|
+|categoryName|String(20)|게시판 카테고리 이름|
 
 <br><br>
 
@@ -250,8 +267,8 @@
 |-|-|-|
 |postId|Long|게시글 ID|
 |boardId|Long|게시판 ID|
-|boardName|String|게시판 이름|
-|title|String|게시글 제목|
+|boardName|String(20)|게시판 이름|
+|title|String(50)|게시글 제목|
 |commentCount|Integer|게시글의 댓글 개수|
 |viewCount|Integer|게시글 조회수|
 |createdAt|Instant|게시글 작성 일시|
@@ -284,19 +301,50 @@
 |-|-|-|
 |postId|Long|게시글 ID|
 |boardId|Long|게시판 ID|
-|title|String|게시글 제목|
-|content|String|게시글 내용|
+|title|String(50)|게시글 제목|
+|content|String(5000)|게시글 내용|
 |author|UserSummaryResponseDTO|작성자 정보|
 |viewCount|Integer|조회수|
 |likeCount|Integer|추천 수|
 |dislikeCount|Integer|비추천 수|
 |commentCount|Integer|댓글 수|
 |createdAt|Instant|작성일시|
-|updatedAt|Instant|수정일시|
+|updatedAt|Instant|수정일시. 수정된 적이 없다면 null|
 
 <br><br>
 
 ## 2.6. Comment DTO
+### 2.6.1. CommentResponseDTO
+#### Example
+```
+{
+  "commentId": 1,
+  "postId": 10,
+  "parentId": null,
+  "author": {
+    "memberId": 5,
+    "nickname": "닉네임"
+  },
+  "content": "좋은 글 감사합니다.",
+  "likeCount": 12,
+  "dislikeCount": 1,
+  "createdAt": "2026-08-01T22:01:23Z",
+  "updatedAt": null
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|commentId|Long|댓글 ID|
+|postId|Long|댓글이 속한 게시글 ID|
+|parentId|Long|댓글의 부모 댓글 ID. 최상위 댓글인 경우 null|
+|author|UserSummaryResponseDTO|댓글 작성자 정보|
+|content|String(100)|댓글 내용|
+|likeCount|Integer|추천 수|
+|dislikeCount|Integer|비추천 수|
+|createdAt|Instant|작성일시|
+|updatedAt|Instant|수정일시. 수정된 적이 없다면 null|
 
 <br><br>
 
