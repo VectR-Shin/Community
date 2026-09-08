@@ -66,6 +66,20 @@
 <br><br>
 
 ## 1.7. Report DTO
+### 1.7.1. PostReportRequestDTO
+#### Example
+```
+{
+  "reportType": "SPAM",
+  "content": "혐오감을 조성하는 게시글이라 신고했습니다."
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|reportType|ReportType(Enum)|신고 타입(ABUSE | SPAM | INAPPROPRIATE_CONTENT | OTHER)|
+|content|String|신고 상세 내용|
 
 <br><br><br>
 
