@@ -193,8 +193,11 @@
 <br>
 
 ### 6.4. 권한 적용 기준
-- 일반 기능은 역할(Role) 기반으로 접근 권한을 결정한다.
+- 전역 기능은 Spring Security의 전역 역할을 기준으로 접근 권한을 결정한다.
+- ADMIN은 시스템 전체 관리자 권한을 가지며, 모든 게시판의 관리 기능에 접근할 수 있다.
+- MANAGER, SUB_MANAGER의 게시판별 권한은 Community DB의 BoardManager 정보를 기준으로 확인한다.
 - 게시판 관리 기능은 관리 대상 게시판에 대한 관리자 정보와 역할을 조회하여 접근 권한을 검증한다(RBAC + Resource-based Authorization).
+- 전역 역할과 게시판별 관리자 역할은 서로 독립적으로 관리한다.
 - 상위 역할은 Role Hierarchy에 따라 하위 역할의 권한을 자동으로 포함한다.
 - 권한이 없는 요청은 접근을 거부하며, 적절한 오류 응답을 반환한다.
 - 세부 기능별 접근 권한은 본 문서 하단의 Common Policies 및 API Design 문서를 참조한다.
