@@ -248,7 +248,60 @@ Body
 
 <br>
 
-#### 5.1.2. POST /logout
+#### 5.1.2. GET /auth/me
+```
+Description
+- 현재 사용자의 인증 상태를 조회한다.
+- 인증된 사용자인 경우 회원 식별자 및 권한 정보를 반환한다.
+
+Authorization
+- None
+
+Policy
+- None
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie (Optional)
+
+Path Parameter
+- None
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- AuthInfoResponseDTO
+```
+
+##### Error Response
+- None
+
+##### Processing Flow
+```
+1. 클라이언트가 GET /auth/me 를 호출한다.
+2. Spring Security 가 Http Session 에서 SecurityContext 를 조회한다.
+3. 사용자의 Authentication 정보를 확인한다.
+4. 인증 여부 및 권한 정보를 응답으로 반환한다.
+```
+
+<br>
+
+#### 5.1.3. POST /logout
 ```
 Description
 - 현재 로그인한 사용자를 로그아웃한다.
@@ -305,59 +358,6 @@ Body
 
 ##### 비고
 - 본 Endpoint 는 Spring Security 가 제공하는 Logout Endpoint 를 사용한다.
-
-<br>
-
-#### 5.1.3. GET /auth/me
-```
-Description
-- 현재 사용자의 인증 상태를 조회한다.
-- 인증된 사용자인 경우 회원 식별자 및 권한 정보를 반환한다.
-
-Authorization
-- None
-
-Policy
-- None
-```
-
-##### Request
-```
-Header
-- Cookie: Session Cookie (Optional)
-
-Path Parameter
-- None
-
-Query Parameter
-- None
-
-RequestBody
-- None
-```
-
-##### Response
-```
-Status
-- 200 OK
-
-Header
-- None
-
-Body
-- AuthInfoResponseDTO
-```
-
-##### Error Response
-- None
-
-##### Processing Flow
-```
-1. 클라이언트가 GET /auth/me 를 호출한다.
-2. Spring Security 가 Http Session 에서 SecurityContext 를 조회한다.
-3. 사용자의 Authentication 정보를 확인한다.
-4. 인증 여부 및 권한 정보를 응답으로 반환한다.
-```
 
 <br><br>
 
@@ -1025,31 +1025,95 @@ Body
 5. 응답 반환
 ```
 
-
 <br>
 
-#### 5.4.4. DELETE /posts/{postId}
+#### 5.4.4. GET /posts/{postId}/comments?page={pageNumber}
 ```
 Description
-- 특정 게시글을 삭제한다.
+- 특정 게시글의 댓글 목록을 조회한다.
 
 Authorization
-- Authenticated
+- None
 
 Policy
-- 게시글 정책
-- 온보딩 정책
+- 댓글 및 대댓글 정책
+- 목록 조회 정책
 ```
 
 ##### Request
 ```
 Header
-- Cookie: Session Cookie
+- None
 
 Path Parameter
 - postId: Long
   - Required
-  - 삭제할 게시글 ID
+  - 댓글을 조회할 게시글 ID
+
+Query Parameter
+- page: Integer (Optional)
+  - 페이지 번호
+  - 0부터 시작
+  - 기본값: 0
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 200 OK
+
+Header
+- None
+
+Body
+- PageResponseDTO<CommentResponseDTO>
+```
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+||||
+|400 Bad Request|INVALID_PAGE_NUMBER|올바르지 않은 페이지 번호입니다.|
+|404 Not Found|POST_NOT_FOUND|게시글을 찾을 수 없습니다.|
+
+##### Processing Flow
+```
+1. 요청 파라미터 검증
+2. 게시글 조회
+3. 게시글이 없거나 삭제된 경우 예외 발생
+4. 해당 게시글의 댓글 목록 조회
+5. 댓글 목록 응답 생성
+6. 200 OK 반환
+```
+
+<br>
+
+#### 5.4.5. GET /posts/{postId}/comments/popular
+```
+Description
+- 특정 게시글의 인기 댓글 목록(최대 3개)을 조회한다.
+
+Authorization
+- None
+
+Policy
+- 댓글 및 대댓글 정책
+- 인기 댓글 정책
+- 목록 조회 정책
+```
+
+##### Request
+```
+Header
+- None
+
+Path Parameter
+- postId: Long
+  - Required
+  - 인기 댓글을 조회할 게시글 ID
 
 Query Parameter
 - None
@@ -1061,37 +1125,33 @@ RequestBody
 ##### Response
 ```
 Status
-- 204 No Content
+- 200 OK
 
 Header
 - None
 
 Body
-- None
+- List<CommentResponseDTO>
 ```
 
 ##### Error Response
 |Status|Code|Message|
 |-|-|-|
-|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
-|403 Forbidden|ONBOARDING_REQUIRED|온보딩이 완료되지 않은 사용자입니다.|
-|403 Forbidden|ACCESS_DENIED|게시글 삭제 권한이 없습니다.|
 |404 Not Found|POST_NOT_FOUND|게시글을 찾을 수 없습니다.|
 
 ##### Processing Flow
 ```
-1. 요청 사용자의 인증 상태 확인
-2. postId 에 해당하는 게시글 조회
-3. 게시글이 없거나 삭제된 경우 예외 발생
-4. 요청 사용자의 게시글 삭제 권한 확인
-5. 권한이 없는 경우 예외 발생
-6. 게시글 Soft Delete 처리
-7. 204 No Content 반환
+1. postId에 해당하는 게시글 조회
+2. 게시글이 없거나 삭제된 경우 예외 발생
+3. 해당 게시글의 인기 댓글 목록 조회
+4. 인기 댓글 정책에 따라 추천 수가 가장 많은 댓글 3개 조회
+5. 댓글 목록 응답 생성
+6. 200 OK 반환
 ```
 
 <br>
 
-#### 5.4.5. POST /posts/{postId}/reactions
+#### 5.4.6. POST /posts/{postId}/reactions
 ```
 Description
 - 특정 게시글을 추천 혹은 비추천한다.
@@ -1156,7 +1216,7 @@ Body
 
 <br>
 
-#### 5.4.6. POST /posts/{postId}/reports
+#### 5.4.7. POST /posts/{postId}/reports
 ```
 Description
 - 특정 게시글을 신고한다.
@@ -1221,131 +1281,7 @@ Body
 
 <br>
 
-#### 5.4.7. GET /posts/{postId}/comments?page={pageNumber}
-```
-Description
-- 특정 게시글의 댓글 목록을 조회한다.
-
-Authorization
-- None
-
-Policy
-- 댓글 및 대댓글 정책
-- 목록 조회 정책
-```
-
-##### Request
-```
-Header
-- None
-
-Path Parameter
-- postId: Long
-  - Required
-  - 댓글을 조회할 게시글 ID
-
-Query Parameter
-- page: Integer (Optional)
-  - 페이지 번호
-  - 0부터 시작
-  - 기본값: 0
-
-RequestBody
-- None
-```
-
-##### Response
-```
-Status
-- 200 OK
-
-Header
-- None
-
-Body
-- PageResponseDTO<CommentResponseDTO>
-```
-
-##### Error Response
-|Status|Code|Message|
-|-|-|-|
-||||
-|400 Bad Request|INVALID_PAGE_NUMBER|올바르지 않은 페이지 번호입니다.|
-|404 Not Found|POST_NOT_FOUND|게시글을 찾을 수 없습니다.|
-
-##### Processing Flow
-```
-1. 요청 파라미터 검증
-2. 게시글 조회
-3. 게시글이 없거나 삭제된 경우 예외 발생
-4. 해당 게시글의 댓글 목록 조회
-5. 댓글 목록 응답 생성
-6. 200 OK 반환
-```
-
-<br>
-
-#### 5.4.8. GET /posts/{postId}/comments/popular
-```
-Description
-- 특정 게시글의 인기 댓글 목록(최대 3개)을 조회한다.
-
-Authorization
-- None
-
-Policy
-- 댓글 및 대댓글 정책
-- 인기 댓글 정책
-- 목록 조회 정책
-```
-
-##### Request
-```
-Header
-- None
-
-Path Parameter
-- postId: Long
-  - Required
-  - 인기 댓글을 조회할 게시글 ID
-
-Query Parameter
-- None
-
-RequestBody
-- None
-```
-
-##### Response
-```
-Status
-- 200 OK
-
-Header
-- None
-
-Body
-- List<CommentResponseDTO>
-```
-
-##### Error Response
-|Status|Code|Message|
-|-|-|-|
-|404 Not Found|POST_NOT_FOUND|게시글을 찾을 수 없습니다.|
-
-##### Processing Flow
-```
-1. postId에 해당하는 게시글 조회
-2. 게시글이 없거나 삭제된 경우 예외 발생
-3. 해당 게시글의 인기 댓글 목록 조회
-4. 인기 댓글 정책에 따라 추천 수가 가장 많은 댓글 3개 조회
-5. 댓글 목록 응답 생성
-6. 200 OK 반환
-```
-
-<br>
-
-#### 5.4.9. PATCH /posts/{postId}
+#### 5.4.8. PATCH /posts/{postId}
 ```
 Description
 - 특정 게시글을 수정한다.
@@ -1405,6 +1341,69 @@ Body
 6. 권한이 없는 경우 예외 발생
 7. 수정할 게시글 정보 갱신
 8. 204 No Content 반환
+```
+
+<br>
+
+#### 5.4.9. DELETE /posts/{postId}
+```
+Description
+- 특정 게시글을 삭제한다.
+
+Authorization
+- Authenticated
+
+Policy
+- 게시글 정책
+- 온보딩 정책
+```
+
+##### Request
+```
+Header
+- Cookie: Session Cookie
+
+Path Parameter
+- postId: Long
+  - Required
+  - 삭제할 게시글 ID
+
+Query Parameter
+- None
+
+RequestBody
+- None
+```
+
+##### Response
+```
+Status
+- 204 No Content
+
+Header
+- None
+
+Body
+- None
+```
+
+##### Error Response
+|Status|Code|Message|
+|-|-|-|
+|401 Unauthorized|UNAUTHENTICATED|인증되지 않은 사용자입니다.|
+|403 Forbidden|ONBOARDING_REQUIRED|온보딩이 완료되지 않은 사용자입니다.|
+|403 Forbidden|ACCESS_DENIED|게시글 삭제 권한이 없습니다.|
+|404 Not Found|POST_NOT_FOUND|게시글을 찾을 수 없습니다.|
+
+##### Processing Flow
+```
+1. 요청 사용자의 인증 상태 확인
+2. postId 에 해당하는 게시글 조회
+3. 게시글이 없거나 삭제된 경우 예외 발생
+4. 요청 사용자의 게시글 삭제 권한 확인
+5. 권한이 없는 경우 예외 발생
+6. 게시글 Soft Delete 처리
+7. 204 No Content 반환
 ```
 
 <br><br>
