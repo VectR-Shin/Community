@@ -27,11 +27,6 @@
 
 <br>
 
-### Core Flows
-- 
-
-<br>
-
 ### API Design & Specification
 - [BFF API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/bff%20api%20design.md)
 - [Member Service API Design](https://github.com/VectR-Shin/Community/blob/main/docs/api/microservices/member%20service%20api%20design.md)
@@ -61,9 +56,5 @@
 
 ### 버전 업데이트
 - [버전 업데이트 노트](https://app.notion.com/p/Project-Community-37f682e99f4f80b39046fadb0f2d634b?p=37f682e99f4f8023a4adf6c9570ccfbc&pm=s)
-
-<br>
-
-### 향후 확장 계획
 
 <br>
