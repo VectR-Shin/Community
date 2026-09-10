@@ -247,17 +247,11 @@
   - POST /boards/{boardId}/favorite
 - 현재 게시판 즐겨찾기 해제
   - DELETE /boards/{boardId}/favorite
-- 현재 게시판의 게시글 목록 조회
-  - GET /boards/{boardId}/posts?page={pageNumber}
-- 현재 게시판의 인기글 목록 조회
-  - GET /boards/{boardId}/posts/popular?page={pageNumber}
-- 현재 게시판의 공지글 목록 조회
-  - GET /boards/{boardId}/notices?page={pageNumber}
-- 현재 게시판의 게시글 탭 검색
+- 현재 게시판의 게시글 목록 조회 및 검색
   - GET /boards/{boardId}/posts?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
-- 현재 게시판의 인기글 탭 검색
+- 현재 게시판의 인기글 목록 조회 및 검색
   - GET /boards/{boardId}/posts/popular?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
-- 현재 게시판의 공지글 탭 검색
+- 현재 게시판의 공지글 목록 조회 및 검색
   - GET /boards/{boardId}/notices?keyword={keyword}&searchType={TITLE | CONTENT}&page={pageNumber}
 
 정책
