@@ -14,7 +14,7 @@
 <br>
 
 ### 2.2. Community Service ERD
-<img width="1300" height="823" alt="Community Service ERD" src="https://github.com/user-attachments/assets/77f08e8f-37b5-4619-98b0-1deba16abd62" />
+<img width="1203" height="757" alt="Community Service ERD" src="https://github.com/user-attachments/assets/ccec421c-7f38-43c6-8f1b-f32d8a5c9553" />
 
 <br>
 
