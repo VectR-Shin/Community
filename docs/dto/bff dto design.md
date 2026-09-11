@@ -258,6 +258,7 @@
   "title": "게시글 제목",
   "commentCount": 100,
   "viewCount": 1000,
+  "reactionCount": 100,
   "createdAt": "2026-08-15T08:30:00Z"
 }
 ```
@@ -271,11 +272,12 @@
 |title|String(50)|게시글 제목|
 |commentCount|Integer|게시글의 댓글 개수|
 |viewCount|Integer|게시글 조회수|
+|reactionCount|Integer|추천 수 - 비추천 수|
 |createdAt|Instant|게시글 작성 일시|
 
 <br>
 
-2.5.2. PostResponseDTO
+### 2.5.2. PostResponseDTO
 #### Example
 ```
 {
