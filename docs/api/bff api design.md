@@ -1409,8 +1409,6 @@ Body
 <br><br>
 
 ### 5.5. Board API
-- 전체 게시판 목록 조회
-  - GET /boards
 - 현재 게시판 정보 조회 (숨김 처리된 게시판 제외)
   - GET /boards/{boardId}
 - 게시판 이름 기반의 게시판 검색 결과 조회
