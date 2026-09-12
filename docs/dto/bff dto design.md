@@ -79,6 +79,20 @@
 <br><br>
 
 ## 1.6. Comment DTO
+### 1.6.1. CommentRequestDTO
+#### Example
+```
+{
+  "parentId": 12,
+  "content": "이 댓글을 새로 추가해야지!",
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|parentId|Long|댓글의 부모 댓글 ID. 최상위 댓글인 경우 null|
+|content|String|댓글 내용|
 
 <br><br>
 
