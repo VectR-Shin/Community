@@ -329,6 +329,25 @@
 |createdAt|Instant|작성일시|
 |updatedAt|Instant|수정일시. 수정된 적이 없다면 null|
 
+<br>
+
+### 2.5.3. PostReactionResponseDTO
+#### Example
+```
+{
+  "reactionType": "LIKE",
+  "likeCount": 13,
+  "dislikeCount": 1
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|reactionType|String|나의 게시글 추천/비추천 여부|
+|likeCount|Integer|나의 추천/비추천 이후 좋아요 수|
+|dislikeCount|Integer|나의 추천/비추천 이후 싫어요 수|
+
 <br><br>
 
 ## 2.6. Comment DTO
