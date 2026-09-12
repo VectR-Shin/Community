@@ -331,6 +331,7 @@
   "content": "좋은 글 감사합니다.",
   "likeCount": 12,
   "dislikeCount": 1,
+  "isDeleted": false,
   "createdAt": "2026-08-01T22:01:23Z",
   "updatedAt": null
 }
@@ -344,6 +345,7 @@
   "content": null,
   "likeCount": null,
   "dislikeCount": null,
+  "isDeleted": true,
   "createdAt": null,
   "updatedAt": null
 }
@@ -359,11 +361,12 @@
 |content|String(100)|댓글 내용|
 |likeCount|Integer|추천 수|
 |dislikeCount|Integer|비추천 수|
+|isDeleted|Boolean|댓글의 삭제 여부|
 |createdAt|Instant|작성일시|
 |updatedAt|Instant|수정일시. 수정된 적이 없다면 null|
 
 #### 비고
-- 삭제된 댓글의 경우, commentId, postId, parentId 를 제외한 나머지 필드는 null 로 제공한다.
+- 삭제된 댓글의 경우, commentId, postId, parentId, isDeleted 를 제외한 나머지 필드는 null 로 제공한다.
 
 <br><br>
 
