@@ -237,6 +237,29 @@
 |memberId|Long|사용자 ID|
 |nickname|String(20)|사용자 닉네임|
 
+#### 비고
+- 타인의 프로필 조회 시 사용하는 DTO
+
+<br>
+
+### 2.3.2. ProfileResponseDTO
+#### Example
+```
+{
+  "nickname": "user1",
+  "isPublic": true
+}
+```
+
+#### Fields
+|Field|Type|Description|
+|-|-|-|
+|nickname|String(20)|사용자 닉네임|
+|isPublic|Boolean|프로필 공개 여부|
+
+#### 비고
+- 온보딩 완료, 내 프로필 수정 등에 사용되는 DTO
+
 <br><br>
 
 ## 2.4. Board DTO
