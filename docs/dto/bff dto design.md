@@ -319,10 +319,11 @@
 ### 2.6.1. CommentResponseDTO
 #### Example
 ```
+// 일반적인 댓글 응답
 {
-  "commentId": 1,
+  "commentId": 11,
   "postId": 10,
-  "parentId": null,
+  "parentId": 2,
   "author": {
     "memberId": 5,
     "nickname": "닉네임"
@@ -331,6 +332,19 @@
   "likeCount": 12,
   "dislikeCount": 1,
   "createdAt": "2026-08-01T22:01:23Z",
+  "updatedAt": null
+}
+
+// 삭제된 댓글 응답
+{
+  "commentId": 1,
+  "postId": 10,
+  "parentId": 2,
+  "author": null,
+  "content": null,
+  "likeCount": null,
+  "dislikeCount": null,
+  "createdAt": null,
   "updatedAt": null
 }
 ```
@@ -347,6 +361,9 @@
 |dislikeCount|Integer|비추천 수|
 |createdAt|Instant|작성일시|
 |updatedAt|Instant|수정일시. 수정된 적이 없다면 null|
+
+#### 비고
+- 삭제된 댓글의 경우, commentId, postId, parentId 를 제외한 나머지 필드는 null 로 제공한다.
 
 <br><br>
 
