@@ -307,6 +307,7 @@
   "likeCount": 10,
   "dislikeCount": 0,
   "commentCount": 3,
+  "myReaction": "LIKE"
   "createdAt": "2026-08-03T22:01:23Z",
   "updatedAt": "2026-09-03T20:11:03Z"
 }
@@ -324,6 +325,7 @@
 |likeCount|Integer|추천 수|
 |dislikeCount|Integer|비추천 수|
 |commentCount|Integer|댓글 수|
+|myReaction|String|이 게시물에 대한 나의 추천/비추천 여부. 추천/비추천을 하지 않았다면 null|
 |createdAt|Instant|작성일시|
 |updatedAt|Instant|수정일시. 수정된 적이 없다면 null|
 
