@@ -1,0 +1,4 @@
+community:
+  member:
+    withdrawal:
+      rejoin-restriction-period: 30d #재가입 방지 기간

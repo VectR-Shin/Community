@@ -1,0 +1,8 @@
+community:
+  security:
+    hmac:
+      key: test-hmac-key-for-testing
+
+spring:
+  jpa:
+    open-in-view: false
