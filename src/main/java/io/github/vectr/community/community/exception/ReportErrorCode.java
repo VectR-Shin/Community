@@ -8,6 +8,12 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum ReportErrorCode implements ErrorCode {
+    DUPLICATE_REPORT_NOT_ALLOWED(
+            HttpStatus.CONFLICT,
+            "DUPLICATE_REPORT_NOT_ALLOWED",
+            "동일한 대상에 대한 중복 신고는 불가합니다."
+    ),
+
     CANNOT_REPORT_OWN_RESOURCE(
             HttpStatus.CONFLICT,
             "CANNOT_REPORT_OWN_RESOURCE",

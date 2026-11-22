@@ -27,6 +27,19 @@ CREATE TABLE board (
     CONSTRAINT chk_board_status CHECK (board_status IN ('NORMAL', 'READ_ONLY'))
 );
 
+CREATE TABLE system_notice (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    member_id BIGINT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(5000) NOT NULL,
+    view_count BIGINT NOT NULL DEFAULT 0,
+    created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    deleted_at DATETIME(6) NULL,
+
+    CONSTRAINT pk_system_notice PRIMARY KEY (id)
+);
+
 CREATE TABLE post (
     id BIGINT NOT NULL AUTO_INCREMENT,
     member_id BIGINT NOT NULL,

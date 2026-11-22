@@ -1,9 +1,8 @@
 package io.github.vectr.community.community.service.post;
 
 import io.github.vectr.community.common.exception.BusinessException;
+import io.github.vectr.community.common.exception.ErrorCode;
 import io.github.vectr.community.community.api.post.PostReportCommandService;
-import io.github.vectr.community.community.dto.report.ReportRequestDTO;
-import io.github.vectr.community.community.entity.board.Board;
 import io.github.vectr.community.community.entity.post.Post;
 import io.github.vectr.community.community.entity.post.PostReport;
 import io.github.vectr.community.community.enums.PostType;
@@ -11,16 +10,18 @@ import io.github.vectr.community.community.exception.BoardErrorCode;
 import io.github.vectr.community.community.exception.BoardSuspensionErrorCode;
 import io.github.vectr.community.community.exception.PostErrorCode;
 import io.github.vectr.community.community.exception.ReportErrorCode;
-import io.github.vectr.community.community.repository.board.BoardMemberSuspensionRepository;
-import io.github.vectr.community.community.repository.board.BoardRepository;
 import io.github.vectr.community.community.repository.post.PostReportRepository;
 import io.github.vectr.community.community.repository.post.PostRepository;
+import io.github.vectr.community.community.repository.board.BoardRepository;
+import io.github.vectr.community.community.repository.board.BoardMemberSuspensionRepository;
+import io.github.vectr.community.community.dto.report.ReportRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Objects;
+
 
 @Service
 @RequiredArgsConstructor
@@ -52,12 +53,17 @@ public class PostReportCommandServiceImpl implements PostReportCommandService {
             throw new BusinessException(BoardSuspensionErrorCode.BOARD_MEMBER_BANNED);
         }
 
-        // 4. 신고 게시글의 작성자가 본인인지 확인
+        // 4. 사용자가 동일한 게시글에 신고를 한 이력이 있는지 확인한다.
+        if (postReportRepository.existsByMemberIdAndPost_Id(memberId, post.getId())) {
+            throw new BusinessException(ReportErrorCode.DUPLICATE_REPORT_NOT_ALLOWED);
+        }
+
+        // 5. 신고 게시글의 작성자가 본인인지 확인
         if (Objects.equals(memberId, post.getMemberId())) {
             throw new BusinessException(ReportErrorCode.CANNOT_REPORT_OWN_RESOURCE);
         }
 
-        // 5. 신고 생성 및 저장
+        // 6. 신고 생성 및 저장
         PostReport report = new PostReport(
                 post,
                 memberId,

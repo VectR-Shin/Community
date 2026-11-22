@@ -1,4 +1,4 @@
-package io.github.vectr.community.admin.exception;
+package io.github.vectr.community.log.exception;
 
 import io.github.vectr.community.common.exception.ErrorCode;
 import lombok.Getter;

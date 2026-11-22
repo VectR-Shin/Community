@@ -4,11 +4,11 @@ import io.github.vectr.community.common.dto.PageResponseDTO;
 import io.github.vectr.community.community.dto.post.PostSummaryResponseDTO;
 import io.github.vectr.community.community.entity.board.Board;
 import io.github.vectr.community.community.entity.post.Post;
+import io.github.vectr.community.community.enums.PostType;
 import io.github.vectr.community.community.repository.post.PostRepository;
 import io.github.vectr.community.member.api.user.UserQueryService;
 import io.github.vectr.community.member.dto.user.AuthorInfoDTO;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -24,10 +23,6 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,161 +37,169 @@ class PostQueryServiceImplTest {
     @InjectMocks
     private PostQueryServiceImpl postQueryService;
 
-    private Long memberId;
-    private AuthorInfoDTO authorInfoDTO;
+    private AuthorInfoDTO authorInfo;
 
     @BeforeEach
     void setUp() {
-        memberId = 1L;
-
-        authorInfoDTO = new AuthorInfoDTO(
-                memberId,
-                "테스트닉네임",
-                false
-        );
+        authorInfo = new AuthorInfoDTO(10L, "테스트닉네임", false);
     }
 
-    // 게시글 목록 조회 성공
     @Test
-    @DisplayName("사용자가 작성한 게시글 목록을 조회한다.")
-    void getUserPosts_success() {
+    void getUserPosts_게시글목록조회_성공() {
         // given
-        int page = 0;
-        int size = 10;
+        long memberId = 10L;
+        int page = 1;
+        int size = 2;
 
-        Post post = createPostMock(memberId);
-
-        Page<Post> postPage = new PageImpl<>(
-                List.of(post),
-                PageRequest.of(page, size),
-                1
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(
+                page, size,
+                Sort.by(
+                        Sort.Order.desc("createdAt"),
+                        Sort.Order.desc("id")
+                )
         );
 
-        given(postRepository.findAllByMemberIdAndBoardNotDeleted(
-                eq(memberId),
-                any(Pageable.class)
-        )).willReturn(postPage);
+        Post post1 = createPost(
+                1L, 100L, "게시판1", memberId,
+                "게시글 제목1", 100, 10, 5, 1, true,
+                Instant.parse("2026-11-20T10:00:00Z")
+        );
 
-        given(userQueryService.getAuthorInfo(memberId))
-                .willReturn(authorInfoDTO);
+        Post post2 = createPost(
+                2L, 200L, "게시판2", memberId,
+                "게시글 제목2", 200, 20, 10, 2, false,
+                Instant.parse("2026-11-19T10:00:00Z")
+        );
+
+        Page<Post> postPage = new PageImpl<>(
+                List.of(post1, post2),
+                pageable,
+                5
+        );
+
+        when(postRepository.findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                memberId, PostType.POST, pageable
+        )).thenReturn(postPage);
+
+        when(userQueryService.getAuthorInfo(memberId))
+                .thenReturn(authorInfo);
 
         // when
         PageResponseDTO<PostSummaryResponseDTO> result =
                 postQueryService.getUserPosts(memberId, page, size);
 
         // then
-        assertThat(result).isNotNull();
-        assertThat(result.content()).hasSize(1);
+        assertThat(result.content()).hasSize(2);
 
-        PostSummaryResponseDTO response = result.content().get(0);
+        assertThat(result.page()).isEqualTo(1);
+        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.totalElements()).isEqualTo(5);
+        assertThat(result.totalPages()).isEqualTo(3);
 
-        assertThat(response.postId()).isEqualTo(1L);
-        assertThat(response.boardId()).isEqualTo(10L);
-        assertThat(response.boardName()).isEqualTo("자유게시판");
-        assertThat(response.authorId()).isEqualTo(memberId);
-        assertThat(response.authorNickname()).isEqualTo("테스트닉네임");
-        assertThat(response.title()).isEqualTo("테스트 게시글");
-        assertThat(response.viewCount()).isEqualTo(100L);
-        assertThat(response.commentCount()).isEqualTo(5L);
-        assertThat(response.likeCount()).isEqualTo(10L);
-        assertThat(response.dislikeCount()).isEqualTo(2L);
-        assertThat(response.isPopular()).isTrue();
+        PostSummaryResponseDTO dto1 = result.content().get(0);
 
-        verify(postRepository).findAllByMemberIdAndBoardNotDeleted(
-                eq(memberId),
-                any(Pageable.class)
+        assertThat(dto1.postId()).isEqualTo(1L);
+        assertThat(dto1.boardId()).isEqualTo(100L);
+        assertThat(dto1.boardName()).isEqualTo("게시판1");
+        assertThat(dto1.authorId()).isEqualTo(memberId);
+        assertThat(dto1.authorNickname()).isEqualTo("테스트닉네임");
+        assertThat(dto1.title()).isEqualTo("게시글 제목1");
+        assertThat(dto1.viewCount()).isEqualTo(100);
+        assertThat(dto1.commentCount()).isEqualTo(10);
+        assertThat(dto1.likeCount()).isEqualTo(5);
+        assertThat(dto1.dislikeCount()).isEqualTo(1);
+        assertThat(dto1.isPopular()).isTrue();
+        assertThat(dto1.createdAt())
+                .isEqualTo(Instant.parse("2026-11-20T10:00:00Z"));
+
+        PostSummaryResponseDTO dto2 = result.content().get(1);
+
+        assertThat(dto2.postId()).isEqualTo(2L);
+        assertThat(dto2.boardId()).isEqualTo(200L);
+        assertThat(dto2.boardName()).isEqualTo("게시판2");
+        assertThat(dto2.authorNickname()).isEqualTo("테스트닉네임");
+        assertThat(dto2.title()).isEqualTo("게시글 제목2");
+        assertThat(dto2.isPopular()).isFalse();
+
+        verify(postRepository).findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                memberId, PostType.POST, pageable
         );
 
         verify(userQueryService).getAuthorInfo(memberId);
     }
 
-    // 탈퇴한 사용자
     @Test
-    @DisplayName("탈퇴한 사용자의 닉네임은 '탈퇴한 사용자'로 표시한다.")
-    void getUserPosts_withdrawn() {
+    void getUserPosts_탈퇴한사용자_닉네임변환() {
         // given
-        Post post = createPostMock(memberId);
+        long memberId = 10L;
+        int page = 0;
+        int size = 10;
 
-        AuthorInfoDTO withdrawnAuthor = new AuthorInfoDTO(
-                memberId,
-                "기존닉네임",
-                true
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(
+                page, size,
+                Sort.by(
+                        Sort.Order.desc("createdAt"),
+                        Sort.Order.desc("id")
+                )
         );
 
-        given(postRepository.findAllByMemberIdAndBoardNotDeleted(
-                eq(memberId),
-                any(Pageable.class)
-        )).willReturn(new PageImpl<>(List.of(post)));
+        AuthorInfoDTO withdrawnAuthor =
+                new AuthorInfoDTO(memberId, "테스트닉네임", true);
 
-        given(userQueryService.getAuthorInfo(memberId))
-                .willReturn(withdrawnAuthor);
+        Post post = createPost(
+                1L, 100L, "게시판1", memberId,
+                "게시글 제목", 100, 10, 5, 1, false,
+                Instant.parse("2026-11-20T10:00:00Z")
+        );
+
+        Page<Post> postPage = new PageImpl<>(
+                List.of(post),
+                pageable,
+                1
+        );
+
+        when(postRepository.findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                memberId, PostType.POST, pageable
+        )).thenReturn(postPage);
+
+        when(userQueryService.getAuthorInfo(memberId))
+                .thenReturn(withdrawnAuthor);
 
         // when
         PageResponseDTO<PostSummaryResponseDTO> result =
-                postQueryService.getUserPosts(memberId, 0, 10);
+                postQueryService.getUserPosts(memberId, page, size);
 
         // then
         assertThat(result.content()).hasSize(1);
         assertThat(result.content().get(0).authorNickname())
                 .isEqualTo("탈퇴한 사용자");
+
+        verify(userQueryService).getAuthorInfo(memberId);
     }
 
-    // 페이징 및 정렬
     @Test
-    @DisplayName("게시글 목록을 생성일과 ID 내림차순으로 페이징 조회한다.")
-    void getUserPosts_pagingAndSorting() {
+    void getUserPosts_게시글이없는경우_빈목록반환() {
         // given
-        int page = 1;
-        int size = 5;
-
-        given(postRepository.findAllByMemberIdAndBoardNotDeleted(
-                eq(memberId),
-                any(Pageable.class)
-        )).willReturn(new PageImpl<>(
-                List.of(),
-                PageRequest.of(page, size),
-                12
-        ));
-
-        given(userQueryService.getAuthorInfo(memberId))
-                .willReturn(authorInfoDTO);
-
-        // when
-        postQueryService.getUserPosts(memberId, page, size);
-
-        // then
-        verify(postRepository).findAllByMemberIdAndBoardNotDeleted(
-                eq(memberId),
-                argThat(pageable -> {
-                    Sort sort = pageable.getSort();
-
-                    return pageable.getPageNumber() == 1
-                            && pageable.getPageSize() == 5
-                            && sort.getOrderFor("createdAt") != null
-                            && sort.getOrderFor("createdAt").getDirection()
-                            == Sort.Direction.DESC
-                            && sort.getOrderFor("id") != null
-                            && sort.getOrderFor("id").getDirection()
-                            == Sort.Direction.DESC;
-                })
-        );
-    }
-
-    // 빈 목록
-    @Test
-    @DisplayName("조회할 게시글이 없으면 빈 페이지를 반환한다.")
-    void getUserPosts_empty() {
-        // given
+        long memberId = 10L;
         int page = 0;
         int size = 10;
 
-        given(postRepository.findAllByMemberIdAndBoardNotDeleted(
-                eq(memberId),
-                any(Pageable.class)
-        )).willReturn(new PageImpl<>(List.of()));
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(
+                page, size,
+                Sort.by(
+                        Sort.Order.desc("createdAt"),
+                        Sort.Order.desc("id")
+                )
+        );
 
-        given(userQueryService.getAuthorInfo(memberId))
-                .willReturn(authorInfoDTO);
+        Page<Post> emptyPage = Page.empty(pageable);
+
+        when(postRepository.findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                memberId, PostType.POST, pageable
+        )).thenReturn(emptyPage);
+
+        when(userQueryService.getAuthorInfo(memberId))
+                .thenReturn(authorInfo);
 
         // when
         PageResponseDTO<PostSummaryResponseDTO> result =
@@ -204,28 +207,94 @@ class PostQueryServiceImplTest {
 
         // then
         assertThat(result.content()).isEmpty();
+        assertThat(result.page()).isEqualTo(0);
+        assertThat(result.size()).isEqualTo(10);
+        assertThat(result.totalElements()).isZero();
+        assertThat(result.totalPages()).isZero();
+
+        verify(postRepository).findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                memberId, PostType.POST, pageable
+        );
+
+        verify(userQueryService).getAuthorInfo(memberId);
     }
 
-    // 게시글 Mock 생성
-    private Post createPostMock(Long memberId) {
-        Post post = mock(Post.class);
+    @Test
+    void getUserPosts_페이징및정렬조건_확인() {
+        // given
+        long memberId = 10L;
+        int page = 2;
+        int size = 5;
+
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(
+                page, size,
+                Sort.by(
+                        Sort.Order.desc("createdAt"),
+                        Sort.Order.desc("id")
+                )
+        );
+
+        when(postRepository.findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                eq(memberId), eq(PostType.POST), any(Pageable.class)
+        )).thenReturn(Page.empty(pageable));
+
+        when(userQueryService.getAuthorInfo(memberId))
+                .thenReturn(authorInfo);
+
+        // when
+        postQueryService.getUserPosts(memberId, page, size);
+
+        // then
+        verify(postRepository).findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+                eq(memberId),
+                eq(PostType.POST),
+                argThat(actual -> {
+                    if (actual == null) {
+                        return false;
+                    }
+
+                    return actual.getPageNumber() == 2
+                            && actual.getPageSize() == 5
+                            && actual.getSort().getOrderFor("createdAt") != null
+                            && actual.getSort().getOrderFor("createdAt").getDirection()
+                            == Sort.Direction.DESC
+                            && actual.getSort().getOrderFor("id") != null
+                            && actual.getSort().getOrderFor("id").getDirection()
+                            == Sort.Direction.DESC;
+                })
+        );
+    }
+
+    private Post createPost(
+            Long postId,
+            Long boardId,
+            String boardName,
+            Long memberId,
+            String title,
+            int viewCount,
+            int commentCount,
+            int likeCount,
+            int dislikeCount,
+            boolean popular,
+            Instant createdAt
+    ) {
         Board board = mock(Board.class);
 
-        given(post.getId()).willReturn(1L);
-        given(post.getBoard()).willReturn(board);
-        given(board.getId()).willReturn(10L);
-        given(board.getName()).willReturn("자유게시판");
+        when(board.getId()).thenReturn(boardId);
+        when(board.getName()).thenReturn(boardName);
 
-        given(post.getMemberId()).willReturn(memberId);
-        given(post.getTitle()).willReturn("테스트 게시글");
-        given(post.getViewCount()).willReturn(100L);
-        given(post.getCommentCount()).willReturn(5L);
-        given(post.getLikeCount()).willReturn(10L);
-        given(post.getDislikeCount()).willReturn(2L);
-        given(post.isPopular()).willReturn(true);
-        given(post.getCreatedAt()).willReturn(
-                Instant.parse("2026-11-07T09:00:00Z")
-        );
+        Post post = mock(Post.class);
+
+        when(post.getId()).thenReturn(postId);
+        when(post.getBoard()).thenReturn(board);
+        when(post.getMemberId()).thenReturn(memberId);
+        when(post.getTitle()).thenReturn(title);
+        when(post.getViewCount()).thenReturn((long) viewCount);
+        when(post.getCommentCount()).thenReturn((long) commentCount);
+        when(post.getLikeCount()).thenReturn((long) likeCount);
+        when(post.getDislikeCount()).thenReturn((long) dislikeCount);
+        when(post.isPopular()).thenReturn(popular);
+        when(post.getCreatedAt()).thenReturn(createdAt);
 
         return post;
     }

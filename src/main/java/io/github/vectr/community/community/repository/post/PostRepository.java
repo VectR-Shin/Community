@@ -29,6 +29,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                 FROM Post p
                 JOIN FETCH p.board b
                 WHERE p.memberId = :memberId
+                  AND p.postType = :postType
                   AND b.deletedAt IS NULL
                 """,
             countQuery = """
@@ -36,9 +37,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                 FROM Post p
                 JOIN p.board b
                 WHERE p.memberId = :memberId
+                  AND p.postType = :postType
                   AND b.deletedAt IS NULL
                 """
     )
 
-    Page<Post> findAllByMemberIdAndBoardNotDeleted(@Param("memberId") Long memberId, Pageable pageable);
+    Page<Post> findAllByMemberIdAndPostTypeAndBoardNotDeleted(
+            @Param("memberId") Long memberId,
+            @Param("postType") PostType postType,
+            Pageable pageable);
 }

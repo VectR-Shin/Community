@@ -10,6 +10,9 @@ ALTER TABLE notification
     ADD CONSTRAINT fk_notification_receiver FOREIGN KEY (receiver_id) REFERENCES member(id);
 
 -- community 모듈
+ALTER TABLE system_notice
+    ADD CONSTRAINT fk_system_notice_member FOREIGN KEY (member_id) REFERENCES member(id);
+
 ALTER TABLE post
     ADD CONSTRAINT fk_post_member FOREIGN KEY (member_id) REFERENCES member(id);
 
@@ -42,5 +45,5 @@ ALTER TABLE board_member_suspension
     ADD CONSTRAINT fk_board_member_suspension_created_by FOREIGN KEY (created_by) REFERENCES member(id);
 
 -- admin 컴포넌트
-ALTER TABLE admin_action_log
-    ADD CONSTRAINT fk_admin_action_log_admin FOREIGN KEY (admin_id) REFERENCES member(id);
+ALTER TABLE management_log
+    ADD CONSTRAINT fk_management_log_actor FOREIGN KEY (actor_id) REFERENCES member(id);

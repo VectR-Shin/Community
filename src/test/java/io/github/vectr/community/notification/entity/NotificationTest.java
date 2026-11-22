@@ -14,8 +14,8 @@ class NotificationTest {
     void createNotification() {
         // given
         Long receiverId = 1L;
-        NotificationType notificationType = NotificationType.COMMENT;
-        String content = "새로운 댓글이 작성되었습니다.";
+        NotificationType notificationType = NotificationType.COMMENT_DELETED;
+        String content = "댓글이 관리자에 의해 삭제되었습니다.";
         TargetType targetType = TargetType.POST;
         Long targetId = 10L;
 
@@ -42,8 +42,8 @@ class NotificationTest {
     void createNotificationWithoutTargetInfo() {
         // given
         Long receiverId = 1L;
-        NotificationType notificationType = NotificationType.COMMENT;
-        String content = "새로운 알림이 도착했습니다.";
+        NotificationType notificationType = NotificationType.SYSTEM;
+        String content = "시스템 알림이 도착했습니다.";
 
         // when
         Notification notification = new Notification(
@@ -66,8 +66,8 @@ class NotificationTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new Notification(
                         1L,
-                        NotificationType.COMMENT,
-                        "새로운 댓글이 작성되었습니다.",
+                        NotificationType.COMMENT_DELETED,
+                        "댓글이 관리자에 의해 삭제되었습니다.",
                         TargetType.POST,
                         null
                 ));
@@ -79,8 +79,8 @@ class NotificationTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new Notification(
                         1L,
-                        NotificationType.COMMENT,
-                        "새로운 댓글이 작성되었습니다.",
+                        NotificationType.COMMENT_DELETED,
+                        "댓글이 관리자에 의해 삭제되었습니다.",
                         null,
                         10L
                 ));
@@ -92,8 +92,8 @@ class NotificationTest {
         assertThatNullPointerException()
                 .isThrownBy(() -> new Notification(
                         null,
-                        NotificationType.COMMENT,
-                        "새로운 댓글이 작성되었습니다.",
+                        NotificationType.COMMENT_DELETED,
+                        "댓글이 관리자에 의해 삭제되었습니다.",
                         null,
                         null
                 ));
@@ -118,7 +118,7 @@ class NotificationTest {
         assertThatNullPointerException()
                 .isThrownBy(() -> new Notification(
                         1L,
-                        NotificationType.COMMENT,
+                        NotificationType.COMMENT_DELETED,
                         null,
                         null,
                         null
@@ -131,8 +131,8 @@ class NotificationTest {
         // given
         Notification notification = new Notification(
                 1L,
-                NotificationType.COMMENT,
-                "새로운 댓글이 작성되었습니다.",
+                NotificationType.COMMENT_DELETED,
+                "댓글이 관리자에 의해 삭제되었습니다.",
                 null,
                 null
         );
@@ -150,8 +150,8 @@ class NotificationTest {
         // given
         Notification notification = new Notification(
                 1L,
-                NotificationType.COMMENT,
-                "새로운 댓글이 작성되었습니다.",
+                NotificationType.COMMENT_DELETED,
+                "댓글이 관리자에 의해 삭제되었습니다.",
                 null,
                 null
         );

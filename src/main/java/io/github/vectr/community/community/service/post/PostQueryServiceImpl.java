@@ -4,6 +4,7 @@ import io.github.vectr.community.common.dto.PageResponseDTO;
 import io.github.vectr.community.community.api.post.PostQueryService;
 import io.github.vectr.community.community.dto.post.PostSummaryResponseDTO;
 import io.github.vectr.community.community.entity.post.Post;
+import io.github.vectr.community.community.enums.PostType;
 import io.github.vectr.community.community.repository.post.PostRepository;
 import io.github.vectr.community.member.api.user.UserQueryService;
 import io.github.vectr.community.member.dto.user.AuthorInfoDTO;
@@ -26,7 +27,7 @@ public class PostQueryServiceImpl implements PostQueryService {
     /*
         memberId 를 식별자로 가지는 사용자가 작성한 게시글 목록 조회
         삭제된 게시판의 게시글은 조회 안 함
-        공지글도 포함
+        공지글도 제외
         paging 기능
     */
     @Override
@@ -41,7 +42,7 @@ public class PostQueryServiceImpl implements PostQueryService {
         );
 
         // 2. 게시글 조회
-        Page<Post> posts = postRepository.findAllByMemberIdAndBoardNotDeleted(memberId, pageable);
+        Page<Post> posts = postRepository.findAllByMemberIdAndPostTypeAndBoardNotDeleted(memberId, PostType.POST, pageable);
 
         // 3. 작성자 정보 조회 (특정 사용자를 대상으로 하므로 단건 조회)
         AuthorInfoDTO authorInfoDTO = userQueryService.getAuthorInfo(memberId);

@@ -60,12 +60,17 @@ public class CommentReportCommandServiceImpl implements CommentReportCommandServ
             throw new BusinessException(BoardSuspensionErrorCode.BOARD_MEMBER_BANNED);
         }
 
-        // 4. 신고 댓글의 작성자가 본인인지 확인
+        // 4. 사용자가 동일한 게시글에 신고를 한 이력이 있는지 확인한다.
+        if (commentReportRepository.existsByMemberIdAndComment_Id(memberId, comment.getId())) {
+            throw new BusinessException(ReportErrorCode.DUPLICATE_REPORT_NOT_ALLOWED);
+        }
+
+        // 5. 신고 댓글의 작성자가 본인인지 확인
         if (Objects.equals(memberId, comment.getMemberId())) {
             throw new BusinessException(ReportErrorCode.CANNOT_REPORT_OWN_RESOURCE);
         }
 
-        // 5. 신고 생성 및 저장
+        // 6. 신고 생성 및 저장
         CommentReport report = new CommentReport(
                 comment,
                 memberId,

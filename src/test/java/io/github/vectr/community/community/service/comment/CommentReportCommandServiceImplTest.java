@@ -2,31 +2,30 @@
 package io.github.vectr.community.community.service.comment;
 
 import io.github.vectr.community.common.exception.BusinessException;
-import io.github.vectr.community.community.dto.report.ReportRequestDTO;
 import io.github.vectr.community.community.entity.board.Board;
 import io.github.vectr.community.community.entity.comment.Comment;
 import io.github.vectr.community.community.entity.comment.CommentReport;
 import io.github.vectr.community.community.entity.post.Post;
+import io.github.vectr.community.community.dto.report.ReportRequestDTO;
 import io.github.vectr.community.community.enums.ReportReason;
-import io.github.vectr.community.community.exception.*;
+import io.github.vectr.community.community.enums.ReportTargetType;
 import io.github.vectr.community.community.repository.board.BoardMemberSuspensionRepository;
 import io.github.vectr.community.community.repository.board.BoardRepository;
 import io.github.vectr.community.community.repository.comment.CommentReportRepository;
 import io.github.vectr.community.community.repository.comment.CommentRepository;
 import io.github.vectr.community.community.repository.post.PostRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
-import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,237 +49,243 @@ class CommentReportCommandServiceImplTest {
     @InjectMocks
     private CommentReportCommandServiceImpl commentReportCommandService;
 
-    @Test
-    @DisplayName("정상적으로 댓글 신고를 생성한다.")
-    void createCommentReport() {
-        // given
-        Long memberId = 1L;
-        Long targetId = 10L;
-        Long postId = 20L;
-        Long boardId = 100L;
+    private Long memberId;
+    private Long commentId;
+    private Long postId;
+    private Long boardId;
 
-        ReportRequestDTO requestDTO = createRequestDTO(targetId);
+    private Comment comment;
+    private Post post;
+    private Board board;
 
-        Comment comment = createComment(postId, 2L);
-        Post post = createPost(boardId);
+    private ReportRequestDTO requestDTO;
 
-        when(commentRepository.findByIdAndDeletedAtIsNull(targetId))
-                .thenReturn(Optional.of(comment));
+    @BeforeEach
+    void setUp() {
+        memberId = 1L;
+        commentId = 10L;
+        postId = 100L;
+        boardId = 1000L;
 
-        when(postRepository.findByIdAndDeletedAtIsNull(postId))
-                .thenReturn(Optional.of(post));
+        comment = mock(Comment.class);
+        post = mock(Post.class);
+        board = mock(Board.class);
 
-        when(boardRepository.existsByIdAndDeletedAtIsNull(boardId))
-                .thenReturn(true);
-
-        when(boardMemberSuspensionRepository.existsCurrentBoardSuspension(
-                eq(memberId), eq(boardId), any(Instant.class)
-        )).thenReturn(false);
-
-        // when
-        commentReportCommandService.createCommentReport(memberId, requestDTO);
-
-        // then
-        verify(commentRepository).findByIdAndDeletedAtIsNull(targetId);
-
-        verify(postRepository).findByIdAndDeletedAtIsNull(postId);
-
-        verify(boardRepository).existsByIdAndDeletedAtIsNull(boardId);
-
-        verify(boardMemberSuspensionRepository).existsCurrentBoardSuspension(
-                eq(memberId), eq(boardId), any(Instant.class)
+        requestDTO = new ReportRequestDTO(
+                commentId,
+                ReportTargetType.values()[0],
+                ReportReason.values()[0],
+                "신고 내용"
         );
-
-        verify(commentReportRepository).save(any(CommentReport.class));
     }
 
+    // 신고 대상 댓글이 존재하지 않거나 삭제된 경우 예외 발생
     @Test
     @DisplayName("신고 대상 댓글이 존재하지 않거나 삭제된 경우 예외가 발생한다.")
-    void createCommentReportWhenCommentNotFound() {
-        // given
-        Long memberId = 1L;
-        Long targetId = 10L;
+    void createCommentReport_commentNotFound_throwsException() {
+        when(commentRepository.findByIdAndDeletedAtIsNull(commentId))
+                .thenReturn(java.util.Optional.empty());
 
-        ReportRequestDTO requestDTO = createRequestDTO(targetId);
-
-        when(commentRepository.findByIdAndDeletedAtIsNull(targetId))
-                .thenReturn(Optional.empty());
-
-        // when & then
-        assertThatThrownBy(() ->
-                commentReportCommandService.createCommentReport(memberId, requestDTO)
-        ).isInstanceOf(BusinessException.class);
-
-        verifyNoInteractions(
-                postRepository,
-                boardRepository,
-                boardMemberSuspensionRepository,
-                commentReportRepository
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
         );
+
+        verify(postRepository, never()).findByIdAndDeletedAtIsNull(anyLong());
+        verify(commentReportRepository, never()).save(any(CommentReport.class));
     }
 
+    // 댓글이 속한 게시글이 존재하지 않거나 삭제된 경우 예외 발생
     @Test
     @DisplayName("댓글이 속한 게시글이 존재하지 않거나 삭제된 경우 예외가 발생한다.")
-    void createCommentReportWhenPostNotFound() {
-        // given
-        Long memberId = 1L;
-        Long targetId = 10L;
-        Long postId = 20L;
-
-        ReportRequestDTO requestDTO = createRequestDTO(targetId);
-
-        Comment comment = createComment(postId, 2L);
-
-        when(commentRepository.findByIdAndDeletedAtIsNull(targetId))
-                .thenReturn(Optional.of(comment));
+    void createCommentReport_postNotFound_throwsException() {
+        givenValidComment();
 
         when(postRepository.findByIdAndDeletedAtIsNull(postId))
-                .thenReturn(Optional.empty());
+                .thenReturn(java.util.Optional.empty());
 
-        // when & then
-        assertThatThrownBy(() ->
-                commentReportCommandService.createCommentReport(memberId, requestDTO)
-        ).isInstanceOf(BusinessException.class);
-
-        verifyNoInteractions(
-                boardRepository,
-                boardMemberSuspensionRepository,
-                commentReportRepository
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
         );
+
+        verify(boardRepository, never()).existsByIdAndDeletedAtIsNull(anyLong());
+        verify(commentReportRepository, never()).save(any(CommentReport.class));
     }
 
+    // 댓글이 속한 게시판이 존재하지 않거나 삭제된 경우 예외 발생
     @Test
     @DisplayName("댓글이 속한 게시판이 존재하지 않거나 삭제된 경우 예외가 발생한다.")
-    void createCommentReportWhenBoardNotFound() {
-        // given
-        Long memberId = 1L;
-        Long targetId = 10L;
-        Long postId = 20L;
-        Long boardId = 100L;
-
-        ReportRequestDTO requestDTO = createRequestDTO(targetId);
-
-        Comment comment = createComment(postId, 2L);
-        Post post = createPost(boardId);
-
-        when(commentRepository.findByIdAndDeletedAtIsNull(targetId))
-                .thenReturn(Optional.of(comment));
-
-        when(postRepository.findByIdAndDeletedAtIsNull(postId))
-                .thenReturn(Optional.of(post));
+    void createCommentReport_boardNotFound_throwsException() {
+        givenValidComment();
+        givenValidPost();
+        givenPostBoard();
 
         when(boardRepository.existsByIdAndDeletedAtIsNull(boardId))
                 .thenReturn(false);
 
-        // when & then
-        assertThatThrownBy(() ->
-                commentReportCommandService.createCommentReport(memberId, requestDTO)
-        ).isInstanceOf(BusinessException.class);
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
+        );
 
         verify(boardMemberSuspensionRepository, never())
-                .existsCurrentBoardSuspension(any(), any(), any());
+                .existsCurrentBoardSuspension(anyLong(), anyLong(), any(Instant.class));
 
         verify(commentReportRepository, never()).save(any(CommentReport.class));
     }
 
+    // 해당 게시판에서 정지된 사용자는 신고할 수 없음
     @Test
-    @DisplayName("해당 게시판에서 밴을 당한 사용자는 댓글을 신고할 수 없다.")
-    void createCommentReportWhenBoardSuspended() {
-        // given
-        Long memberId = 1L;
-        Long targetId = 10L;
-        Long postId = 20L;
-        Long boardId = 100L;
-
-        ReportRequestDTO requestDTO = createRequestDTO(targetId);
-
-        Comment comment = createComment(postId, 2L);
-        Post post = createPost(boardId);
-
-        when(commentRepository.findByIdAndDeletedAtIsNull(targetId))
-                .thenReturn(Optional.of(comment));
-
-        when(postRepository.findByIdAndDeletedAtIsNull(postId))
-                .thenReturn(Optional.of(post));
-
-        when(boardRepository.existsByIdAndDeletedAtIsNull(boardId))
-                .thenReturn(true);
+    @DisplayName("해당 게시판에서 정지된 사용자는 댓글을 신고할 수 없다.")
+    void createCommentReport_boardSuspended_throwsException() {
+        givenValidComment();
+        givenValidPost();
+        givenPostBoard();
+        givenValidBoard();
 
         when(boardMemberSuspensionRepository.existsCurrentBoardSuspension(
                 eq(memberId), eq(boardId), any(Instant.class)
         )).thenReturn(true);
 
-        // when & then
-        assertThatThrownBy(() ->
-                commentReportCommandService.createCommentReport(memberId, requestDTO)
-        ).isInstanceOf(BusinessException.class);
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
+        );
+
+        verify(commentReportRepository, never())
+                .existsByMemberIdAndComment_Id(anyLong(), anyLong());
 
         verify(commentReportRepository, never()).save(any(CommentReport.class));
     }
 
+    // 동일 댓글에 이미 신고한 경우 예외 발생
     @Test
-    @DisplayName("자신이 작성한 댓글은 신고할 수 없다.")
-    void createCommentReportWhenOwnComment() {
-        // given
-        Long memberId = 1L;
-        Long targetId = 10L;
-        Long postId = 20L;
-        Long boardId = 100L;
+    @DisplayName("동일한 댓글에 이미 신고한 경우 예외가 발생한다.")
+    void createCommentReport_duplicateReport_throwsException() {
+        givenValidComment();
+        givenValidPost();
+        givenPostBoard();
+        givenValidBoard();
+        givenNotSuspended();
 
-        ReportRequestDTO requestDTO = createRequestDTO(targetId);
+        when(comment.getId()).thenReturn(commentId);
 
-        Comment comment = createComment(postId, memberId);
-        Post post = createPost(boardId);
-
-        when(commentRepository.findByIdAndDeletedAtIsNull(targetId))
-                .thenReturn(Optional.of(comment));
-
-        when(postRepository.findByIdAndDeletedAtIsNull(postId))
-                .thenReturn(Optional.of(post));
-
-        when(boardRepository.existsByIdAndDeletedAtIsNull(boardId))
+        when(commentReportRepository.existsByMemberIdAndComment_Id(memberId, commentId))
                 .thenReturn(true);
 
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
+        );
+
+        verify(commentReportRepository, never()).save(any(CommentReport.class));
+    }
+
+    // 본인의 댓글은 신고할 수 없음
+    @Test
+    @DisplayName("본인이 작성한 댓글은 신고할 수 없다.")
+    void createCommentReport_ownComment_throwsException() {
+        givenValidComment();
+        givenValidPost();
+        givenPostBoard();
+        givenValidBoard();
+        givenNotSuspended();
+
+        when(comment.getId()).thenReturn(commentId);
+
+        when(commentReportRepository.existsByMemberIdAndComment_Id(memberId, commentId))
+                .thenReturn(false);
+
+        when(comment.getMemberId()).thenReturn(memberId);
+
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
+        );
+
+        verify(commentReportRepository, never()).save(any(CommentReport.class));
+    }
+
+    // 댓글 신고 생성 성공
+    @Test
+    @DisplayName("유효한 요청이면 댓글 신고가 생성된다.")
+    void createCommentReport_success() {
+        givenValidComment();
+        givenValidPost();
+        givenPostBoard();
+        givenValidBoard();
+        givenNotSuspended();
+
+        when(comment.getId()).thenReturn(commentId);
+
+        when(commentReportRepository.existsByMemberIdAndComment_Id(memberId, commentId))
+                .thenReturn(false);
+
+        when(comment.getMemberId()).thenReturn(2L);
+
+        commentReportCommandService.createCommentReport(memberId, requestDTO);
+
+        ArgumentCaptor<CommentReport> captor =
+                ArgumentCaptor.forClass(CommentReport.class);
+
+        verify(commentReportRepository).save(captor.capture());
+
+        CommentReport savedReport = captor.getValue();
+
+        assertNotNull(savedReport);
+    }
+
+    // 중복 신고 시 본인 댓글 검사 및 저장은 수행하지 않음
+    @Test
+    @DisplayName("중복 신고인 경우 본인 댓글 여부를 검사하지 않고 신고를 저장하지 않는다.")
+    void createCommentReport_duplicateReport_selfReportValidationNotExecuted() {
+        givenValidComment();
+        givenValidPost();
+        givenPostBoard();
+        givenValidBoard();
+        givenNotSuspended();
+
+        when(comment.getId()).thenReturn(commentId);
+
+        when(commentReportRepository.existsByMemberIdAndComment_Id(memberId, commentId))
+                .thenReturn(true);
+
+        assertThrows(
+                BusinessException.class,
+                () -> commentReportCommandService.createCommentReport(memberId, requestDTO)
+        );
+
+        verify(comment, never()).getMemberId();
+        verify(commentReportRepository, never()).save(any(CommentReport.class));
+    }
+
+    private void givenValidComment() {
+        when(commentRepository.findByIdAndDeletedAtIsNull(commentId))
+                .thenReturn(java.util.Optional.of(comment));
+
+        when(comment.getPost()).thenReturn(post);
+        when(post.getId()).thenReturn(postId);
+    }
+
+    private void givenValidPost() {
+        when(postRepository.findByIdAndDeletedAtIsNull(postId))
+                .thenReturn(java.util.Optional.of(post));
+    }
+
+    private void givenPostBoard() {
+        when(post.getBoard()).thenReturn(board);
+        when(board.getId()).thenReturn(boardId);
+    }
+
+    private void givenValidBoard() {
+        when(boardRepository.existsByIdAndDeletedAtIsNull(boardId))
+                .thenReturn(true);
+    }
+
+    private void givenNotSuspended() {
         when(boardMemberSuspensionRepository.existsCurrentBoardSuspension(
                 eq(memberId), eq(boardId), any(Instant.class)
         )).thenReturn(false);
-
-        // when & then
-        assertThatThrownBy(() ->
-                commentReportCommandService.createCommentReport(memberId, requestDTO)
-        ).isInstanceOf(BusinessException.class);
-
-        verify(commentReportRepository, never()).save(any(CommentReport.class));
-    }
-
-    private ReportRequestDTO createRequestDTO(Long targetId) {
-        ReportRequestDTO requestDTO = mock(ReportRequestDTO.class);
-
-        when(requestDTO.targetId()).thenReturn(targetId);
-        lenient().when(requestDTO.content()).thenReturn("신고 내용");
-        lenient().when(requestDTO.reason()).thenReturn(ReportReason.OTHER);
-
-        return requestDTO;
-    }
-
-    private Comment createComment(Long postId, Long memberId) {
-        Post post = mock(Post.class);
-        when(post.getId()).thenReturn(postId);
-
-        Comment comment = mock(Comment.class);
-        when(comment.getPost()).thenReturn(post);
-        lenient().when(comment.getMemberId()).thenReturn(memberId);
-
-        return comment;
-    }
-
-    private Post createPost(Long boardId) {
-        Board board = mock(Board.class);
-        when(board.getId()).thenReturn(boardId);
-
-        Post post = mock(Post.class);
-        when(post.getBoard()).thenReturn(board);
-
-        return post;
     }
 }
